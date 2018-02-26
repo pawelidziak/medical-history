@@ -1,0 +1,32 @@
+$primary_white: rgba(255, 255, 255, .87);
+$primary_black: rgba(0, 0, 0, .87);
+
+$border_color: #e0e0e0;
+$my_grey: #616161;
+
+$material_indigo: #3f51b5;
+$material_red: #F44336;
+$material_green: #8BC34A;
+$material_teal: #009688;
+
+$xs_size: 'screen and (max-width: 599px)';
+$sm_size: 'screen and (min-width: 600px) and (max-width: 959px)';
+$md_size: 'screen and (min-width: 960px) and (max-width: 1279px)';
+$lg_size: 'screen and (min-width: 1280px) and (max-width: 1919px)';
+$xl_size: 'screen and (min-width: 1920px) and (max-width: 5000px)';
+
+$lt-sm_size: 'screen and (max-width: 599px)';
+$lt-md_size: 'screen and (max-width: 959px)';
+$lt-lg_size: 'screen and (max-width: 1279px)';
+$lt-xl_size: 'screen and (max-width: 1919px)';
+
+$gt-xs_size: 'screen and (min-width: 600px)';
+$gt-sm_size: 'screen and (min-width: 960px)';
+$gt-md_size: 'screen and (min-width: 1280px)';
+$gt-lg_size: 'screen and (min-width: 1920px)';
+
+@mixin box_shadow() {
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
