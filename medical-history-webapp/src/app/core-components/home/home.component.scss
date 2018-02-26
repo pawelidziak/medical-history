@@ -1,0 +1,33 @@
+@import "../../_helpers/variables";
+
+.welcome-nav {
+  background-color: $material_indigo;
+  width: 100%;
+  padding: 10px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  @include box_shadow();
+}
+
+.header-list {
+  display: flex;
+  color: $primary_white;
+  #button-login{
+    color: $primary_black;
+  }
+}
+
+.header-right {
+  text-align: right;
+}
+
+#icon-home {
+  color: $primary_white;
+  mat-icon{
+    font-size: 32px;
+  }
+}
+button{
+  outline: none;
+}
