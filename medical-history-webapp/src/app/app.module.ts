@@ -9,6 +9,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {environment} from '../environments/environment';
 import {AuthService} from './_services/auth.service';
+import {CoreComponentsModule} from './core-components/core-components.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {AuthService} from './_services/auth.service';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    CoreComponentsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
