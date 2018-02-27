@@ -1,33 +1,123 @@
 @import "../../_helpers/variables";
 
-.welcome-nav {
-  background-color: $material_indigo;
+#button-login {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  z-index: 999;
+  &:hover {
+    color: $color_dark;
+    text-decoration: none;
+  }
+}
+
+// ######################### SECTION WAVES
+.section-waves {
+  background: linear-gradient(to bottom, $material_teal, rgba(#def, 0) 80%, $color_primary);
+}
+
+.box {
   width: 100%;
-  padding: 10px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  @include box_shadow();
+  height: 100vh;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
-.header-list {
-  display: flex;
-  color: $primary_white;
-  #button-login{
-    color: $primary_black;
+.wave {
+  opacity: .4;
+  position: absolute;
+  left: 50%;
+  background: $color_accent;
+  width: 6000px;
+  height: 6000px;
+  margin-left: -3200px;
+  margin-top: -5650px;
+  @media #{$gt-sm_height} {
+    margin-top: -5650px;
+  }
+  @media #{$gt-md_height} {
+    margin-top: -5550px;
+  }
+  @media #{$gt-lg_height} {
+    margin-top: -5350px;
+  }
+  transform-origin: 50% 48%;
+  border-radius: 43%;
+  animation: drift 5000ms infinite linear;
+}
+
+.wave.-two {
+  animation: drift 9000ms infinite linear;
+  opacity: .1;
+  background: $color_primary;
+}
+
+.wave.-three {
+  animation: drift 7000ms infinite linear;
+}
+
+.title {
+  position: absolute;
+  left: 0;
+  top: 40%;
+  width: 100%;
+  z-index: 999;
+  text-align: center;
+  transform: translate3d(0, 0, 0);
+  @include header_title();
+
+  a {
+    font-size: $normal_font_size;
+    &:hover {
+      color: $color_primary;
+      text-decoration: none;
+    }
   }
 }
 
-.header-right {
-  text-align: right;
-}
-
-#icon-home {
-  color: $primary_white;
-  mat-icon{
-    font-size: 32px;
+@keyframes drift {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
-button{
-  outline: none;
+
+// ######################### SECTION ABOUT
+.section-about {
+  margin: $big_margin 0;
+}
+
+// ######################### SECTION LOGIN
+.section-login {
+}
+
+// ######################### SECTION FOOTER
+.section-footer {
+  width: 100%;
+  color: $color_primary;
+  font-size: $normal_font_size;
+  .footer-content {
+    > div {
+      margin: $normal_margin 0;
+    }
+    display: flex;
+    align-items: center;
+  }
+}
+
+#github {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.bg-border-radius {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 35% 35% 0 0;
+  @media #{$gt-sm_size} {
+    border-radius: 55% 55% 0 0;
+  }
+  background-color: darken($color_accent, 10%);
 }

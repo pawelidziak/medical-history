@@ -1,8 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "app/_helpers/variables";
 
 html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: $color_primary;
+  font-size: $normal_font_size;
+}
+
+button {
+  outline: none !important;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+}
+
+.alert-msg {
+  padding: 20px;
+  color: $color_primary;
+  @include box_shadow();
+  text-align: center;
+  margin: 10px 0;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mat-icon {
+    color: $color_primary
+  }
+}
+
+.msg-success {
+  background-color: $material_green;
+}
+
+.msg-error {
+  background-color: $material_red;
 }
