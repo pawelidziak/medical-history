@@ -4,6 +4,9 @@
 
   <div class="section-login-content">
 
+    <app-alert [msg]="response? response : error" [isSuccess]="!!response"></app-alert>
+    <app-spinner [loading]="_authService.loading"></app-spinner>
+
     <button mat-raised-button id="google" (click)="googleLogin()">Google</button>
     <button mat-raised-button id="fb" (click)="facebookLogin()">Facebook</button>
     <button mat-raised-button (click)="emailButtonFocused = !emailButtonFocused;">
@@ -15,7 +18,6 @@
       </div>
     </button>
 
-
     <form class="login-form" *ngIf="emailButtonFocused">
       <mat-form-field>
         <input type="email" matInput placeholder="Email" [formControl]="email" required autofocus>
@@ -26,10 +28,11 @@
         <mat-error *ngIf="password.invalid">{{getErrorMsg(password)}}</mat-error>
       </mat-form-field>
 
-      <button mat-raised-button (click)="emailPasswordLogin()" style="margin-top: 20px;">
+      <button mat-raised-button (click)="emailPasswordLogin(); error=''; response=''" style="margin-top: 20px;">
         <mat-icon>exit_to_app</mat-icon>
         <span>Login</span>
       </button>
+      <a (click)="openRegisterDialog()">Forgot password?</a>
 
     </form>
 

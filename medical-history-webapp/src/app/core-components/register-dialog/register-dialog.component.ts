@@ -10,6 +10,7 @@ import {AuthService} from '../../_services/auth.service';
 })
 export class RegisterDialogComponent implements OnInit {
 
+  error = '';
   response: string;
 
   passwordMismatch = false;
@@ -21,7 +22,7 @@ export class RegisterDialogComponent implements OnInit {
   confirmPassword = new FormControl('');
 
   constructor(private _formBuilder: FormBuilder,
-              private _authService: AuthService,
+              public _authService: AuthService,
               private _dialogRef: MatDialogRef<RegisterDialogComponent>) {
   }
 
@@ -41,9 +42,17 @@ export class RegisterDialogComponent implements OnInit {
   register(): void {
     this.passwordMismatch = this.password.value !== this.confirmPassword.value;
 
-
     if (this.registerForm.valid && !this.passwordMismatch) {
-
+      this._authService.emailPasswordRegister(this.displayName.value,
+        this.email.value, this.password.value)
+        .then(() => {
+          this.response = 'You have been registered! Confirmation email was sent.';
+          this.error = '';
+        })
+        .catch((error: any) => {
+          this.error = error;
+          this.response = '';
+        });
     }
   }
 

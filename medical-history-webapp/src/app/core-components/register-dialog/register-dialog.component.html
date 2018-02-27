@@ -8,6 +8,11 @@
     </button>
   </div>
 
+  <div class="error-msg">
+    <app-alert [msg]="response? response : error" [isSuccess]="!!response"></app-alert>
+  </div>
+  <app-spinner [loading]="_authService.loading"></app-spinner>
+
   <form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
     <mat-form-field>
       <input type="text" matInput placeholder="Display Name [1,30]" [formControl]="displayName">
@@ -29,7 +34,7 @@
     </mat-form-field>
     <span class="my-error" *ngIf="confirmPassword.touched">{{getConfirmPasswordErrorMsg()}}</span>
 
-    <button mat-raised-button (click)="register()" style="margin-top: 20px;">
+    <button mat-raised-button (click)="register(); error=''; response=''" style="margin-top: 20px;">
       <mat-icon>exit_to_app</mat-icon>
       <span>Register</span>
     </button>

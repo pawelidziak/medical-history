@@ -13,10 +13,15 @@ html, body {
 button {
   outline: none !important;
 }
+
 .mat-dialog-container {
   padding: 0 !important;
 }
 
 .alert {
-  margin: 0 2*$normal_margin;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
 }

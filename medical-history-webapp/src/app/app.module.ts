@@ -10,7 +10,6 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {environment} from '../environments/environment';
 import {AuthService} from './_services/auth.service';
 import {CoreComponentsModule} from './core-components/core-components.module';
-import {ScrollToModule} from 'ng2-scroll-to';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import {ScrollToModule} from 'ng2-scroll-to';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     CoreComponentsModule
-
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

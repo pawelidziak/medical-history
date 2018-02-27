@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
 
-  constructor(public _authService: AuthService, public _dialog: MatDialog) {
+  constructor(public _authService: AuthService, private _dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -26,9 +26,7 @@ export class LoginComponent implements OnInit {
   googleLogin(): void {
     this._authService.loginWithGoogle()
       .then(_ => console.log('zalogowano'))
-      .catch(e => {
-        console.log(e);
-      });
+      .catch((error: any) => this.error = error);
   }
 
   facebookLogin(): void {
@@ -38,12 +36,8 @@ export class LoginComponent implements OnInit {
   emailPasswordLogin(): void {
     if (this.email.valid && this.password.valid) {
       this._authService.emailPasswordLogin(this.email.value, this.password.value)
-        .then(() => {
-          // TODO redirect to main
-        })
-        .catch((error: any) => {
-          this.error = error;
-        });
+        .then(_ => console.log('zalogowano'))
+        .catch((error: any) => this.error = error);
     } else {
       this.email.markAsTouched();
       this.password.markAsTouched();
@@ -56,15 +50,6 @@ export class LoginComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // this.user = result;
     });
-  }
-
-  getEmailErrorMsg(): string {
-    return this.email.hasError('required') ? 'You must enter a value' :
-      this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
-  getPasswordErrorMsg(): string {
-    return this.password.hasError('required') ? 'You must enter a value' : '';
   }
 
   getErrorMsg(control: FormControl): string {
