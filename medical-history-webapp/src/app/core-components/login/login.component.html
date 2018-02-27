@@ -4,11 +4,17 @@
 
   <div class="section-login-content">
 
-    <app-alert [msg]="response? response : error" [isSuccess]="!!response"></app-alert>
-    <app-spinner [loading]="_authService.loading"></app-spinner>
+    <div class="alert-msg msg-error" *ngIf="error ">
+      <span>{{error}}</span>
+      <div class="close">
+        <mat-icon (click)="error = ''">close</mat-icon>
+      </div>
+    </div>
 
-    <button mat-raised-button id="google" (click)="googleLogin()">Google</button>
-    <button mat-raised-button id="fb" (click)="facebookLogin()">Facebook</button>
+    <app-spinner [loading]="loading"></app-spinner>
+
+    <button mat-raised-button id="google" (click)="login('google')">Google</button>
+    <button mat-raised-button id="fb" (click)="login('facebook')">Facebook</button>
     <button mat-raised-button (click)="emailButtonFocused = !emailButtonFocused;">
       <div class="email">
         <mat-icon>mail_outline</mat-icon>
@@ -20,19 +26,17 @@
 
     <form class="login-form" *ngIf="emailButtonFocused">
       <mat-form-field>
-        <input type="email" matInput placeholder="Email" [formControl]="email" required autofocus>
-        <mat-error *ngIf="email.invalid">{{getErrorMsg(email)}}</mat-error>
+        <input type="email" matInput placeholder="Email" [formControl]="email">
       </mat-form-field>
       <mat-form-field style="margin-top: 10px;">
-        <input type="password" matInput placeholder="Password" [formControl]="password" required>
-        <mat-error *ngIf="password.invalid">{{getErrorMsg(password)}}</mat-error>
+        <input type="password" matInput placeholder="Password" [formControl]="password">
       </mat-form-field>
 
-      <button mat-raised-button (click)="emailPasswordLogin(); error=''; response=''" style="margin-top: 20px;">
+      <button mat-raised-button (click)="login('email'); error=''; response=''" style="margin-top: 20px;">
         <mat-icon>exit_to_app</mat-icon>
         <span>Login</span>
       </button>
-      <a (click)="openRegisterDialog()">Forgot password?</a>
+      <a (click)="openForgotDialog()">Forgot password?</a>
 
     </form>
 

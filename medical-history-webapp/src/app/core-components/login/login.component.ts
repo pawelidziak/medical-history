@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {AuthService} from '../../_services/auth.service';
 import {RegisterDialogComponent} from '../register-dialog/register-dialog.component';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
+import {ForgotDialogComponent} from '../forgot-dialog/forgot-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,10 @@ export class LoginComponent implements OnInit {
 
   error = '';
   response: string;
+  loading: boolean;
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required]);
+  email = new FormControl('');
+  password = new FormControl('');
 
   constructor(public _authService: AuthService, private _dialog: MatDialog) {
   }
@@ -23,37 +25,51 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  googleLogin(): void {
-    this._authService.loginWithGoogle()
-      .then(_ => console.log('zalogowano'))
-      .catch((error: any) => this.error = error);
+  login(type: string): void {
+    let provider: any;
+    switch (type) {
+      case 'google':
+        provider = this.googleLogin();
+        break;
+      case 'facebook':
+        // TODO
+        break;
+      case 'email':
+        provider = this.emailPasswordLogin();
+        break;
+    }
+
+    this.loading = true;
+
+    provider
+      .then(() => {
+        console.log('zalogowano');
+        // TODO redirect
+        this.loading = false;
+      })
+      .catch((error: any) => {
+        this.error = error;
+        this.loading = false;
+      });
   }
 
-  facebookLogin(): void {
+  private googleLogin(): Promise<any> {
+    return this._authService.loginWithGoogle();
+  }
+
+  private facebookLogin(): void {
     // TODO
   }
 
-  emailPasswordLogin(): void {
-    if (this.email.valid && this.password.valid) {
-      this._authService.emailPasswordLogin(this.email.value, this.password.value)
-        .then(_ => console.log('zalogowano'))
-        .catch((error: any) => this.error = error);
-    } else {
-      this.email.markAsTouched();
-      this.password.markAsTouched();
-    }
+  private emailPasswordLogin(): Promise<any> {
+    return this._authService.emailPasswordLogin(this.email.value, this.password.value);
   }
 
   openRegisterDialog() {
-    const dialogRef = this._dialog.open(RegisterDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      // this.user = result;
-    });
+    this._dialog.open(RegisterDialogComponent);
   }
 
-  getErrorMsg(control: FormControl): string {
-    return control.hasError('required') ? 'You must enter a value' :
-      control.hasError('email') ? 'Not a valid email' : '';
+  openForgotDialog() {
+   this._dialog.open(ForgotDialogComponent);
   }
 }

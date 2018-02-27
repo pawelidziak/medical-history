@@ -7,12 +7,14 @@ import {LoginComponent} from './login/login.component';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {RegisterDialogComponent} from './register-dialog/register-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ForgotDialogComponent} from './forgot-dialog/forgot-dialog.component';
 
 @NgModule({
   declarations: [
     WelcomeComponent,
     LoginComponent,
-    RegisterDialogComponent
+    RegisterDialogComponent,
+    ForgotDialogComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     WelcomeComponent
   ],
   providers: [],
-  entryComponents: [RegisterDialogComponent]
+  entryComponents: [RegisterDialogComponent, ForgotDialogComponent]
 
 })
 export class CoreComponentsModule {

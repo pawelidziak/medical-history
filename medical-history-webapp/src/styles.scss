@@ -18,10 +18,30 @@ button {
   padding: 0 !important;
 }
 
-.alert {
-}
-
 .spinner {
   display: flex;
   justify-content: center;
+}
+
+.alert-msg {
+  padding: 20px;
+  color: $color_primary;
+  @include box_shadow();
+  text-align: center;
+  margin: 10px 0;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mat-icon {
+    color: $color_primary
+  }
+}
+
+.msg-success {
+  background-color: $material_green;
+}
+
+.msg-error {
+  background-color: $material_red;
 }

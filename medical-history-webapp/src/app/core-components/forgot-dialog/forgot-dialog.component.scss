@@ -1,6 +1,6 @@
 @import "../../_helpers/variables";
 
-.section-register {
+.section-forgot {
   min-width: 70vw;
   @media #{$gt-sm_size} {
     min-width: 40vw;
@@ -20,26 +20,11 @@
   }
 }
 
-.register-form {
+.forgot-form {
   display: flex;
   flex-direction: column;
   > * {
     width: 100%;
   }
   padding: 2*$normal_margin;
-}
-
-.my-error {
-  font-size: 11px;
-  color: $material_red;
-  margin-top: -15px;
-}
-
-.tips {
-  margin: $normal_margin 2*$normal_margin 0 2*$normal_margin;
-  background-color: $color_primary;
-  border-radius: 5px;
-  text-align: center;
-  padding: 10px;
-  @include box_shadow();
 }

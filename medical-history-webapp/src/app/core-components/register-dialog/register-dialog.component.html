@@ -8,33 +8,37 @@
     </button>
   </div>
 
-  <div class="error-msg">
-    <app-alert [msg]="response? response : error" [isSuccess]="!!response"></app-alert>
+  <div class="alert-msg"  *ngIf="error || response" [ngClass]="{'msg-success': response, 'msg-error': error}" style="margin: 20px">
+    <span *ngIf="response">{{response}}</span>
+    <span *ngIf="error">{{error}}</span>
+    <div class="close"><mat-icon (click)="error = ''; response=''">close</mat-icon></div>
   </div>
-  <app-spinner [loading]="_authService.loading"></app-spinner>
+  <div class="tips" *ngIf="error">
+    <p><strong>Tips for inputs:</strong></p>
+    <p>Display name: min 1, max 30 characters</p>
+    <p>Email e.g: medical@history.com</p>
+    <p>Password: min 1, max 30 characters</p>
+  </div>
+  <app-spinner [loading]="loading"></app-spinner>
 
-  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
+  <form class="register-form" [formGroup]="registerForm">
     <mat-form-field>
-      <input type="text" matInput placeholder="Display Name [1,30]" [formControl]="displayName">
+      <input type="text" matInput placeholder="Display Name" [formControl]="displayName">
     </mat-form-field>
-    <span class="my-error" *ngIf="displayName.touched">{{getErrorMsg(displayName)}}</span>
-
-    <mat-form-field>
-      <input type="email" matInput placeholder="Email [1-30]" [formControl]="email">
-    </mat-form-field>
-    <span class="my-error" *ngIf="email.touched">{{getErrorMsg(email)}}</span>
-
-    <mat-form-field>
-      <input type="password" matInput placeholder="Password [6-30]" [formControl]="password">
-    </mat-form-field>
-    <span class="my-error" *ngIf="password.touched">{{getPasswordErrorMsg()}}</span>
 
     <mat-form-field>
-      <input type="password" matInput placeholder="Confirm password [6-30]" [formControl]="confirmPassword">
+      <input type="email" matInput placeholder="Email" [formControl]="email">
     </mat-form-field>
-    <span class="my-error" *ngIf="confirmPassword.touched">{{getConfirmPasswordErrorMsg()}}</span>
 
-    <button mat-raised-button (click)="register(); error=''; response=''" style="margin-top: 20px;">
+    <mat-form-field>
+      <input type="password" matInput placeholder="Password" [formControl]="password">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="password" matInput placeholder="Confirm password" [formControl]="confirmPassword">
+    </mat-form-field>
+
+    <button mat-raised-button (click)="register();error; response = ''" style="margin-top: 20px;">
       <mat-icon>exit_to_app</mat-icon>
       <span>Register</span>
     </button>

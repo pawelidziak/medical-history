@@ -6,7 +6,6 @@ import * as firebase from 'firebase';
 export class AuthService {
 
   private _user: any = null;
-  private _loading: boolean;
 
   constructor(private _afAuth: AngularFireAuth) {
     _afAuth.authState.subscribe((auth) => {
@@ -23,14 +22,6 @@ export class AuthService {
     return this._user;
   }
 
-  get loading(): boolean {
-    return this._loading;
-  }
-
-  set loading(value: boolean) {
-    this._loading = value;
-  }
-
   // Social login
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -38,14 +29,11 @@ export class AuthService {
   }
 
   private socialSignIn(provider) {
-    this.loading = true;
     return this._afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
         this._user = credential.user;
-        this.loading = false;
       })
       .catch((error: any) => {
-        this.loading = false;
         throw new Error(error.message);
       });
   }
@@ -58,7 +46,6 @@ export class AuthService {
   // Email password register / login
 
   emailPasswordRegister(displayName: string, email: string, password: string) {
-    this.loading = true;
     return this._afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.sendEmailVerification().catch((error: any) => {
@@ -68,16 +55,13 @@ export class AuthService {
         this.updatePersonal(displayName).catch((error: any) => {
           throw new Error(error.message);
         });
-        this.loading = false;
       })
       .catch((error: any) => {
-        this.loading = false;
         throw new Error(error.message);
       });
   }
 
   emailPasswordLogin(email: string, password: string) {
-    this.loading = true;
     return this._afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         if (user.emailVerified === false) {
@@ -85,10 +69,8 @@ export class AuthService {
         } else {
           this._user = user;
         }
-        this.loading = false;
       })
       .catch((error: any) => {
-        this.loading = false;
         throw new Error(error.message);
       });
   }
@@ -102,4 +84,15 @@ export class AuthService {
     });
   }
 
+  // Sends email allowing user to reset password
+  resetPassword(email: string) {
+    const auth = firebase.auth();
+
+    return auth.sendPasswordResetEmail(email)
+      .then(() => {
+      })
+      .catch((error: any) => {
+        throw new Error((error.message));
+      });
+  }
 }
