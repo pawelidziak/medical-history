@@ -1,0 +1,3 @@
+<div class="my-alert" [ngClass]="{'my-alert-success': isSuccess, 'my-alert-fail': !isSuccess}" *ngIf="msg">
+  <div class="msg" [innerHtml]="msg"></div>
+</div>

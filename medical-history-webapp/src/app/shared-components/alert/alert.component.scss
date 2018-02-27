@@ -1,0 +1,34 @@
+@import '../../_helpers/variables';
+
+.my-alert {
+  padding: 20px;
+  color: $color_primary;
+  @include box_shadow();
+  text-align: center;
+  margin: 10px 0;
+  border-radius: 2px;
+  font-size: 90%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .msg {
+    flex: 0.98;
+    text-align: center;
+  }
+
+  .close {
+    flex: 0.02;
+    text-align: right;
+    cursor: pointer;
+  }
+}
+
+.my-alert-success {
+  background: $material_green;
+}
+
+.my-alert-fail{
+  background: $material_red;
+}

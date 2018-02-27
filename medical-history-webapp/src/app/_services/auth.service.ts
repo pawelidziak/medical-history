@@ -5,17 +5,21 @@ import * as firebase from 'firebase';
 @Injectable()
 export class AuthService {
 
-  user: any = null;
+  _user: any = null;
 
-  constructor(private afAuth: AngularFireAuth) {
-    afAuth.authState.subscribe((auth) => {
-      this.user = auth;
+  constructor(private _afAuth: AngularFireAuth) {
+    _afAuth.authState.subscribe((auth) => {
+      this._user = auth;
     });
   }
 
   // Getters
   get currentUserAuthState(): any {
-    return this.afAuth.authState;
+    return this._afAuth.authState;
+  }
+
+  get user(): any {
+    return this._user;
   }
 
   // Social login
@@ -25,9 +29,9 @@ export class AuthService {
   }
 
   private socialSignIn(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
+    return this._afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-        this.user = credential.user;
+        this._user = credential.user;
       })
       .catch((error: any) => {
         throw new Error(error.message);
@@ -36,8 +40,22 @@ export class AuthService {
 
   // Logout
   signOut() {
-    this.afAuth.auth.signOut();
+    this._afAuth.auth.signOut();
   }
 
   // TODO Email/password register and login
+
+  emailPasswordLogin(email: string, password: string) {
+    return this._afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        if (user.emailVerified === false) {
+          throw new Error('Email not verified.');
+        } else {
+          this._user = user;
+        }
+      })
+      .catch((error: any) => {
+        throw new Error(error.message);
+      });
+  }
 }

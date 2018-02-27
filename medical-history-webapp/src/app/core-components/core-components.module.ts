@@ -5,23 +5,28 @@ import {SharedComponentsModule} from '../shared-components/shared-components.mod
 import {MaterialModule} from '../material.module';
 import {LoginComponent} from './login/login.component';
 import {ScrollToModule} from 'ng2-scroll-to';
+import {RegisterDialogComponent} from './register-dialog/register-dialog.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     WelcomeComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterDialogComponent
   ],
   imports: [
     CommonModule,
     SharedComponentsModule,
     MaterialModule,
-    ScrollToModule.forRoot()
-
+    ScrollToModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     WelcomeComponent
   ],
-  providers: []
+  providers: [],
+  entryComponents: [RegisterDialogComponent]
 
 })
 export class CoreComponentsModule {

@@ -26,20 +26,20 @@
 .wave {
   opacity: .4;
   position: absolute;
-  top: 3%;
   left: 50%;
   background: $color_accent;
   width: 6000px;
   height: 6000px;
   margin-left: -3200px;
+  margin-top: -5650px;
   @media #{$gt-sm_height} {
-    margin-top: -5550px;
+    margin-top: -5650px;
   }
   @media #{$gt-md_height} {
-    margin-top: -5450px;
+    margin-top: -5550px;
   }
   @media #{$gt-lg_height} {
-    margin-top: -5250px;
+    margin-top: -5350px;
   }
   transform-origin: 50% 48%;
   border-radius: 43%;
