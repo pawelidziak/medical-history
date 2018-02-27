@@ -1,0 +1,30 @@
+@import "../../_helpers/variables";
+
+.section-forgot {
+  min-width: 70vw;
+  @media #{$gt-sm_size} {
+    min-width: 40vw;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color_accent;
+  padding: $normal_margin;
+  @include box_shadow();
+  color: $color_primary;
+  h2 {
+    margin: 0;
+  }
+}
+
+.forgot-form {
+  display: flex;
+  flex-direction: column;
+  > * {
+    width: 100%;
+  }
+  padding: 2*$normal_margin;
+}

@@ -1,9 +1,16 @@
-$primary_white: rgba(255, 255, 255, .87);
-$primary_black: rgba(0, 0, 0, .87);
+// colors palette
+$color_primary: #FAFAFA;
+$color_primary_dark: #DBDBDB;
+$color_primary_lighter: #ffffff;
 
+$color_light_dark: #F0F0F0;
+$color_dark: #202020;
+$color_dark_light: #737373;
+
+$color_accent: #0af;
 $border_color: #e0e0e0;
-$my_grey: #616161;
 
+// auxiliary colors
 $material_indigo: #3f51b5;
 $material_red: #F44336;
 $material_green: #8BC34A;
@@ -25,8 +32,31 @@ $gt-sm_size: 'screen and (min-width: 960px)';
 $gt-md_size: 'screen and (min-width: 1280px)';
 $gt-lg_size: 'screen and (min-width: 1920px)';
 
+$gt-sm_height: 'screen and (min-height: 400px)';
+$gt-md_height: 'screen and (min-height: 600px)';
+$gt-lg_height: 'screen and (min-height: 800px)';
+
 @mixin box_shadow() {
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+$normal_margin: 20px;
+$big_margin: 100px;
+
+$small_font_size: 12px;
+$normal_font_size: 15px;
+$big_font_size: 24px;
+
+@mixin header_title($text_color: $color_primary) {
+  color: $text_color;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .4em;
+  font-size: $normal_font_size;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
 }
