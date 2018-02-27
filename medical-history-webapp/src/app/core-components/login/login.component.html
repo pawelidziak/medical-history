@@ -1,0 +1,38 @@
+<section class="section-login">
+
+  <p>You can login using your social media or by email&password</p>
+
+  <div class="section-login-content">
+
+    <button mat-raised-button id="google" (click)="googleLogin()">Google</button>
+    <button mat-raised-button id="fb" (click)="facebookLogin()">Facebook</button>
+    <button mat-raised-button (click)="emailButtonFocused = !emailButtonFocused;">
+      <div class="email">
+        <mat-icon>mail_outline</mat-icon>
+        <span>Email</span>
+        <mat-icon *ngIf="!emailButtonFocused">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="emailButtonFocused">keyboard_arrow_up</mat-icon>
+      </div>
+    </button>
+
+
+    <form class="login-form" *ngIf="emailButtonFocused">
+      <mat-form-field>
+        <input type="email" matInput placeholder="Email" autofocus>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput placeholder="Password">
+      </mat-form-field>
+
+      <button mat-raised-button>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Login</span>
+      </button>
+
+    </form>
+
+    <a>No account? <strong>Create one here</strong></a>
+
+  </div>
+
+</section>

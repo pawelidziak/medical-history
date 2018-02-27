@@ -8,6 +8,8 @@ import {AuthService} from '../../_services/auth.service';
 })
 export class WelcomeComponent implements OnInit {
 
+  emailButtonFocused = false;
+
   constructor(public _authService: AuthService) {
   }
 
@@ -22,7 +24,7 @@ export class WelcomeComponent implements OnInit {
       });
   }
 
-  logout(): void {
-    this._authService.signOut();
+  facebookLogin(): void {
+    // TODO
   }
 }

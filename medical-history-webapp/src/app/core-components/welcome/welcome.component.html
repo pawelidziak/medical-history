@@ -1,36 +1,68 @@
-<nav class="welcome-nav ">
+<a mat-raised-button id="button-login" scrollTo href="#section-login">
+  <span>Login</span>
+  <mat-icon aria-label="Home icon">account_circle</mat-icon>
+</a>
 
+<section class="section-waves" id="section-waves">
+  <div class='box'>
+    <div class='wave -one'></div>
+    <div class='wave -two'></div>
+    <div class='wave -three'></div>
+    <div class='title'>
+      <h1>Medical History</h1>
+      <a mat-button scrollTo href="#section-about" id="view-more">
+        <span>View more</span>
+        <mat-icon>mouse</mat-icon>
+      </a>
+
+    </div>
+  </div>
+</section> <!-- end section-waves-->
+
+<section class="section-about" id="section-about">
+
+  <div class="container text-center">
+    <!-- Further content here -->
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <p>SECTION ABOUT</p>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+  </div>
+
+</section>
+
+<section class="section-login " id="section-login">
   <div class="container">
-    <div class="header-list row">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-6">
+        <app-login></app-login>
+      </div>
+    </div>
+  </div>
+</section> <!-- end section-login-->
 
-      <div class="col-12 col-sm-4">
-        <button mat-icon-button id="icon-home">
-          <mat-icon aria-label="Home icon">home</mat-icon>
-        </button>
+<section class="section-footer bg-border-radius">
+  <div class="container">
+    <div class="row footer-content ">
+
+      <div class="col-12 col-sm-4 text-center">
+        <span>View on: </span>
+        <i class="fab fa-github fa-2x" id="github"></i>
       </div>
 
-      <div class="col-12 col-sm-8 header-right">
-        <button mat-raised-button id="button-login">Login</button>
-        <button mat-button href="#">About</button>
-        <button mat-button href="#">Contact</button>
+      <div class="col-12 col-sm-4 text-center ">
+        <span>Copyright © 2018</span>
+        <div>Mateusz Wocka & Paweł Idziak</div>
+      </div>
+
+      <div class="col-12 col-sm-4 text-center">
+        <a mat-icon-button scrollTo href="#section-waves">
+          <mat-icon>arrow_upward</mat-icon>
+        </a>
       </div>
 
     </div>
   </div>
-</nav>
 
-<section class="container">
-
-  <br><br><br>
-
-  TODO: SOME TEXT ABOUT APP
-
-  <br><br><br>
-
-  TODO: REGISTER / LOGIN SECTION
-
-  <br><br><br>
-
-  TODO: CONTACT SECTION
-</section>
-
+</section> <!-- end section-footer-->
