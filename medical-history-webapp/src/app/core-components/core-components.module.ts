@@ -3,7 +3,7 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {CommonModule} from '@angular/common';
 import {SharedComponentsModule} from '../shared-components/shared-components.module';
 import {MaterialModule} from '../material.module';
-import {HomeComponent} from './home/home.component';
+import {MainComponent} from './main/main.component';
 import {LoginComponent} from './login/login.component';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {RegisterDialogComponent} from './register-dialog/register-dialog.component';
@@ -14,7 +14,7 @@ import {ForgotDialogComponent} from './forgot-dialog/forgot-dialog.component';
 @NgModule({
   declarations: [
     WelcomeComponent,
-    HomeComponent,
+    MainComponent,
     LoginComponent,
     RegisterDialogComponent,
     ForgotDialogComponent

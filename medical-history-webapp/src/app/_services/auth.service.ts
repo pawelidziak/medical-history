@@ -7,7 +7,7 @@ export class AuthService {
 
   private _user: any = null;
 
-  constructor(private _afAuth: AngularFireAuth) {
+  constructor(public _afAuth: AngularFireAuth) {
     _afAuth.authState.subscribe((auth) => {
       this._user = auth;
     });
@@ -60,7 +60,6 @@ export class AuthService {
         throw new Error(error.message);
       });
   }
-
   emailPasswordLogin(email: string, password: string) {
     return this._afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {

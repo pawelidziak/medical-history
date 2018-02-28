@@ -4,6 +4,7 @@ import {AuthService} from '../../_services/auth.service';
 import {RegisterDialogComponent} from '../register-dialog/register-dialog.component';
 import {FormControl} from '@angular/forms';
 import {ForgotDialogComponent} from '../forgot-dialog/forgot-dialog.component';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   email = new FormControl('');
   password = new FormControl('');
 
-  constructor(public _authService: AuthService, private _dialog: MatDialog) {
+  constructor(private router: Router, private route: ActivatedRoute, public _authService: AuthService, private _dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
       .then(() => {
         console.log('zalogowano');
         // TODO redirect
+        this.router.navigate(['/main']);
         this.loading = false;
       })
       .catch((error: any) => {
