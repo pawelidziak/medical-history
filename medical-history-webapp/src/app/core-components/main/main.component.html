@@ -1,1 +1,62 @@
-<p>Test</p>
+<mat-drawer-container (backdropClick)="hideDrawer ? drawer.close() : null">
+
+  <mat-drawer [disableClose]="true" #drawer [mode]="hideDrawer ? 'over' : 'side'" [opened]="!hideDrawer">
+    <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+
+    <div class="drawer-header">
+      <div class="wave-bg"></div>
+
+      <div class="header-title">
+        <div class="z-index app-name">Medical History</div>
+        <button mat-icon-button (click)="logout()">
+          <mat-icon class="z-index">exit_to_app</mat-icon>
+        </button>
+      </div>
+
+      <div class="user-info">
+        <button mat-raised-button>
+          <mat-icon>account_circle</mat-icon>
+          <span>{{getUserName()}}</span>
+        </button>
+      </div>
+    </div>
+
+
+    <div class="drawer-content">
+      <div class="category-header">Occurrence:</div>
+
+      <div *ngIf="loading" class="my-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div *ngIf="!loading">
+        <p>Position one</p>
+        <p>Position two</p>
+        <p>...</p>
+      </div>
+    </div>
+
+
+    <div class="drawer-footer">
+      <button mat-raised-button>
+        <mat-icon>phone</mat-icon>
+        <span>contact</span></button>
+      <button mat-raised-button>
+        <mat-icon>info_outline</mat-icon>
+        <span>info</span>
+      </button>
+    </div>
+
+  </mat-drawer>
+
+  <span id="button-menu" *ngIf="hideDrawer" (click)="drawer.toggle()">
+    <mat-icon aria-label="Open menu icon">menu</mat-icon>
+  </span>
+
+  <div class="content">
+
+    <p>content</p>
+
+  </div>
+
+</mat-drawer-container>

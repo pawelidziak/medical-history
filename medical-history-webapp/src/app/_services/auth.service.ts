@@ -22,6 +22,10 @@ export class AuthService {
     return this._user;
   }
 
+  get userName(): string {
+    return this._user.displayName;
+  }
+
   // Social login
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
