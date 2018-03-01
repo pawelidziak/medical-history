@@ -10,6 +10,9 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {environment} from '../environments/environment';
 import {AuthService} from './_services/auth.service';
 import {CoreComponentsModule} from './core-components/core-components.module';
+import {routing} from './app.routing';
+import {AuthGuard} from './_guard/auth.guard';
+
 
 @NgModule({
   declarations: [
@@ -24,9 +27,13 @@ import {CoreComponentsModule} from './core-components/core-components.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    CoreComponentsModule
+    CoreComponentsModule,
+    routing
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
