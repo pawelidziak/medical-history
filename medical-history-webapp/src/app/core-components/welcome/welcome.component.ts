@@ -8,7 +8,7 @@ import {AuthService} from '../../_services/auth.service';
 })
 export class WelcomeComponent implements OnInit {
 
-  alreadyLogin: boolean;
+  alreadyLogged: boolean;
 
   constructor(private _auth: AuthService) {
   }
@@ -16,7 +16,7 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
     this._auth.currentUserAuthState.subscribe(
       (state) => {
-        this.alreadyLogin = state;
+        this.alreadyLogged = state;
       }
     );
   }

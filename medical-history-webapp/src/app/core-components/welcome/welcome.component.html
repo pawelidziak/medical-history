@@ -1,9 +1,9 @@
-<a mat-raised-button id="button-login" class="right-top-button" scrollTo href="#section-login" *ngIf="!alreadyLogin">
+<a mat-raised-button id="button-login" class="right-top-button" scrollTo href="#section-login" *ngIf="!alreadyLogged">
   <span>Login</span>
   <mat-icon aria-label="Home icon">account_circle</mat-icon>
 </a>
 
-<a mat-raised-button class="right-top-button" *ngIf="alreadyLogin" [routerLink]="['/main']">
+<a mat-raised-button class="right-top-button" *ngIf="alreadyLogged" [routerLink]="['/main']">
   <span>Main</span>
   <mat-icon aria-label="Dashboard icon">dashboard</mat-icon>
 </a>
@@ -37,7 +37,7 @@
 
 </section>
 
-<section class="section-login " id="section-login" *ngIf="!alreadyLogin">
+<section class="section-login " id="section-login" *ngIf="!alreadyLogged">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-lg-6">
