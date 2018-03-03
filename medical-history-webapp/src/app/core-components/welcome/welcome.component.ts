@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../_services/auth.service';
 
 @Component({
   selector: 'app-welcome',
@@ -7,11 +8,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  emailButtonFocused = false;
+  alreadyLogin: boolean;
 
-  constructor() {
+  constructor(private _auth: AuthService) {
   }
 
   ngOnInit() {
+    this._auth.currentUserAuthState.subscribe(
+      (state) => {
+        this.alreadyLogin = state;
+      }
+    );
   }
 }

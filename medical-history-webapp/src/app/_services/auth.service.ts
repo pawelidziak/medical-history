@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {Observable} from 'rxjs/Observable';
 import * as firebase from 'firebase';
 
 @Injectable()
@@ -14,7 +15,7 @@ export class AuthService {
   }
 
   // Getters & Setters
-  get currentUserAuthState(): any {
+  get currentUserAuthState(): Observable<any> {
     return this._afAuth.authState;
   }
 
@@ -64,6 +65,7 @@ export class AuthService {
         throw new Error(error.message);
       });
   }
+
   emailPasswordLogin(email: string, password: string) {
     return this._afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {

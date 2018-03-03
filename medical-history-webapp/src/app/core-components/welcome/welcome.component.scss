@@ -1,9 +1,9 @@
 @import "../../_helpers/variables";
 
-#button-login {
+.right-top-button {
   position: fixed;
   top: 20px;
-  right: 40px;
+  right: 20px;
   z-index: 999;
   &:hover {
     color: $color_dark;
@@ -100,7 +100,10 @@
   font-size: $normal_font_size;
   .footer-content {
     > div {
-      margin: $normal_margin 0;
+      margin: 0.5*$normal_margin 0;
+      @media #{$gt-sm_size} {
+        margin: $normal_margin 0;
+      }
     }
     display: flex;
     align-items: center;

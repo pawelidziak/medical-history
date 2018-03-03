@@ -7,7 +7,7 @@ import {AuthGuard} from './_guard/auth.guard';
 export const appRoutes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path: 'main', component: MainComponent, canActivate: [AuthGuard]},
-  {path: '**', redirectTo: 'welcome'}
+  {path: '**', redirectTo: 'main'}
 ]as Routes;
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
