@@ -9,7 +9,7 @@ import {ScrollToModule} from 'ng2-scroll-to';
 import {RegisterDialogComponent} from './register-dialog/register-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ForgotDialogComponent} from './forgot-dialog/forgot-dialog.component';
-
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import {ForgotDialogComponent} from './forgot-dialog/forgot-dialog.component';
     MaterialModule,
     ScrollToModule.forRoot(),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   exports: [
     WelcomeComponent
