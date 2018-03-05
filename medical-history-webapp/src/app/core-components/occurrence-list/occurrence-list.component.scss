@@ -1,0 +1,31 @@
+@import "../../_helpers/variables";
+
+.occurrence-header {
+  margin: .5*$normal_margin $normal_margin - 5px;
+  color: $color_dark;
+  font-weight: 700;
+}
+
+.active {
+  background-color: $color_primary_dark;
+  color: $color_accent;
+  font-weight: 700;
+}
+
+.list-item {
+  &:hover {
+    background: $color_primary_dark;
+    cursor: pointer;
+    font-weight: 700;
+  }
+}
+
+.add-item {
+  padding: 0 $normal_margin;
+  display: flex;
+  justify-content: flex-end;
+
+  mat-form-field {
+    width: 100%;
+  }
+}

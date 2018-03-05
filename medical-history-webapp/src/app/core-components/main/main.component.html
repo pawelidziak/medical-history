@@ -23,17 +23,7 @@
 
 
     <div class="drawer-content">
-      <div class="category-header">Occurrence:</div>
-
-      <div *ngIf="loading" class="my-spinner">
-        <mat-spinner></mat-spinner>
-      </div>
-
-      <div *ngIf="!loading">
-        <p>Position one</p>
-        <p>Position two</p>
-        <p>...</p>
-      </div>
+      <app-occurrence-list></app-occurrence-list>
     </div>
 
 

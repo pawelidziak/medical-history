@@ -1,0 +1,34 @@
+<section class="occurrence-list">
+
+  <p class="occurrence-header">Occurrences:</p>
+
+  <div *ngIf="loading" class="my-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading" class="my-spinner">
+
+    <mat-list>
+      <mat-list-item *ngFor="let occurrence of userOccurrences" [routerLinkActive]="['active']" class="list-item">
+        {{occurrence}}
+      </mat-list-item>
+    </mat-list>
+
+    <div class="add-item">
+      <mat-form-field class="example-full-width" *ngIf="addNewOccurrence" [@showInOut] floatPlaceholder="never">
+        <input matInput placeholder="Enter the name" [formControl]="occurrence">
+      </mat-form-field>
+
+      <button mat-icon-button *ngIf="addNewOccurrence" [@showInOut]='addNewOccurrence' (click)="addOccurrence()">
+        <mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="addNewOccurrence = !addNewOccurrence;" [@showInOut]='addNewOccurrence'>
+        <mat-icon aria-label="Add item icon" *ngIf="!addNewOccurrence">add</mat-icon>
+        <mat-icon aria-label="Cancel item icon" *ngIf="addNewOccurrence" class="material-color-red">close</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+</section>
