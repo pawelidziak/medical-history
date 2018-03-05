@@ -11,7 +11,7 @@
   <div class="alert-msg"  *ngIf="error || response" [ngClass]="{'msg-success': response, 'msg-error': error}" style="margin: 20px">
     <span *ngIf="response">{{response}}</span>
     <span *ngIf="error">{{error}}</span>
-    <div class="close"><mat-icon (click)="error = ''; response=''">close</mat-icon></div>
+    <div class="close"><mat-icon (click)="error = ''; response=''" aria-label="Close alert icon">close</mat-icon></div>
   </div>
   <app-spinner [loading]="loading"></app-spinner>
 
@@ -21,7 +21,7 @@
     </mat-form-field>
 
     <button mat-raised-button type="submit" (click)="remindPassword()" style="margin-top: 20px;">
-      <mat-icon>mail_outline</mat-icon>
+      <mat-icon aria-label="Submit icon">mail_outline</mat-icon>
       <span>Remind password</span>
     </button>
 

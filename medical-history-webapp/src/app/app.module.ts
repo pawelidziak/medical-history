@@ -12,6 +12,7 @@ import {AuthService} from './_services/auth.service';
 import {CoreComponentsModule} from './core-components/core-components.module';
 import {routing} from './app.routing';
 import {AuthGuard} from './_guard/auth.guard';
+import {AngularFirestore, AngularFirestoreModule} from 'angularfire2/firestore';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {AuthGuard} from './_guard/auth.guard';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     CoreComponentsModule,
-    routing
+    routing,
+    AngularFirestoreModule
   ],
   providers: [
     AuthService,

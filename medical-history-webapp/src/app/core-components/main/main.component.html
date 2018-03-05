@@ -9,13 +9,13 @@
       <div class="header-title">
         <div class="z-index app-name">Medical History</div>
         <button mat-icon-button (click)="logout()">
-          <mat-icon class="z-index">exit_to_app</mat-icon>
+          <mat-icon class="z-index" aria-label="Logout icon">exit_to_app</mat-icon>
         </button>
       </div>
 
       <div class="user-info">
         <button mat-raised-button>
-          <mat-icon>account_circle</mat-icon>
+          <mat-icon aria-label="Account icon">account_circle</mat-icon>
           <span>{{getUserName()}}</span>
         </button>
       </div>
@@ -27,15 +27,15 @@
     </div>
 
 
-    <div class="drawer-footer">
-      <button mat-raised-button>
-        <mat-icon>phone</mat-icon>
-        <span>contact</span></button>
-      <button mat-raised-button>
-        <mat-icon>info_outline</mat-icon>
-        <span>info</span>
-      </button>
-    </div>
+    <!--<div class="drawer-footer">-->
+      <!--<button mat-raised-button>-->
+        <!--<mat-icon aria-label="Contact icon">phone</mat-icon>-->
+        <!--<span>contact</span></button>-->
+      <!--<button mat-raised-button>-->
+        <!--<mat-icon aria-label="Info icon">info_outline</mat-icon>-->
+        <!--<span>info</span>-->
+      <!--</button>-->
+    <!--</div>-->
 
   </mat-drawer>
 

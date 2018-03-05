@@ -7,7 +7,7 @@
     <div class="alert-msg msg-error" *ngIf="error ">
       <span>{{error}}</span>
       <div class="close">
-        <mat-icon (click)="error = ''">close</mat-icon>
+        <mat-icon (click)="error = ''" aria-label="Close icon">close</mat-icon>
       </div>
     </div>
 
@@ -17,10 +17,10 @@
     <button mat-raised-button id="fb" (click)="login('facebook')">Facebook</button>
     <button mat-raised-button (click)="emailButtonFocused = !emailButtonFocused;">
       <div class="email">
-        <mat-icon>mail_outline</mat-icon>
+        <mat-icon aria-label="Email icon">mail_outline</mat-icon>
         <span>Email</span>
-        <mat-icon *ngIf="!emailButtonFocused">keyboard_arrow_down</mat-icon>
-        <mat-icon *ngIf="emailButtonFocused">keyboard_arrow_up</mat-icon>
+        <mat-icon *ngIf="!emailButtonFocused" aria-label="Open email icon">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="emailButtonFocused" aria-label="Close email icon">keyboard_arrow_up</mat-icon>
       </div>
     </button>
 
@@ -33,7 +33,7 @@
       </mat-form-field>
 
       <button mat-raised-button (click)="login('email'); error=''; response=''" style="margin-top: 20px;">
-        <mat-icon>exit_to_app</mat-icon>
+        <mat-icon aria-label="Login icon">exit_to_app</mat-icon>
         <span>Login</span>
       </button>
       <a (click)="openForgotDialog()">Forgot password?</a>
