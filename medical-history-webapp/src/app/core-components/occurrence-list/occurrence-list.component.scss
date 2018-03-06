@@ -22,7 +22,7 @@
 }
 
 button {
-  color: $color_dark_light;
+  color: $secondary_text;
 }
 
 .add-item {
@@ -50,15 +50,15 @@ ul {
 
 .list-item_hover {
   &:hover {
-    background: $color_primary_dark;
+    background: $divider_color;
     cursor: pointer;
     font-weight: 700;
   }
 }
 
 .active {
-  background-color: $color_primary_dark;
-  color: $color_accent;
+  background-color: $divider_color;
+  color: $accent_color;
   font-weight: 700;
 }
 

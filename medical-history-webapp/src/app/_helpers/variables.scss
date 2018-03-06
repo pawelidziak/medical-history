@@ -1,20 +1,29 @@
 // colors palette
-$color_primary: #FAFAFA;
-$color_primary_dark: #DBDBDB;
-$color_primary_lighter: #ffffff;
+$bg_primary_color: #FAFAFA;
 
-$color_dark: #202020;
-$color_dark_light: #737373;
+$color_primary: #3F51B5;
+$dark_primary: #303F9F;
 
-$color_accent: #0af;
-$border_color: #e0e0e0;
+$primary_text_dark: #212121;
+$primary_text_white: #FAFAFA;
+
+$secondary_text: #757575;
+$accent_color: #FF5722;
+$divider_color: #BDBDBD;
 
 // auxiliary colors
-$material_indigo: #3f51b5;
 $material_red: #F44336;
 $material_green: #8BC34A;
-$material_teal: #009688;
 
+// auxiliary variables
+$normal_margin: 20px;
+$big_margin: 100px;
+
+$small_font_size: 12px;
+$normal_font_size: 15px;
+$big_font_size: 24px;
+
+// media queries variables
 $xs_size: 'screen and (max-width: 599px)';
 $sm_size: 'screen and (min-width: 600px) and (max-width: 959px)';
 $md_size: 'screen and (min-width: 960px) and (max-width: 1279px)';
@@ -34,28 +43,3 @@ $gt-lg_size: 'screen and (min-width: 1920px)';
 $gt-sm_height: 'screen and (min-height: 400px)';
 $gt-md_height: 'screen and (min-height: 600px)';
 $gt-lg_height: 'screen and (min-height: 800px)';
-
-@mixin box_shadow() {
-  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-
-$normal_margin: 20px;
-$big_margin: 100px;
-
-$small_font_size: 12px;
-$normal_font_size: 15px;
-$big_font_size: 24px;
-
-@mixin header_title($text_color: $color_primary) {
-  color: $text_color;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  text-transform: uppercase;
-  font-family: 'Playfair Display', serif;
-  letter-spacing: .4em;
-  font-size: $normal_font_size;
-  text-shadow: 0 1px 0 rgba(black, .1);
-  text-indent: .3em;
-}

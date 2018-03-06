@@ -1,4 +1,5 @@
 @import "../../_helpers/variables";
+@import "../../_helpers/mixins";
 
 .right-top-button {
   position: fixed;
@@ -6,14 +7,22 @@
   right: 20px;
   z-index: 999;
   &:hover {
-    color: $color_dark;
+    color: $primary_text_dark;
+    text-decoration: none;
+  }
+}
+
+a {
+  font-size: $normal_font_size;
+  &:hover {
+    color: $primary_text_white;
     text-decoration: none;
   }
 }
 
 // ######################### SECTION WAVES
 .section-waves {
-  background: linear-gradient(to bottom, $material_teal, rgba(#def, 0) 80%, $color_primary);
+  background: linear-gradient(to bottom, $color_primary, $bg_primary_color);
 }
 
 .box {
@@ -27,19 +36,18 @@
   opacity: .4;
   position: absolute;
   left: 50%;
-  background: $color_accent;
+  background: $color_primary;
   width: 6000px;
   height: 6000px;
   margin-left: -3200px;
-  margin-top: -5650px;
   @media #{$gt-sm_height} {
-    margin-top: -5650px;
+    margin-top: -5600px;
   }
   @media #{$gt-md_height} {
-    margin-top: -5550px;
+    margin-top: -5400px;
   }
   @media #{$gt-lg_height} {
-    margin-top: -5350px;
+    margin-top: -5250px;
   }
   transform-origin: 50% 48%;
   border-radius: 43%;
@@ -49,7 +57,7 @@
 .wave.-two {
   animation: drift 9000ms infinite linear;
   opacity: .1;
-  background: $color_primary;
+  background: $bg_primary_color;
 }
 
 .wave.-three {
@@ -66,13 +74,6 @@
   transform: translate3d(0, 0, 0);
   @include header_title();
 
-  a {
-    font-size: $normal_font_size;
-    &:hover {
-      color: $color_primary;
-      text-decoration: none;
-    }
-  }
 }
 
 @keyframes drift {
@@ -96,7 +97,7 @@
 // ######################### SECTION FOOTER
 .section-footer {
   width: 100%;
-  color: $color_primary;
+  color: $primary_text_white;
   font-size: $normal_font_size;
   .footer-content {
     > div {
@@ -122,5 +123,5 @@
   @media #{$gt-sm_size} {
     border-radius: 55% 55% 0 0;
   }
-  background-color: darken($color_accent, 10%);
+  background-color: $color_primary;
 }
