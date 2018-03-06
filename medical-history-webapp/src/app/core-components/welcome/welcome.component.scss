@@ -22,7 +22,7 @@ a {
 
 // ######################### SECTION WAVES
 .section-waves {
-  background: linear-gradient(to bottom, $dark_primary, $bg_primary_color);
+  background: linear-gradient(to bottom, $color_primary, $bg_primary_color);
 }
 
 .box {
@@ -40,15 +40,14 @@ a {
   width: 6000px;
   height: 6000px;
   margin-left: -3200px;
-  margin-top: -5650px;
   @media #{$gt-sm_height} {
-    margin-top: -5650px;
+    margin-top: -5600px;
   }
   @media #{$gt-md_height} {
-    margin-top: -5550px;
+    margin-top: -5400px;
   }
   @media #{$gt-lg_height} {
-    margin-top: -5350px;
+    margin-top: -5250px;
   }
   transform-origin: 50% 48%;
   border-radius: 43%;
