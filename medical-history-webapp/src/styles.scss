@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "app/_helpers/variables";
+@import "app/_helpers/mixins";
 
 html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: $color_primary;
+  background-color: $bg_primary_color;
   font-size: $normal_font_size;
 }
 
@@ -25,7 +26,7 @@ button {
 
 .alert-msg {
   padding: 20px;
-  color: $color_primary;
+  color: $bg_primary_color;
   @include box_shadow();
   text-align: center;
   margin: 10px 0;
@@ -34,7 +35,7 @@ button {
   align-items: center;
   justify-content: space-between;
   mat-icon {
-    color: $color_primary
+    color: $bg_primary_color
   }
 }
 

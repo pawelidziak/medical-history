@@ -1,7 +1,8 @@
 @import "../../_helpers/variables";
+@import "../../_helpers/mixins";
 
 .section-login {
-  background-color: $color_primary;
+  background-color: $bg_primary_color;
   margin: 2.5*$big_margin 0;
   text-align: center;
   border-radius: 5px;
@@ -16,7 +17,7 @@
     font-size: $normal_font_size;
   }
   a {
-    color: $material_indigo;
+    color: $color_primary;
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -24,7 +25,7 @@
   }
 
   p {
-    @include header_title($color_dark);
+    @include header_title($primary_text_dark);
     padding: $normal_margin;
   }
   @include box_shadow();
