@@ -1,0 +1,73 @@
+@import "../../_helpers/variables";
+
+.occurrence-list {
+  margin-bottom: $normal_margin;
+}
+
+.occurrence-header {
+  margin: .5*$normal_margin $normal_margin;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: 700
+}
+
+.list-settings {
+  display: flex;
+  button {
+    width: 100%;
+    margin: 0 10px;
+  }
+}
+
+button {
+  color: $color_dark_light;
+}
+
+.add-item {
+  padding: 0 $normal_margin;
+  display: flex;
+  justify-content: flex-end;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.list-item {
+  transition: all 0.2s;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-item_hover {
+  &:hover {
+    background: $color_primary_dark;
+    cursor: pointer;
+    font-weight: 700;
+  }
+}
+
+.active {
+  background-color: $color_primary_dark;
+  color: $color_accent;
+  font-weight: 700;
+}
+
+.moves {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item-right {
+  display: flex;
+  align-items: center;
+}

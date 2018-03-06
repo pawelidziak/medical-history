@@ -27,8 +27,12 @@ export class AuthService {
     return this._user.displayName;
   }
 
+  get userUID(): string {
+    return this.user.uid;
+  }
+
   // Social login
-  loginWithGoogle() {
+  public loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.socialSignIn(provider);
   }
@@ -44,13 +48,13 @@ export class AuthService {
   }
 
   // Logout
-  signOut() {
+  public signOut() {
     this._afAuth.auth.signOut();
   }
 
   // Email password register / login
 
-  emailPasswordRegister(displayName: string, email: string, password: string) {
+  public emailPasswordRegister(displayName: string, email: string, password: string) {
     return this._afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.sendEmailVerification().catch((error: any) => {
@@ -66,7 +70,7 @@ export class AuthService {
       });
   }
 
-  emailPasswordLogin(email: string, password: string) {
+  public emailPasswordLogin(email: string, password: string) {
     return this._afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         if (user.emailVerified === false) {
@@ -90,7 +94,7 @@ export class AuthService {
   }
 
   // Sends email allowing user to reset password
-  resetPassword(email: string) {
+  public resetPassword(email: string) {
     const auth = firebase.auth();
 
     return auth.sendPasswordResetEmail(email)

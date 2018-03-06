@@ -5,7 +5,7 @@ mat-drawer-container {
 }
 
 mat-drawer {
-  overflow: hidden;
+  overflow-x: hidden;
   min-width: 250px;
   @media #{$gt-sm_size} {
     width: 350px;
@@ -62,18 +62,13 @@ mat-drawer {
 }
 
 .drawer-content {
-  margin: 0 $normal_margin;
-  .category-header {
-    margin: $normal_margin 0;
-    color: $color_dark;
-    font-weight: 700;
-  }
+  //margin: 0 $normal_margin;
 }
 
 .drawer-footer {
   //background-color: red;
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   display: flex;

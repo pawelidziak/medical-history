@@ -71,6 +71,6 @@ export class LoginComponent implements OnInit {
   }
 
   openForgotDialog() {
-   this._dialog.open(ForgotDialogComponent);
+    this._dialog.open(ForgotDialogComponent);
   }
 }
