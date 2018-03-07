@@ -13,6 +13,7 @@ import {CoreComponentsModule} from './core-components/core-components.module';
 import {routing} from './app.routing';
 import {AuthGuard} from './_guard/auth.guard';
 import {AngularFirestore, AngularFirestoreModule} from 'angularfire2/firestore';
+import {OccurrenceService} from './_services/occurrence.service';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {AngularFirestore, AngularFirestoreModule} from 'angularfire2/firestore';
   ],
   providers: [
     AuthService,
+    OccurrenceService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

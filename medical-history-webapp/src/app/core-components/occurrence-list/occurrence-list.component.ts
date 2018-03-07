@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {AuthService} from '../../_services/auth.service';
-import {OccurrenceModel} from '../../_models/OccurrenceModel';
+import {OccurrenceModel, OccurrenceModelTest} from '../../_models/OccurrenceModel';
+import {OccurrenceService} from '../../_services/occurrence.service';
 
 @Component({
   selector: 'app-occurrence-list',
@@ -19,7 +20,8 @@ export class OccurrenceListComponent implements OnInit {
   showOccurrenceOption = false;
 
   // TODO inject Occurrences Service
-  constructor(private _auth: AuthService) {
+  constructor(private _occurrenceService: OccurrenceService) {
+
   }
 
   ngOnInit() {
@@ -44,6 +46,10 @@ export class OccurrenceListComponent implements OnInit {
   addOccurrence(): void {
     if (this.occurrenceInput.value !== '' && this.occurrenceInput.value !== ' ') {
       // TODO use service method and add new occurrence
+      const tmp: OccurrenceModelTest = {
+          list: [this.occurrenceInput.value]
+        };
+      this._occurrenceService.addItem(tmp);
       this.userOccurrences.push(new OccurrenceModel(this.occurrenceInput.value, '3'));
       this.addNewOccurrence = false;
       this.occurrenceInput.reset();
