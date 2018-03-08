@@ -43,7 +43,6 @@ export class ForgotDialogComponent implements OnInit {
       this.error = '';
       this.error = 'Enter Your email';
     }
-    console.log(this.error);
   }
 
 }

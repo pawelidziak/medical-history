@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import { IncidentModel} from '../../_models/IncidentModel';
+import {IncidentModel} from '../../_models/IncidentModel';
 import {IncidentService} from '../../_services/incident.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {IncidentService} from '../../_services/incident.service';
 })
 export class IncidentListComponent implements OnInit {
 
-  // FIXME temporary initialized values
+  private tmpIncidentsToUpdate: Array<IncidentModel> = [];
   userIncidents: Array<IncidentModel> = [];
   addNewIncident = false;
   incidentInput = new FormControl('');
@@ -18,7 +18,8 @@ export class IncidentListComponent implements OnInit {
 
   showIncidentOption = false;
 
-  constructor(private _incidentService: IncidentService) {
+
+  constructor(public _incidentService: IncidentService) {
 
   }
 
@@ -27,39 +28,84 @@ export class IncidentListComponent implements OnInit {
   }
 
   /**
-   * Method gets incidents (of current logged user) from DB
+   * Method gets incidents (of current logged user) from DB and
+   * subscribes for its possible changes
    */
-  private getUserIncidents() {
-    // TODO use service method to get incidents
+  private getUserIncidents(): void {
+    this.loading = true;
+    this._incidentService.incidents.subscribe(
+      (list) => {
+        this.userIncidents = list;
+        this.loading = false;
+      },
+      error => {
+        // FIXME display somewhere the error
+        console.log(error);
+        this.loading = false;
+      }
+    );
   }
 
   /**
-   * Method adds new incidents to local list and update it to DB
+   * Method adds new incident straight to Firestore (using the service method),
+   * because Firestore returns a Observable list in which we are subscribed so
+   * the change is automatically
    */
   addIncident(): void {
     if (this.incidentInput.value !== '' && this.incidentInput.value !== ' ') {
-      // TODO use service method and add new incidents
+      this.addNewIncident = false;
+      this._incidentService
+        .addIncidentToFirestore(this.incidentInput.value, this.userIncidents.length)
+        .then(() => {
+          this.incidentInput.reset();
+        })
+        .catch(error => {
+          // FIXME display somewhere the error
+          console.log(error);
+        });
     }
   }
 
   /**
-   * Method updates chosen incident in local list and update it to DB
+   * Method updates incidents in Firestore using the service method
    */
   updateIncident(): void {
-    // CHECK IT WHEN WILL BE CONNECTION TO FIREBASE
     this.showIncidentOption = false;
-    this.saveList();
+    this._incidentService.updateIncidentInFirestore(this.userIncidents)
+      .catch(error => {
+        // FIXME display somewhere the error
+        console.log(error);
+      });
   }
 
   /**
-   * Method deletes chosen incident from local list and update it to DB
-   * @param {number} index
+   *
    */
-  deleteIncident(index: number): void {
-    if (index >= 0) {
-      this.userIncidents.splice(index, 1);
-      this.saveList();
+  startUpdate(): void {
+    this.tmpIncidentsToUpdate = [];
+    this.showIncidentOption = true;
+    for (const incident of this.userIncidents) {
+      this.tmpIncidentsToUpdate.push(incident);
     }
+  }
+
+  stopUpdate(): void {
+    this.showIncidentOption = false;
+    this.userIncidents = this.tmpIncidentsToUpdate;
+    this.tmpIncidentsToUpdate = [];
+  }
+
+  /**
+   * Method deletes chosen incident in Firestore (using the service method)
+   * by given id of document (incident)
+   * @param {string} id
+   */
+  deleteIncident(id: string): void {
+    this._incidentService.deleteIncidentFromFirestore(id)
+      .catch(error => {
+        // FIXME display somewhere the error
+        console.log(error);
+      });
   }
 
   /**
@@ -78,22 +124,25 @@ export class IncidentListComponent implements OnInit {
     this.moveElement(false, index);
   }
 
+  /**
+   * Proper logic to move elements on the list up/down. It switch chosen element
+   * with previous (when move up) or next (when move down). At the end it organizes
+   * all of the positions number starting by 0
+   * @param {boolean} up
+   * @param {number} index
+   */
   private moveElement(up: boolean, index: number): void {
-    const tmp = this.userIncidents[index];
+    const tmpIncident = this.userIncidents[index];
     if (up) {
       this.userIncidents[index] = this.userIncidents[index - 1];
-      this.userIncidents[index - 1] = tmp;
+      this.userIncidents[index - 1] = tmpIncident;
     } else {
       this.userIncidents[index] = this.userIncidents[index + 1];
-      this.userIncidents[index + 1] = tmp;
+      this.userIncidents[index + 1] = tmpIncident;
     }
-    this.saveList();
-  }
 
-  /**
-   * Method updates local list to DB
-   */
-  private saveList(): void {
-    // TODO connect to firebase and save changes
+    for (let i = 0; i < this.userIncidents.length; i++) {
+      this.userIncidents[i].positionOnList = i;
+    }
   }
 }
