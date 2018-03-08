@@ -1,8 +1,6 @@
-export class OccurrenceModel {
-  constructor(public name: string, public UID?: string) {
-  }
-}
-
 export interface IncidentModel {
+  incidentID?: string;
+  userID: string;
+  name: string;
   list: Array<string>;
 }

@@ -8,37 +8,37 @@
 
     <div class="occurrence-header">
       <span>Occurrences:</span>
-      <button mat-icon-button (click)="showOccurrenceOption = !showOccurrenceOption" *ngIf="!showOccurrenceOption">
+      <button mat-icon-button (click)="showIncidentOption = !showIncidentOption" *ngIf="!showOccurrenceOption">
         <mat-icon aria-label="More icon">more_vert</mat-icon>
       </button>
 
-      <div *ngIf="showOccurrenceOption">
-        <button mat-icon-button (click)="updateOccurrence()">
+      <div *ngIf="showIncidentOption">
+        <button mat-icon-button (click)="updateIncident()">
           <mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>
         </button>
 
-        <button mat-icon-button (click)="showOccurrenceOption = false">
+        <button mat-icon-button (click)="showIncidentOption = false">
           <mat-icon aria-label="Cancel item icon" class="material-color-red">close</mat-icon>
         </button>
       </div>
     </div>
 
     <ul>
-      <li *ngFor="let occurrence of userOccurrences; let i=index; let last = last" [routerLinkActive]="['active']"
-          class="list-item" [ngClass]="{'list-item_hover': !showOccurrenceOption}">
-        <span *ngIf="!showOccurrenceOption">{{occurrence.name}}</span>
+      <li *ngFor="let occurrence of userIncidents; let i=index; let last = last" [routerLinkActive]="['active']"
+          class="list-item" [ngClass]="{'list-item_hover': !showIncidentOption}">
+        <span *ngIf="!showIncidentOption">{{occurrence.name}}</span>
 
-        <mat-form-field floatPlaceholder="never" *ngIf="showOccurrenceOption" style="width: 100%;">
-          <input matInput [(ngModel)]="userOccurrences[i].name" type="text">
+        <mat-form-field floatPlaceholder="never" *ngIf="showIncidentOption" style="width: 100%;">
+          <input matInput [(ngModel)]="userIncidents[i].name" type="text">
         </mat-form-field>
 
-        <div class="list-item-right" *ngIf="showOccurrenceOption">
+        <div class="list-item-right" *ngIf="showIncidentOption">
           <button mat-icon-button [matMenuTriggerFor]="confirmDeleteOption">
             <mat-icon aria-label="Delete icon" class="">delete</mat-icon>
           </button>
           <mat-menu #confirmDeleteOption>
             <button mat-menu-item>No</button>
-            <button mat-menu-item (click)="deleteOccurrence(i)">Yes</button>
+            <button mat-menu-item (click)="deleteIncident(i)">Yes</button>
           </mat-menu>
 
           <div class="moves">
@@ -56,19 +56,19 @@
     </ul>
 
     <div class="add-item">
-      <mat-form-field *ngIf="addNewOccurrence" floatPlaceholder="never">
-        <input matInput placeholder="Enter the name" [formControl]="occurrenceInput">
+      <mat-form-field *ngIf="addNewIncident" floatPlaceholder="never">
+        <input matInput placeholder="Enter the name" [formControl]="incidentInput">
       </mat-form-field>
 
-      <button mat-icon-button *ngIf="addNewOccurrence" (click)="addOccurrence()">
+      <button mat-icon-button *ngIf="addNewIncident" (click)="addIncident()">
         <mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>
       </button>
 
-      <button mat-mini-fab *ngIf="!addNewOccurrence" (click)="addNewOccurrence = true;">
+      <button mat-mini-fab *ngIf="!addNewIncident" (click)="addNewIncident = true;">
         <mat-icon aria-label="Add item icon">add</mat-icon>
       </button>
 
-      <button mat-icon-button *ngIf="addNewOccurrence" (click)="addNewOccurrence = false">
+      <button mat-icon-button *ngIf="addNewIncident" (click)="addNewIncident = false">
         <mat-icon aria-label="Cancel item icon" class="material-color-red">close</mat-icon>
       </button>
     </div>

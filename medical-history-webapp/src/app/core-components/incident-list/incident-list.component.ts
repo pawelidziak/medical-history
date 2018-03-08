@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {AuthService} from '../../_services/auth.service';
-import {OccurrenceModel, IncidentModel} from '../../_models/IncidentModel';
-import {OccurrenceService} from '../../_services/occurrence.service';
+import { IncidentModel} from '../../_models/IncidentModel';
+import {IncidentService} from '../../_services/incident.service';
 
 @Component({
   selector: 'app-occurrence-list',
@@ -12,67 +11,53 @@ import {OccurrenceService} from '../../_services/occurrence.service';
 export class IncidentListComponent implements OnInit {
 
   // FIXME temporary initialized values
-  userOccurrences: Array<OccurrenceModel> = [];
-  addNewOccurrence = false;
-  occurrenceInput = new FormControl('');
+  userIncidents: Array<IncidentModel> = [];
+  addNewIncident = false;
+  incidentInput = new FormControl('');
   loading: boolean;
 
-  showOccurrenceOption = false;
+  showIncidentOption = false;
 
-  // TODO inject Occurrences Service
-  constructor(private _occurrenceService: OccurrenceService) {
+  constructor(private _incidentService: IncidentService) {
 
   }
 
   ngOnInit() {
-    this.getUserOccurrences();
+    this.getUserIncidents();
   }
 
   /**
-   * Method gets occurrences (of current logged user) from DB
+   * Method gets incidents (of current logged user) from DB
    */
-  private getUserOccurrences() {
-    // TODO use service method to get occurrences
-    this.userOccurrences.push(
-      new OccurrenceModel('Flu', '0'),
-      new OccurrenceModel('Orthopaedist', '2'),
-      new OccurrenceModel('Orthodontist', '2')
-    );
+  private getUserIncidents() {
+    // TODO use service method to get incidents
   }
 
   /**
-   * Method adds new occurrence to local list and update it to DB
+   * Method adds new incidents to local list and update it to DB
    */
-  addOccurrence(): void {
-    if (this.occurrenceInput.value !== '' && this.occurrenceInput.value !== ' ') {
-      // TODO use service method and add new occurrence
-      const tmp: IncidentModel = {
-          list: [this.occurrenceInput.value]
-        };
-      this._occurrenceService.addItem(tmp);
-      this.userOccurrences.push(new OccurrenceModel(this.occurrenceInput.value, '3'));
-      this.addNewOccurrence = false;
-      this.occurrenceInput.reset();
-      this.saveList();
+  addIncident(): void {
+    if (this.incidentInput.value !== '' && this.incidentInput.value !== ' ') {
+      // TODO use service method and add new incidents
     }
   }
 
   /**
-   * Method updates chosen occurrence in local list and update it to DB
+   * Method updates chosen incident in local list and update it to DB
    */
-  updateOccurrence(): void {
+  updateIncident(): void {
     // CHECK IT WHEN WILL BE CONNECTION TO FIREBASE
-    this.showOccurrenceOption = false;
+    this.showIncidentOption = false;
     this.saveList();
   }
 
   /**
-   * Method deletes chosen occurrence from local list and update it to DB
+   * Method deletes chosen incident from local list and update it to DB
    * @param {number} index
    */
-  deleteOccurrence(index: number): void {
+  deleteIncident(index: number): void {
     if (index >= 0) {
-      this.userOccurrences.splice(index, 1);
+      this.userIncidents.splice(index, 1);
       this.saveList();
     }
   }
@@ -94,13 +79,13 @@ export class IncidentListComponent implements OnInit {
   }
 
   private moveElement(up: boolean, index: number): void {
-    const tmp = this.userOccurrences[index];
+    const tmp = this.userIncidents[index];
     if (up) {
-      this.userOccurrences[index] = this.userOccurrences[index - 1];
-      this.userOccurrences[index - 1] = tmp;
+      this.userIncidents[index] = this.userIncidents[index - 1];
+      this.userIncidents[index - 1] = tmp;
     } else {
-      this.userOccurrences[index] = this.userOccurrences[index + 1];
-      this.userOccurrences[index + 1] = tmp;
+      this.userIncidents[index] = this.userIncidents[index + 1];
+      this.userIncidents[index + 1] = tmp;
     }
     this.saveList();
   }
