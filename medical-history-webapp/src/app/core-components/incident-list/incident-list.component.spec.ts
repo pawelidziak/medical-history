@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OccurrenceListComponent } from './occurrence-list.component';
+import { IncidentListComponent } from './incident-list.component';
 
-describe('OccurrenceListComponent', () => {
-  let component: OccurrenceListComponent;
-  let fixture: ComponentFixture<OccurrenceListComponent>;
+describe('IncidentListComponent', () => {
+  let component: IncidentListComponent;
+  let fixture: ComponentFixture<IncidentListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OccurrenceListComponent ]
+      declarations: [ IncidentListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OccurrenceListComponent);
+    fixture = TestBed.createComponent(IncidentListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

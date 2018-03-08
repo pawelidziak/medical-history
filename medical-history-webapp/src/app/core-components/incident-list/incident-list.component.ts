@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {AuthService} from '../../_services/auth.service';
-import {OccurrenceModel, OccurrenceModelTest} from '../../_models/OccurrenceModel';
+import {OccurrenceModel, IncidentModel} from '../../_models/IncidentModel';
 import {OccurrenceService} from '../../_services/occurrence.service';
 
 @Component({
   selector: 'app-occurrence-list',
-  templateUrl: './occurrence-list.component.html',
-  styleUrls: ['./occurrence-list.component.scss'],
+  templateUrl: './incident-list.component.html',
+  styleUrls: ['./incident-list.component.scss'],
 })
-export class OccurrenceListComponent implements OnInit {
+export class IncidentListComponent implements OnInit {
 
   // FIXME temporary initialized values
   userOccurrences: Array<OccurrenceModel> = [];
@@ -46,7 +46,7 @@ export class OccurrenceListComponent implements OnInit {
   addOccurrence(): void {
     if (this.occurrenceInput.value !== '' && this.occurrenceInput.value !== ' ') {
       // TODO use service method and add new occurrence
-      const tmp: OccurrenceModelTest = {
+      const tmp: IncidentModel = {
           list: [this.occurrenceInput.value]
         };
       this._occurrenceService.addItem(tmp);

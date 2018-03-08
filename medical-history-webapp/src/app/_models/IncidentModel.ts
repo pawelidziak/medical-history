@@ -3,6 +3,6 @@ export class OccurrenceModel {
   }
 }
 
-export interface OccurrenceModelTest {
+export interface IncidentModel {
   list: Array<string>;
 }
