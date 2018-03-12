@@ -18,10 +18,6 @@
         <mat-icon aria-label="More icon">more_vert</mat-icon>
       </button>
       <div *ngIf="showIncidentOption">
-        <!--<button mat-icon-button (click)="updateIncidentName()">-->
-          <!--<mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>-->
-        <!--</button>-->
-
         <button mat-icon-button (click)="showIncidentOption = false;">
           <mat-icon aria-label="Cancel item icon" class="material-color-red">close</mat-icon>
         </button>
@@ -29,36 +25,41 @@
     </div>
 
     <ul>
-      <li *ngFor="let incident of userIncidents; let i=index; let last = last" [routerLinkActive]="['active']"
-          class="list-item" [ngClass]="{'list-item_hover': !showIncidentOption}">
-        <span *ngIf="!showIncidentOption">{{incident.name}}</span>
+      <li *ngFor="let incident of userIncidents; let i=index; let last = last"
+          [ngClass]="{'list-item_hover': !showIncidentOption}">
 
-        <mat-form-field floatPlaceholder="never" *ngIf="showIncidentOption" style="width: 100%;">
-          <input matInput [id]="'inputName'+i" [(ngModel)]="userIncidents[i].name" type="text" (change)="updateIncidentName(i)">
-        </mat-form-field>
+        <div *ngIf="!showIncidentOption" [routerLink]="['/main', incident.incidentID]" [routerLinkActive]="['active']"
+             class="no-editable-list-item">
+          <span>{{incident.name}}</span>
+        </div>
 
-        <div class="list-item-right" *ngIf="showIncidentOption">
-          <!--<button mat-icon-button (click)="updateIncidentName(i)">-->
-            <!--<mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>-->
-          <!--</button>-->
-          <button mat-icon-button [matMenuTriggerFor]="confirmDeleteOption">
-            <mat-icon aria-label="Delete icon" class="">delete</mat-icon>
-          </button>
-          <mat-menu #confirmDeleteOption>
-            <button mat-menu-item>No</button>
-            <button mat-menu-item (click)="deleteIncident(incident.incidentID)">Yes</button>
-          </mat-menu>
+        <div class="editable-list-item" *ngIf="showIncidentOption">
 
-          <div class="moves">
-            <button mat-icon-button *ngIf="i>0" (click)="moveElementUp(i)">
-              <mat-icon aria-label="Move up icon">keyboard_arrow_up</mat-icon>
+          <mat-form-field floatPlaceholder="never" style="width: 100%;">
+            <input matInput [id]="'inputName'+i" [(ngModel)]="userIncidents[i].name" type="text"
+                   (change)="updateIncidentName(i)">
+          </mat-form-field>
+
+          <div class="list-item-right">
+            <button mat-icon-button [matMenuTriggerFor]="confirmDeleteOption">
+              <mat-icon aria-label="Delete icon" class="">delete</mat-icon>
             </button>
-            <button mat-icon-button *ngIf="!last" (click)="moveElementDown(i)">
-              <mat-icon aria-label="Move down icon">keyboard_arrow_down</mat-icon>
-            </button>
-          </div>
+            <mat-menu #confirmDeleteOption>
+              <button mat-menu-item>No</button>
+              <button mat-menu-item (click)="deleteIncident(incident.incidentID)">Yes</button>
+            </mat-menu>
 
-        </div> <!-- end of list-item-right-->
+            <div class="moves">
+              <button mat-icon-button *ngIf="i>0" (click)="moveElementUp(i)">
+                <mat-icon aria-label="Move up icon">keyboard_arrow_up</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="!last" (click)="moveElementDown(i)">
+                <mat-icon aria-label="Move down icon">keyboard_arrow_down</mat-icon>
+              </button>
+            </div>
+
+          </div> <!-- end of list-item-right-->
+        </div>
 
       </li>
     </ul>
