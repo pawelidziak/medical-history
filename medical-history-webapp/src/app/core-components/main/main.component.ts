@@ -4,7 +4,7 @@ import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })

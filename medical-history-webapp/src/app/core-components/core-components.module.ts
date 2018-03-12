@@ -10,7 +10,7 @@ import {RegisterDialogComponent} from './register-dialog/register-dialog.compone
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ForgotDialogComponent} from './forgot-dialog/forgot-dialog.component';
 import {RouterModule} from '@angular/router';
-import {OccurrenceListComponent} from './occurrence-list/occurrence-list.component';
+import {IncidentListComponent} from './incident-list/incident-list.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import {OccurrenceListComponent} from './occurrence-list/occurrence-list.compone
     LoginComponent,
     RegisterDialogComponent,
     ForgotDialogComponent,
-    OccurrenceListComponent
+    IncidentListComponent
   ],
   imports: [
     CommonModule,
