@@ -10,17 +10,16 @@ import {IncidentService} from '../../_services/incident.service';
 })
 export class IncidentListComponent implements OnInit {
 
-  private tmpIncidentsToUpdate: Array<IncidentModel> = [];
   userIncidents: Array<IncidentModel> = [];
   addNewIncident = false;
   incidentInput = new FormControl('');
+
   loading: boolean;
+  error: string;
 
   showIncidentOption = false;
 
-
   constructor(public _incidentService: IncidentService) {
-
   }
 
   ngOnInit() {
@@ -39,8 +38,7 @@ export class IncidentListComponent implements OnInit {
         this.loading = false;
       },
       error => {
-        // FIXME display somewhere the error
-        console.log(error);
+        this.error = error;
         this.loading = false;
       }
     );
@@ -60,39 +58,20 @@ export class IncidentListComponent implements OnInit {
           this.incidentInput.reset();
         })
         .catch(error => {
-          // FIXME display somewhere the error
-          console.log(error);
+          this.error = error;
         });
     }
   }
 
   /**
-   * Method updates incidents in Firestore using the service method
+   * Method updates incident name in Firestore using the service method
    */
-  updateIncident(): void {
-    this.showIncidentOption = false;
-    this._incidentService.updateIncidentInFirestore(this.userIncidents)
+  updateIncidentName(index: string): void {
+    this.userIncidents[index].name = (<HTMLInputElement>document.getElementById('inputName' + index)).value;
+    this._incidentService.updateIncidentListInFirestore(this.userIncidents[index])
       .catch(error => {
-        // FIXME display somewhere the error
-        console.log(error);
+        this.error = error;
       });
-  }
-
-  /**
-   *
-   */
-  startUpdate(): void {
-    this.tmpIncidentsToUpdate = [];
-    this.showIncidentOption = true;
-    for (const incident of this.userIncidents) {
-      this.tmpIncidentsToUpdate.push(incident);
-    }
-  }
-
-  stopUpdate(): void {
-    this.showIncidentOption = false;
-    this.userIncidents = this.tmpIncidentsToUpdate;
-    this.tmpIncidentsToUpdate = [];
   }
 
   /**
@@ -103,8 +82,14 @@ export class IncidentListComponent implements OnInit {
   deleteIncident(id: string): void {
     this._incidentService.deleteIncidentFromFirestore(id)
       .catch(error => {
-        // FIXME display somewhere the error
-        console.log(error);
+        this.error = error;
+      });
+
+    this.organizePositions(this.userIncidents.findIndex(i => i.incidentID === id));
+
+    this._incidentService.updateIncidentListInFirestore(this.userIncidents)
+      .catch(error => {
+        this.error = error;
       });
   }
 
@@ -126,22 +111,40 @@ export class IncidentListComponent implements OnInit {
 
   /**
    * Proper logic to move elements on the list up/down. It switch chosen element
-   * with previous (when move up) or next (when move down). At the end it organizes
-   * all of the positions number starting by 0
+   * (positionOnList) with previous (when move up) or next (when move down).
+   * Then it sorts it by this positions (to display list) and finally updates
+   * two elements in Firestore
    * @param {boolean} up
    * @param {number} index
    */
   private moveElement(up: boolean, index: number): void {
-    const tmpIncident = this.userIncidents[index];
+    const tmpPosition = this.userIncidents[index].positionOnList;
+
     if (up) {
-      this.userIncidents[index] = this.userIncidents[index - 1];
-      this.userIncidents[index - 1] = tmpIncident;
+      this.userIncidents[index].positionOnList = this.userIncidents[index - 1].positionOnList;
+      this.userIncidents[index - 1].positionOnList = tmpPosition;
     } else {
-      this.userIncidents[index] = this.userIncidents[index + 1];
-      this.userIncidents[index + 1] = tmpIncident;
+      this.userIncidents[index].positionOnList = this.userIncidents[index + 1].positionOnList;
+      this.userIncidents[index + 1].positionOnList = tmpPosition;
     }
 
-    for (let i = 0; i < this.userIncidents.length; i++) {
+    this.userIncidents.sort((a, b) => {
+      return a.positionOnList < b.positionOnList ? -1 : 1;
+    });
+
+    this._incidentService.updateIncidentListInFirestore(
+      up ? this.userIncidents[index - 1] : this.userIncidents[index + 1],
+      this.userIncidents[index]
+    ).catch(error => {
+      this.error = error;
+    });
+  }
+
+  /**
+   *  Method organizes all of the positions number starting by te given index
+   */
+  private organizePositions(index: number): void {
+    for (let i = index; i < this.userIncidents.length; i++) {
       this.userIncidents[i].positionOnList = i;
     }
   }

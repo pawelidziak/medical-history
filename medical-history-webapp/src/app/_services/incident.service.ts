@@ -66,13 +66,13 @@ export class IncidentService {
    * Method creates and updates incident into Firestore.
    * It creates new one without incidentID, because in Firestore we don't need to
    * store it as a document field - it's a document ID
-   * @param {Array<IncidentModel>} newList
    * @returns {Promise<void[]>}
+   * @param incidents
    */
-  updateIncidentInFirestore(newList: Array<IncidentModel>): Promise<void[]> {
+  updateIncidentListInFirestore(...incidents): Promise<void[]> {
     const data: Promise<void>[] = [];
 
-    for (const incident of newList) {
+    for (const incident of incidents) {
       const tmp: IncidentModel = {
         userID: incident.userID,
         name: incident.name,

@@ -5,18 +5,24 @@
 
   <div *ngIf="!loading">
 
+    <div class="alert-msg msg-error" *ngIf="error" style="margin: 10px;">
+      <span>{{error}}</span>
+      <div class="close">
+        <mat-icon (click)="error = ''" aria-label="Close icon">close</mat-icon>
+      </div>
+    </div>
+
     <div class="occurrence-header">
       <span>Incidents:</span>
-      <button mat-icon-button (click)="startUpdate()" *ngIf="!showIncidentOption">
+      <button mat-icon-button (click)="showIncidentOption = true;" *ngIf="!showIncidentOption">
         <mat-icon aria-label="More icon">more_vert</mat-icon>
       </button>
-
       <div *ngIf="showIncidentOption">
-        <button mat-icon-button (click)="updateIncident()">
-          <mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>
-        </button>
+        <!--<button mat-icon-button (click)="updateIncidentName()">-->
+          <!--<mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>-->
+        <!--</button>-->
 
-        <button mat-icon-button (click)="stopUpdate()">
+        <button mat-icon-button (click)="showIncidentOption = false;">
           <mat-icon aria-label="Cancel item icon" class="material-color-red">close</mat-icon>
         </button>
       </div>
@@ -28,10 +34,13 @@
         <span *ngIf="!showIncidentOption">{{incident.name}}</span>
 
         <mat-form-field floatPlaceholder="never" *ngIf="showIncidentOption" style="width: 100%;">
-          <input matInput [(ngModel)]="userIncidents[i].name" type="text">
+          <input matInput [id]="'inputName'+i" [(ngModel)]="userIncidents[i].name" type="text" (change)="updateIncidentName(i)">
         </mat-form-field>
 
         <div class="list-item-right" *ngIf="showIncidentOption">
+          <!--<button mat-icon-button (click)="updateIncidentName(i)">-->
+            <!--<mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>-->
+          <!--</button>-->
           <button mat-icon-button [matMenuTriggerFor]="confirmDeleteOption">
             <mat-icon aria-label="Delete icon" class="">delete</mat-icon>
           </button>
@@ -71,7 +80,6 @@
         <mat-icon aria-label="Cancel item icon" class="material-color-red">close</mat-icon>
       </button>
     </div>
-
 
   </div> <!-- end of spinner-->
 </section>
