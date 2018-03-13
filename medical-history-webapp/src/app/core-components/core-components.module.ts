@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ForgotDialogComponent} from './forgot-dialog/forgot-dialog.component';
 import {RouterModule} from '@angular/router';
 import {IncidentListComponent} from './incident-list/incident-list.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {IncidentListComponent} from './incident-list/incident-list.component';
     LoginComponent,
     RegisterDialogComponent,
     ForgotDialogComponent,
-    IncidentListComponent
+    IncidentListComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
