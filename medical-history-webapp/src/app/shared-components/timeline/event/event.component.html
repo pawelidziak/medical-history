@@ -1,0 +1,29 @@
+<!--<div *ngFor="let event of events" class="occurrence">-->
+  <!--<div class="title">{{event.title}}</div>-->
+  <!--<div class="desc">{{event.desc}}</div>-->
+  <!--<div class="type">Presentation</div>-->
+  <!--<div *ngIf="!event.dateEnd" class="date-one">-->
+    <!--<span class="date-start-end">{{event.dateStart | date: "dd/MM/yy"}}</span>-->
+  <!--</div>-->
+  <!--<div *ngIf="event.dateEnd" class="date-two">-->
+    <!--<span class="date-start">{{event.dateStart | date: "dd/MM/yy"}}</span>-->
+    <!--<span class="date-end">{{event.dateEnd | date: "dd/MM/yy"}}</span>-->
+  <!--</div>-->
+
+<!--</div>-->
+
+  <!--<app-event *ngFor="let event of events" [event]="event"></app-event>-->
+
+  <mat-card [style.border-left]="'5px solid ' + getColor(event.type)" class="occurrence">
+    <div class="line">
+      <span class="date-start-end">{{event.dateStart | date:"MMM, dd"}}</span>
+    </div>
+    <mat-card-header>
+      <mat-card-title class="title">{{event.title}}</mat-card-title>
+      <mat-card-subtitle class="desc">{{event.desc}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-footer class="event-footer">
+      <span>{{event.type}}</span>
+    </mat-card-footer>
+  </mat-card>
+

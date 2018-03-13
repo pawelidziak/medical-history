@@ -1,0 +1,144 @@
+@import "../../_helpers/variables";
+@import "../../_helpers/mixins";
+
+.add-event {
+
+  margin-left: 100px;
+  margin-top: $normal_margin;
+  button {
+    margin-left: 30px;
+    width: 500px;
+    height: 70px;
+    opacity: .5;
+  }
+  .add-icon {
+    margin-left: -27px;
+    mat-icon {
+    }
+    z-index: 9999;
+  }
+}
+
+.incidents-container {
+  position: relative;
+  margin: 50px $normal_margin $normal_margin $normal_margin;
+  padding-left: $normal_margin*2;
+  @media #{$gt-xs_size} {
+    padding-left: $normal_margin*4;
+  }
+
+  // linia przerywana
+  &:before {
+    content: "";
+    width: 2px;
+    height: 100%;
+    position: absolute;
+    top: -150px;
+    border-left: 2px dashed $divider_color;
+  }
+}
+
+//
+.test {
+  &:not(:first-child) {
+    margin-top: 60px;
+  }
+}
+
+//
+//// poszczegolna wydarzenie
+//.occurrence {
+//  position: relative;
+//  margin-left: 30px;
+//  height: 100%;
+//  background-color: rgba(255, 255, 255, 0.2);
+//  padding: 14px;
+//  border-radius: 6px;
+//  box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.08);
+//  &:not(:first-child) {
+//    margin-top: 60px;
+//  }
+//
+//  // linia ciagla
+//  .line {
+//    width: 2px;
+//    height: 100%;
+//    background: $divider_color;
+//    left: -30px;
+//    top: 0;
+//    position: absolute;
+//
+//    // kropka
+//    &:before {
+//      content: "";
+//      width: 20px;
+//      height: 20px;
+//      border-radius: 50%;
+//      border: 2px solid #fff;
+//      position: absolute;
+//      background: #86b7e7;
+//      left: -9px;
+//      top: 50%;
+//      transform: translateY(-50%);
+//    }
+//  }
+//}
+//
+//.date-two {
+//  width: 2px;
+//  height: 100%;
+//  background: $divider_color;
+//  left: -30px;
+//  top: 0;
+//  position: absolute;
+//
+//  // kropka
+//  &:before, &:after {
+//    content: '';
+//    width: 20px;
+//    height: 20px;
+//    border-radius: 50%;
+//    border: 2px solid #fff;
+//    position: absolute;
+//    background: #86b7e7;
+//    left: -9px;
+//    top: 0;
+//  }
+//  &:after {
+//    top: 100%;
+//    transform: translateY(-100%);
+//  }
+//
+//}
+//
+//.type {
+//  font-weight: 600;
+//}
+//
+//.info {
+//  font-weight: 300;
+//}
+//
+//// data
+//.date-start-end {
+//  position: absolute;
+//  left: -65px;
+//  //font-weight: bold;
+//  top: 50%;
+//  transform: translateY(-50%);
+//}
+//
+//.date-start, .date-end {
+//  position: absolute;
+//  left: -65px;
+//  //font-weight: bold;
+//}
+//
+//.date-start {
+//  top: 0;
+//}
+//
+//.date-end {
+//  top: 100%;
+//  transform: translateY(-100%);
+//}

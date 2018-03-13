@@ -1,14 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {IncidentModel} from '../../_models/IncidentModel';
 import {IncidentService} from '../../_services/incident.service';
+import {ISubscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-occurrence-list',
   templateUrl: './incident-list.component.html',
   styleUrls: ['./incident-list.component.scss'],
 })
-export class IncidentListComponent implements OnInit {
+export class IncidentListComponent implements OnInit, OnDestroy {
+
+  // http://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
+  private subscription: ISubscription;
 
   userIncidents: Array<IncidentModel> = [];
   addNewIncident = false;
@@ -22,8 +26,12 @@ export class IncidentListComponent implements OnInit {
   constructor(public _incidentService: IncidentService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getUserIncidents();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   /**
@@ -32,8 +40,9 @@ export class IncidentListComponent implements OnInit {
    */
   private getUserIncidents(): void {
     this.loading = true;
-    this._incidentService.incidents.subscribe(
+    this.subscription = this._incidentService.incidents.subscribe(
       (list) => {
+        this.userIncidents = [];
         this.userIncidents = list;
         this.loading = false;
       },
