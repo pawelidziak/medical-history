@@ -52,11 +52,12 @@ export class AddEventDialogComponent implements OnInit {
         date: this.date.value,
         type: this.type.value
       };
-      this._eventService.addEventToFirebase(eventModel)
-        .then((ref) => {
-          this._dialogRef.close(ref.id);
-        })
-        .catch(error => console.log(error));
+      this._dialogRef.close(eventModel);
+      // this._eventService.addEventToFirebase(eventModel)
+      //   .then((ref) => {
+      //     this._dialogRef.close(ref.id);
+      //   })
+      //   .catch(error => console.log(error));
     }
   }
 

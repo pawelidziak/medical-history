@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material';
 import {AddEventDialogComponent} from './add-event-dialog/add-event-dialog.component';
 import {IncidentService} from '../../_services/incident.service';
 import {IncidentModel} from '../../_models/IncidentModel';
+import {EventModel} from '../../_models/EventModel';
 
 @Component({
   selector: 'app-timeline',
@@ -19,44 +20,56 @@ export class TimelineComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _dialog: MatDialog,
               private _incidentService: IncidentService) {
-
     this.sub = this._route.params.subscribe(
       params => {
-        this._incidentService.getOneIncident(params['key']).subscribe(
-          (res) => {
-            this.incident = res;
-            this.incident.incidentID = params['key'];
-            this.loading = false;
-          },
-          (error) => {
-            // FIXME
-            console.log(error);
-            this.loading = false;
-          }
-        );
+        this.getIncident(params['key']);
       });
   }
 
   ngOnInit() {
   }
 
+  getIncident(id: string) {
+    this._incidentService.getOneIncident(id).subscribe(
+      (res) => {
+        if (typeof res !== 'undefined' && res !== null) {
+          this.incident = res;
+          this.incident.incidentID = id;
+          this.incident.listOfEvents.sort((a, b) => {
+            return a.date < b.date ? 1 : -1;
+          });
+        }
+        this.loading = false;
+      },
+      (error) => {
+        // FIXME
+        console.log(error);
+        this.loading = false;
+      }
+    );
+  }
+
   openAddEventDialog() {
     const dialogRef = this._dialog.open(AddEventDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (typeof result !== 'undefined' && result !== '') {
-        this.incident.listOfEventsID.push(result);
+    dialogRef.afterClosed().subscribe((result: EventModel) => {
+      if (typeof result !== 'undefined' && result !== null) {
+        this.incident.listOfEvents.push(result);
         this.addCreatedEvent();
       }
     });
   }
 
   addCreatedEvent() {
-    this._incidentService.updateIncidentListInFirestore(this.incident)
+    this._incidentService.updateIncidentInFirestore(this.incident)
       .catch(error => {
         // FIXME
         console.log(error);
       });
+  }
+
+  deleteIncidents() {
+    // TODO
   }
 
 }

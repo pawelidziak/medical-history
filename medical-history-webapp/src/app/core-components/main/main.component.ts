@@ -12,7 +12,7 @@ export class MainComponent implements OnInit {
 
   public hideDrawer = false;
 
-  private SMALL_DEVICES = 959;
+  private SMALL_DEVICES = 1279;
 
   @ViewChild('drawer') drawer: MatSidenav;
 

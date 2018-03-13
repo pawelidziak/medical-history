@@ -57,7 +57,7 @@ export class IncidentService {
       userID: this._auth.userUID,
       name: newName,
       positionOnList: position,
-      listOfEventsID: []
+      listOfEvents: []
     };
     return this._incidentsCollectionRef.add(newIncident);
   }
@@ -69,7 +69,7 @@ export class IncidentService {
    * @returns {Promise<void[]>}
    * @param incidents
    */
-  updateIncidentListInFirestore(...incidents): Promise<void[]> {
+  updateIncidentInFirestore(...incidents): Promise<void[]> {
     const data: Promise<void>[] = [];
 
     for (const incident of incidents) {
@@ -77,7 +77,7 @@ export class IncidentService {
         userID: incident.userID,
         name: incident.name,
         positionOnList: incident.positionOnList,
-        listOfEventsID: incident.listOfEventsID
+        listOfEvents: incident.listOfEvents
       };
       data.push(this._incidentsCollectionRef.doc(incident.incidentID).update(tmp));
     }
