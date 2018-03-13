@@ -4,7 +4,9 @@
 .incident {
   margin-left: 30px;
   border-radius: 6px;
-  width: 500px;
+  @media #{$gt-md_size} {
+    width: 40%;
+  }
 
   // linia ciagla
   .line {
