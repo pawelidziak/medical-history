@@ -1,6 +1,7 @@
 <section class="section-add-event">
   <div class="header">
-    <h2>Add Event</h2>
+    <h2 *ngIf="!updateEvent">Add Event</h2>
+    <h2 *ngIf="updateEvent">Update Event</h2>
     <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
     <button mat-icon-button (click)="closeDialog()">
       <mat-icon aria-label="Close dialog icon">close</mat-icon>
@@ -16,11 +17,11 @@
     <div class="">
 
       <mat-form-field class="full-width">
-        <mat-select placeholder="Type" [formControl]="type" required>
-          <mat-option *ngFor="let type of eventTypes" [value]="type">
+        <mat-select placeholder="Type" required [(value)]="selectedType">
+          <mat-option *ngFor="let myType of eventTypes" [value]="myType">
             <div class="type">
-              <span class="type-color" [style.background-color]="type.color"></span>
-              <span>{{type.name}}</span>
+              <span class="type-color" [style.background-color]="myType.color"></span>
+              <span>{{myType.name}}</span>
             </div>
           </mat-option>
         </mat-select>
@@ -39,9 +40,12 @@
 
 
     <div class="add-event-buttons">
-      <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
       <button mat-raised-button color="primary" [disabled]="addEventForm.invalid"
-      (click)="createEvent()">Add</button>
+              (click)="addUpdateEvent()">
+        <span *ngIf="!updateEvent">Add</span>
+        <span *ngIf="updateEvent">Update</span>
+      </button>
     </div>
   </form>
 

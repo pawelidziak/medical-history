@@ -18,6 +18,15 @@
   text-indent: .3em;
 }
 
+@mixin header_in_content(){
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .4em;
+  font-size: $big_font_size;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
+}
+
 // DIALOG
 @mixin section_dialog() {
   min-width: 70vw;

@@ -77,7 +77,7 @@ export class IncidentListComponent implements OnInit, OnDestroy {
    */
   updateIncidentName(index: string): void {
     this.userIncidents[index].name = (<HTMLInputElement>document.getElementById('inputName' + index)).value;
-    this._incidentService.updateIncidentListInFirestore(this.userIncidents[index])
+    this._incidentService.updateIncidentInFirestore(this.userIncidents[index])
       .catch(error => {
         this.error = error;
       });
@@ -96,7 +96,7 @@ export class IncidentListComponent implements OnInit, OnDestroy {
 
     this.organizePositions(this.userIncidents.findIndex(i => i.incidentID === id));
 
-    this._incidentService.updateIncidentListInFirestore(this.userIncidents)
+    this._incidentService.updateIncidentInFirestore(this.userIncidents)
       .catch(error => {
         this.error = error;
       });
@@ -141,7 +141,7 @@ export class IncidentListComponent implements OnInit, OnDestroy {
       return a.positionOnList < b.positionOnList ? -1 : 1;
     });
 
-    this._incidentService.updateIncidentListInFirestore(
+    this._incidentService.updateIncidentInFirestore(
       up ? this.userIncidents[index - 1] : this.userIncidents[index + 1],
       this.userIncidents[index]
     ).catch(error => {

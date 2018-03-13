@@ -1,28 +1,28 @@
 @import "../../_helpers/variables";
 @import "../../_helpers/mixins";
 
-.add-event {
-  margin-left: 80px;
-  @media #{$gt-xs_size} {
-    margin-left: 100px;
-  }
-  margin-top: 3*$normal_margin;
+.timeline-section {
+}
+
+.row {
+  margin: 0;
+}
+
+.event-options {
+  display: flex;
+  justify-content: flex-end;
+  margin: $normal_margin;
   button {
-    margin-left: 30px;
-    width: calc(100% - 50px);
-    @media #{$gt-md_size} {
-      width: calc(40% - 8px)
-    }
-    height: 70px;
-    opacity: .5;
+    margin-left: .5*$normal_margin;
   }
 }
 
-.incidents-container {
+.timeline-container {
   position: relative;
-  margin: 50px $normal_margin $normal_margin $normal_margin;
-  padding-left: $normal_margin*3;
-  @media #{$gt-xs_size} {
+  @media #{$gt-md_size} {
+    padding-left: $normal_margin*4;
+  }
+  @media #{$btw_xs_sm} {
     padding-left: $normal_margin*4;
   }
 
@@ -39,7 +39,7 @@
 
 .one-event {
   &:not(:first-child) {
-    margin-top: 60px;
+    margin-top: $normal_margin*1.5;
   }
 }
 
@@ -49,8 +49,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  p{
+  p {
     font-size: $big_font_size;
     letter-spacing: 2px;
+  }
+}
+
+.header {
+  @include header_in_content;
+  text-align: center;
+  margin: 2*$normal_margin 0;
+  @media #{$gt-xs_size} {
+    padding-left: $normal_margin*4 0;
+  }
+  p {
+    padding: 0 !important;
   }
 }
