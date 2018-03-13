@@ -1,0 +1,26 @@
+<section class="timeline-section">
+
+  <div class="add-event">
+    <button mat-raised-button (click)="openAddEventDialog()">ADD NEW EVENT</button>
+  </div>
+
+  <app-spinner [loading]="loading"></app-spinner>
+
+  <div class="row">
+
+    <div class="col-6 incidents-container" *ngIf="incident?.listOfEventsID.length > 0">
+
+      <div class="one-event" *ngFor="let eventID of incident.listOfEventsID">
+        <app-event [eventID]="eventID"></app-event>
+      </div>
+
+    </div>
+
+    <div class="col-6" *ngIf="incident?.listOfEventsID.length === 0">
+
+      <p>You don't have any events in this incident.</p>
+      <span>TODO make me beautiful :V</span>
+    </div>
+  </div>
+
+</section>

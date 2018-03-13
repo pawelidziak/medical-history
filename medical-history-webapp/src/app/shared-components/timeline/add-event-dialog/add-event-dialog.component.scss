@@ -1,0 +1,42 @@
+@import "../../../_helpers/variables";
+@import "../../../_helpers/mixins";
+
+.section-add-event{
+  @include section_dialog;
+}
+
+.add-event-form {
+  @include form_in_dialog;
+  mat-form-field {
+    margin-top: .5*$normal_margin;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.header {
+  @include header_in_dialog;
+}
+
+.type {
+  display: flex;
+  //justify-content: space-between;
+  align-items: center;
+}
+
+.type-color {
+  width: 24px;
+  height: 24px;
+  margin-right: .5*$normal_margin;
+}
+
+.add-event-buttons {
+  margin-top: $normal_margin;
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin-left: .5*$normal_margin;
+  }
+}

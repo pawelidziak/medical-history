@@ -2,32 +2,15 @@
 @import "../../_helpers/mixins";
 
 .section-register {
-  min-width: 70vw;
-  @media #{$gt-sm_size} {
-    min-width: 40vw;
-  }
+  @include section_dialog;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $color_primary;
-  padding: $normal_margin;
-  @include box_shadow();
-  color: $bg_primary_color;
-  h2 {
-    margin: 0;
-  }
+  @include header_in_dialog;
 }
 
 .register-form {
-  display: flex;
-  flex-direction: column;
-  > * {
-    width: 100%;
-  }
-  padding: 2*$normal_margin;
+  @include form_in_dialog;
 }
 
 .my-error {
