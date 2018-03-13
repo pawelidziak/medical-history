@@ -6,6 +6,7 @@ import {TimelineComponent} from './timeline/timeline.component';
 import {EventComponent} from './timeline/event/event.component';
 import {AddEventDialogComponent} from './timeline/add-event-dialog/add-event-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {EventService} from '../_services/event.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   exports: [
     SpinnerComponent
   ],
-  providers: [],
+  providers: [EventService],
   entryComponents: [AddEventDialogComponent]
 })
 export class SharedComponentsModule {

@@ -93,6 +93,10 @@ export class IncidentService {
     return this._incidentsCollectionRef.doc(id).delete();
   }
 
+  getOneIncident(idDoc: string): Observable<any> {
+    return this._afs.doc('incidents/' + idDoc).valueChanges();
+  }
+
   // Getters & setters
   get incidents(): Observable<IncidentModel[]> {
     return this._incidents;

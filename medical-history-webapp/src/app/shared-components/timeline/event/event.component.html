@@ -1,13 +1,14 @@
-<mat-card [style.border-left]="'5px solid ' + getColor(event.type)" class="incident">
+
+<mat-card *ngIf="event" [style.border-left]="'5px solid ' + event.type.color" class="incident">
   <div class="line">
-    <span class="date-start-end">{{event.dateStart | date:"MMM, dd"}}</span>
+    <span class="date-start-end">{{event.date | date:"MMM, dd"}}</span>
   </div>
   <mat-card-header>
     <mat-card-title class="title">{{event.title}}</mat-card-title>
     <mat-card-subtitle class="desc">{{event.desc}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-footer class="event-footer">
-    <span>{{event.type}}</span>
+    <span>{{event.type.name}}</span>
   </mat-card-footer>
 </mat-card>
 

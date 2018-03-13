@@ -1,7 +1,6 @@
 export interface EventModel {
   title: string;
   desc: string;
-  dateStart: Date;
-  dateEnd?: Date;
-  type: string;
+  date: Date;
+  type: {name: string, color: string};
 }

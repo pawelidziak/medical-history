@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import * as _moment from 'moment';
+import {EventModel} from '../../../_models/EventModel';
+import {EventService} from '../../../_services/event.service';
 
 
 @Component({
@@ -13,19 +14,20 @@ export class AddEventDialogComponent implements OnInit {
 
   public addEventForm: FormGroup;
   private title = new FormControl('', Validators.required);
-  private type = new FormControl();
-  private date = new FormControl();
+  private type = new FormControl('', Validators.required);
+  private date = new FormControl('', Validators.required);
   private desc = new FormControl();
 
 
   // TODO get types from FB
   eventTypes = [
-    {value: 'VISIT', color: '#8BC34A'},
-    {value: 'INFO', color: '#1976D2'},
-    {value: 'DISEASE', color: '#D50000'}
+    {name: 'VISIT', color: '#8BC34A'},
+    {name: 'INFO', color: '#1976D2'},
+    {name: 'DISEASE', color: '#D50000'}
   ];
 
-  constructor(private _dialogRef: MatDialogRef<AddEventDialogComponent>) {
+  constructor(private _eventService: EventService,
+              private _dialogRef: MatDialogRef<AddEventDialogComponent>) {
   }
 
   ngOnInit() {
@@ -43,7 +45,19 @@ export class AddEventDialogComponent implements OnInit {
 
   createEvent(): void {
     // TODO connect with service and add event
-    this._dialogRef.close();
+    if (this.addEventForm.valid) {
+      const eventModel: EventModel = {
+        title: this.title.value,
+        desc: this.desc.value,
+        date: this.date.value,
+        type: this.type.value
+      };
+      this._eventService.addEventToFirebase(eventModel)
+        .then((ref) => {
+          this._dialogRef.close(ref.id);
+        })
+        .catch(error => console.log(error));
+    }
   }
 
 }

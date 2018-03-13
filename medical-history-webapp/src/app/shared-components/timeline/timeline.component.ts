@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {EventModel} from '../../_models/EventModel';
 import {MatDialog} from '@angular/material';
 import {AddEventDialogComponent} from './add-event-dialog/add-event-dialog.component';
+import {IncidentService} from '../../_services/incident.service';
+import {IncidentModel} from '../../_models/IncidentModel';
 
 @Component({
   selector: 'app-timeline',
@@ -13,47 +14,49 @@ import {AddEventDialogComponent} from './add-event-dialog/add-event-dialog.compo
 export class TimelineComponent implements OnInit {
 
   private sub: Subscription;
+  incident: IncidentModel;
+  loading = true;
 
-  events: Array<EventModel> = [];
+  constructor(private _route: ActivatedRoute, private _dialog: MatDialog,
+              private _incidentService: IncidentService) {
 
-  constructor(private _route: ActivatedRoute, private _dialog: MatDialog) {
     this.sub = this._route.params.subscribe(
       params => {
-        const category = params['key'];
-        // this.getBooks(category);
-        // console.log(category);
+        this._incidentService.getOneIncident(params['key']).subscribe(
+          (res) => {
+            this.incident = res;
+            this.incident.incidentID = params['key'];
+            this.loading = false;
+          },
+          (error) => {
+            // FIXME
+            console.log(error);
+            this.loading = false;
+          }
+        );
       });
-
-    const tmp0: EventModel = {
-      title: 'Title 0',
-      desc: 'Desc 0',
-      dateStart: new Date(),
-      dateEnd: new Date(),
-      type: 'disease'
-    };
-    const tmp1: EventModel = {
-      title: 'Title 1',
-      desc: 'Desc 1',
-      dateStart: new Date(),
-      dateEnd: new Date(),
-      type: 'visit'
-    };
-    const tmp2: EventModel = {
-      title: 'Title 2',
-      desc: 'Desc 2',
-      dateStart: new Date(),
-      type: 'visit'
-    };
-
-    this.events.push(tmp0, tmp1, tmp2, tmp0, tmp1, tmp2, tmp0, tmp1, tmp2, tmp0, tmp1, tmp2, tmp0, tmp1, tmp2);
   }
 
   ngOnInit() {
   }
 
   openAddEventDialog() {
-    this._dialog.open(AddEventDialogComponent);
+    const dialogRef = this._dialog.open(AddEventDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (typeof result !== 'undefined' && result !== '') {
+        this.incident.listOfEventsID.push(result);
+        this.addCreatedEvent();
+      }
+    });
   }
 
+  addCreatedEvent() {
+    this._incidentService.updateIncidentListInFirestore(this.incident)
+      .catch(error => {
+        // FIXME
+        console.log(error);
+      });
+  }
 
 }

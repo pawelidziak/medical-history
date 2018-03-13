@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {EventModel} from '../../../_models/EventModel';
+import {EventService} from '../../../_services/event.service';
 
 @Component({
   selector: 'app-event',
@@ -8,20 +9,22 @@ import {EventModel} from '../../../_models/EventModel';
 })
 export class EventComponent implements OnInit {
 
-  @Input('event') event: EventModel;
+  @Input('eventID') eventID: string;
+  event: EventModel;
 
-  constructor() {
+  constructor(private _eventService: EventService) {
   }
 
   ngOnInit() {
+    this._eventService.getOneEvent(this.eventID).subscribe(
+      (res) => {
+        this.event = res;
+      },
+      (error) => {
+        // FIXME
+        console.log(error);
+      }
+    );
   }
 
-  getColor(value: string) {
-    switch (value) {
-      case 'disease':
-        return '#8BC34A';
-      case 'visit':
-        return '#1976D2';
-    }
-  }
 }
