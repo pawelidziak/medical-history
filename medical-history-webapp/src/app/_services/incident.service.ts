@@ -86,13 +86,19 @@ export class IncidentService {
 
   /**
    * Method deletes incident (document in firestore) by given id
-   * @param {string} id
+   * @param {string} idDoc
    * @returns {Promise<void>}
    */
-  deleteIncidentFromFirestore(id: string): Promise<void> {
-    return this._incidentsCollectionRef.doc(id).delete();
+  deleteIncidentFromFirestore(idDoc: string): Promise<void> {
+    return this._incidentsCollectionRef.doc(idDoc).delete();
   }
 
+  /**
+   * Method gets one incident (document in firestore) by given id
+   * and returns the observable of this element
+   * @param {string} idDoc
+   * @returns {Observable<any>}
+   */
   getOneIncident(idDoc: string): Observable<any> {
     return this._afs.doc('incidents/' + idDoc).valueChanges();
   }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {MatDialog} from '@angular/material';
-import {AddEventDialogComponent} from './add-event-dialog/add-event-dialog.component';
+import {EventDialogComponent} from './event-dialog/event-dialog.component';
 import {IncidentService} from '../../_services/incident.service';
 import {IncidentModel} from '../../_models/IncidentModel';
 import {EventModel} from '../../_models/EventModel';
@@ -50,17 +50,29 @@ export class TimelineComponent implements OnInit {
   }
 
   openAddEventDialog() {
-    const dialogRef = this._dialog.open(AddEventDialogComponent);
-
+    const dialogRef = this._dialog.open(EventDialogComponent, {
+      data: { event: null }
+    });
     dialogRef.afterClosed().subscribe((result: EventModel) => {
       if (typeof result !== 'undefined' && result !== null) {
         this.incident.listOfEvents.push(result);
-        this.addCreatedEvent();
+        this.updateCreatedEvent();
       }
     });
   }
 
-  addCreatedEvent() {
+  openEditEventDialog(eventModel: EventModel, index: number) {
+    const dialogRef = this._dialog.open(EventDialogComponent, {
+      data: {event: eventModel}
+    });
+    dialogRef.afterClosed().subscribe((result: EventModel) => {
+      if (typeof result !== 'undefined' && result !== null) {
+        this.incident.listOfEvents[index] = result;
+        this.updateCreatedEvent();
+      }
+    });
+  }
+  updateCreatedEvent() {
     this._incidentService.updateIncidentInFirestore(this.incident)
       .catch(error => {
         // FIXME
@@ -68,8 +80,5 @@ export class TimelineComponent implements OnInit {
       });
   }
 
-  deleteIncidents() {
-    // TODO
-  }
 
 }

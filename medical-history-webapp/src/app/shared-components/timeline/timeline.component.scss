@@ -19,8 +19,10 @@
 
 .timeline-container {
   position: relative;
-  //padding-left: $normal_margin*3;
-  @media #{$gt-sm_size} {
+  @media #{$gt-md_size} {
+    padding-left: $normal_margin*4;
+  }
+  @media #{$btw_xs_sm} {
     padding-left: $normal_margin*4;
   }
 

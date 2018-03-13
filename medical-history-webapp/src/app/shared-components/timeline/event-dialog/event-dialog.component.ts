@@ -1,23 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventModel} from '../../../_models/EventModel';
-import {EventService} from '../../../_services/event.service';
-
 
 @Component({
-  selector: 'app-add-event-dialog',
-  templateUrl: './add-event-dialog.component.html',
-  styleUrls: ['./add-event-dialog.component.scss'],
+  selector: 'app-event-dialog',
+  templateUrl: './event-dialog.component.html',
+  styleUrls: ['./event-dialog.component.scss'],
 })
-export class AddEventDialogComponent implements OnInit {
+export class EventDialogComponent implements OnInit {
 
   public addEventForm: FormGroup;
   private title = new FormControl('', Validators.required);
-  private type = new FormControl('', Validators.required);
   private date = new FormControl('', Validators.required);
   private desc = new FormControl();
 
+  updateEvent: boolean;
 
   // TODO get types from FB
   eventTypes = [
@@ -26,14 +24,24 @@ export class AddEventDialogComponent implements OnInit {
     {name: 'DISEASE', color: '#D50000'}
   ];
 
-  constructor(private _eventService: EventService,
-              private _dialogRef: MatDialogRef<AddEventDialogComponent>) {
+  selectedType: any;
+
+  constructor(private _dialogRef: MatDialogRef<EventDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit() {
+    this.updateEvent = this.data.event !== null;
+
+    if (this.updateEvent) {
+      this.title.setValue(this.data.event.title);
+      this.date.setValue(this.data.event.date);
+      this.desc.setValue(this.data.event.desc);
+      this.selectedType = this.eventTypes.find(x => x.name === this.data.event.type.name);
+
+    }
     this.addEventForm = new FormGroup({
       title: this.title,
-      type: this.type,
       date: this.date,
       desc: this.desc,
     });
@@ -43,21 +51,15 @@ export class AddEventDialogComponent implements OnInit {
     this._dialogRef.close();
   }
 
-  createEvent(): void {
-    // TODO connect with service and add event
+  addUpdateEvent(): void {
     if (this.addEventForm.valid) {
       const eventModel: EventModel = {
         title: this.title.value,
         desc: this.desc.value,
         date: this.date.value,
-        type: this.type.value
+        type: this.selectedType
       };
       this._dialogRef.close(eventModel);
-      // this._eventService.addEventToFirebase(eventModel)
-      //   .then((ref) => {
-      //     this._dialogRef.close(ref.id);
-      //   })
-      //   .catch(error => console.log(error));
     }
   }
 
