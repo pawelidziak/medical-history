@@ -1,7 +1,7 @@
 @import "../../../_helpers/variables";
 
 // poszczegolna wydarzenie
-.occurrence {
+.incident {
   margin-left: 30px;
   border-radius: 6px;
   width: 500px;
@@ -45,7 +45,6 @@
 .date-start-end {
   position: absolute;
   left: -65px;
-  //font-weight: bold;
   top: 50%;
   transform: translateY(-50%);
 }

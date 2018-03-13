@@ -1,0 +1,51 @@
+<section class="section-add-event">
+  <div class="header">
+    <h2>Add Event</h2>
+    <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+    <button mat-icon-button (click)="closeDialog()">
+      <mat-icon aria-label="Close dialog icon">close</mat-icon>
+    </button>
+  </div>
+
+  <form class="add-event-form" [formGroup]="addEventForm">
+
+    <mat-form-field class="full-width">
+      <input type="text" matInput placeholder="Title" [formControl]="title" required>
+      <mat-error *ngIf="title.hasError('required')">
+        Title is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="">
+
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Type" [formControl]="type">
+          <mat-option *ngFor="let type of eventTypes" [value]="type.value" class="">
+            <div class="type">
+              <span class="type-color" [style.background-color]="type.color"></span>
+              <span>{{type.value}}</span>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi="true" #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+    <mat-form-field class="full-width">
+      <textarea rows="4" matInput placeholder="Description" [formControl]="desc"></textarea>
+    </mat-form-field>
+
+
+    <div class="add-event-buttons">
+      <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" [disabled]="addEventForm.invalid"
+      (click)="createEvent()">Add</button>
+    </div>
+  </form>
+
+</section>

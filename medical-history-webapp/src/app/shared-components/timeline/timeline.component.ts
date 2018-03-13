@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {EventModel} from '../../_models/EventModel';
+import {MatDialog} from '@angular/material';
+import {AddEventDialogComponent} from './add-event-dialog/add-event-dialog.component';
 
 @Component({
   selector: 'app-timeline',
@@ -14,12 +16,12 @@ export class TimelineComponent implements OnInit {
 
   events: Array<EventModel> = [];
 
-  constructor(private _route: ActivatedRoute) {
+  constructor(private _route: ActivatedRoute, private _dialog: MatDialog) {
     this.sub = this._route.params.subscribe(
       params => {
         const category = params['key'];
         // this.getBooks(category);
-        console.log(category);
+        // console.log(category);
       });
 
     const tmp0: EventModel = {
@@ -48,5 +50,10 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  openAddEventDialog() {
+    this._dialog.open(AddEventDialogComponent);
+  }
+
 
 }

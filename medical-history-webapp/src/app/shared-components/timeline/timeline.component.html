@@ -1,27 +1,15 @@
 <section class="timeline-section">
 
-  <!--<div class="timeline-header">-->
-    <!--INCIDENT-->
-  <!--</div>-->
-
   <div class="add-event">
-
-    <button mat-raised-button>ADD NEW EVENT</button>
+    <button mat-raised-button (click)="openAddEventDialog()">ADD NEW EVENT</button>
   </div>
 
   <div class="incidents-container">
 
-    <div class="test" *ngFor="let event of events">
+    <div class="one-event" *ngFor="let event of events">
       <app-event [event]="event"></app-event>
     </div>
 
   </div>
-
-  <div class="incidents-options">
-    <div>
-      add
-    </div>
-  </div>
-
 
 </section>

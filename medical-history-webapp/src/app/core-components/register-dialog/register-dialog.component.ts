@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../_services/auth.service';
 
 @Component({
@@ -22,13 +22,12 @@ export class RegisterDialogComponent implements OnInit {
   password = new FormControl('', Validators.required);
   confirmPassword = new FormControl('', Validators.required);
 
-  constructor(private _formBuilder: FormBuilder,
-              public _authService: AuthService,
+  constructor(public _authService: AuthService,
               private _dialogRef: MatDialogRef<RegisterDialogComponent>) {
   }
 
   ngOnInit() {
-    this.registerForm = this._formBuilder.group({
+    this.registerForm = new FormGroup({
       displayName: this.displayName,
       email: this.email,
       password: this.password,
