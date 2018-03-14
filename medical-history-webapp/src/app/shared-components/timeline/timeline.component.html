@@ -1,9 +1,9 @@
 <section class="timeline-section">
 
-  <div *ngIf="!loading"></div>
+  <app-spinner [loading]="loading"></app-spinner>
 
-  <!-- if incident exists -->
-  <div *ngIf="incident">
+  <div *ngIf="!loading">
+
     <div class="event-options">
       <button mat-mini-fab color="primary" (click)="openEventDialog(null, null)">
         <mat-icon aria-label="Add icon">add</mat-icon>
@@ -21,9 +21,7 @@
         <mat-icon aria-label="Stats icon">equalizer</mat-icon>
       </button>
 
-    </div>
-
-    <app-spinner [loading]="loading"></app-spinner>
+    </div> <!-- end event-options -->
 
     <div class="row">
 
@@ -48,17 +46,8 @@
         <p class="header">STATISTICS</p>
         <p class="text-center">TODO</p>
       </div>
-    </div>
+    </div> <!-- end row -->
 
-
-
-  </div>
-
-
-  <!-- if incident doesn't exists -->
-  <div *ngIf="!incident">
-    <p>nie ma takiego incydentu</p>
-    <p>TODO jakies ladne powiadomienie ze nie ma takiego incydentu i przycisk / link do powrotu </p>
   </div>
 
 </section>
