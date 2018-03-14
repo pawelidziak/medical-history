@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {EventModel} from '../../../_models/EventModel';
-import {EventService} from '../../../_services/event.service';
+import {MatDialog} from '@angular/material';
+import {EventDialogComponent} from '../event-dialog/event-dialog.component';
 
 @Component({
   selector: 'app-event',
@@ -9,22 +10,22 @@ import {EventService} from '../../../_services/event.service';
 })
 export class EventComponent implements OnInit {
 
-  @Input('eventID') eventID: string;
-  event: EventModel;
+  @Input('event') event: EventModel;
 
-  constructor(private _eventService: EventService) {
+  constructor(private _dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this._eventService.getOneEvent(this.eventID).subscribe(
-      (res) => {
-        this.event = res;
-      },
-      (error) => {
-        // FIXME
-        console.log(error);
-      }
-    );
   }
 
+  openEditEventDialog() {
+    const dialogRef = this._dialog.open(EventDialogComponent, {
+      data: {event: this.event}
+    });
+    dialogRef.afterClosed().subscribe((result: EventModel) => {
+      if (typeof result !== 'undefined' && result !== null) {
+        console.log(result);
+      }
+    });
+  }
 }

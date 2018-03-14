@@ -1,26 +1,64 @@
 <section class="timeline-section">
 
-  <div class="add-event">
-    <button mat-raised-button (click)="openAddEventDialog()">ADD NEW EVENT</button>
-  </div>
+  <div *ngIf="!loading"></div>
 
-  <app-spinner [loading]="loading"></app-spinner>
+  <!-- if incident exists -->
+  <div *ngIf="incident">
+    <div class="event-options">
+      <button mat-mini-fab color="primary" (click)="openAddEventDialog()">
+        <mat-icon aria-label="Add icon">add</mat-icon>
+      </button>
 
-  <div class="row">
+      <button mat-mini-fab [matMenuTriggerFor]="settingsOption" *ngIf="incident.listOfEvents.length > 0">
+        <mat-icon aria-label="Add icon">settings</mat-icon>
+      </button>
+      <mat-menu #settingsOption>
+        <button mat-menu-item>Export to PDF</button>
+        <button mat-menu-item>Import</button>
+      </mat-menu>
 
-    <div class="col-6 incidents-container" *ngIf="incident?.listOfEventsID.length > 0">
+      <button mat-mini-fab class="d-md-none" *ngIf="incident.listOfEvents.length > 0">
+        <mat-icon aria-label="Stats icon">equalizer</mat-icon>
+      </button>
 
-      <div class="one-event" *ngFor="let eventID of incident.listOfEventsID">
-        <app-event [eventID]="eventID"></app-event>
+    </div>
+
+    <app-spinner [loading]="loading"></app-spinner>
+
+    <div class="row">
+
+      <div class="col-12 col-md-6">
+
+        <p class="header">TIME-LINE</p>
+
+        <div class="timeline-container" *ngIf="incident.listOfEvents.length > 0">
+          <div class="one-event" *ngFor="let event of incident.listOfEvents; let i=index;">
+            <app-event [event]="event" (click)="openEditEventDialog(event, i)"></app-event>
+          </div>
+        </div>
+
+        <div *ngIf="incident?.listOfEvents.length === 0">
+          <p>You don't have any events in this incident.</p>
+          <span>TODO make me beautiful :V</span>
+        </div>
+
       </div>
 
+      <div class="col-12 col-md-6">
+        <p class="header">STATISTICS</p>
+        <p class="text-center">TODO</p>
+      </div>
     </div>
 
-    <div class="col-6" *ngIf="incident?.listOfEventsID.length === 0">
 
-      <p>You don't have any events in this incident.</p>
-      <span>TODO make me beautiful :V</span>
-    </div>
+
+  </div>
+
+
+  <!-- if incident doesn't exists -->
+  <div *ngIf="!incident">
+    <p>nie ma takiego incydentu</p>
+    <p>TODO jakies ladne powiadomienie ze nie ma takiego incydentu i przycisk / link do powrotu </p>
   </div>
 
 </section>
