@@ -1,11 +1,21 @@
 <section class="section-add-event">
   <div class="header">
-    <h2 *ngIf="!updateEvent">Add Event</h2>
-    <h2 *ngIf="updateEvent">Update Event</h2>
-    <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
-    <button mat-icon-button (click)="closeDialog()">
-      <mat-icon aria-label="Close dialog icon">close</mat-icon>
-    </button>
+    <h2 *ngIf="!eventIsToUpdate">Add Event</h2>
+    <h2 *ngIf="eventIsToUpdate">Update Event</h2>
+    <div>
+      <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+      <button mat-icon-button [matMenuTriggerFor]="confirmDelete" *ngIf="eventIsToUpdate">
+        <mat-icon aria-label="Close dialog icon">delete</mat-icon>
+      </button>
+      <mat-menu #confirmDelete xPosition="before">
+        <button mat-menu-item>No</button>
+        <button mat-menu-item (click)="deleteEvent()">Yes</button>
+      </mat-menu>
+
+      <button mat-icon-button (click)="closeDialog()">
+        <mat-icon aria-label="Close dialog icon">close</mat-icon>
+      </button>
+    </div>
   </div>
 
   <form class="add-event-form" [formGroup]="addEventForm">
@@ -42,9 +52,9 @@
     <div class="add-event-buttons">
       <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
       <button mat-raised-button color="primary" [disabled]="addEventForm.invalid"
-              (click)="addUpdateEvent()">
-        <span *ngIf="!updateEvent">Add</span>
-        <span *ngIf="updateEvent">Update</span>
+              (click)="addEvent()">
+        <span *ngIf="!eventIsToUpdate">Add</span>
+        <span *ngIf="eventIsToUpdate">Update</span>
       </button>
     </div>
   </form>

@@ -5,7 +5,7 @@
   <!-- if incident exists -->
   <div *ngIf="incident">
     <div class="event-options">
-      <button mat-mini-fab color="primary" (click)="openAddEventDialog()">
+      <button mat-mini-fab color="primary" (click)="openEventDialog(null, null)">
         <mat-icon aria-label="Add icon">add</mat-icon>
       </button>
 
@@ -33,7 +33,7 @@
 
         <div class="timeline-container" *ngIf="incident.listOfEvents.length > 0">
           <div class="one-event" *ngFor="let event of incident.listOfEvents; let i=index;">
-            <app-event [event]="event" (click)="openEditEventDialog(event, i)"></app-event>
+            <app-event [event]="event" (click)="openEventDialog(event, i)"></app-event>
           </div>
         </div>
 
