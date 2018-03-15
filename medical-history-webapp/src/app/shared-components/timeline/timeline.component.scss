@@ -9,7 +9,7 @@
   display: flex;
   justify-content: flex-end;
   margin: $normal_margin;
-  button {
+  button, a {
     margin-left: .5*$normal_margin;
   }
 }
@@ -42,12 +42,8 @@
 
 .no-events {
   margin-top: 3*$normal_margin;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   p {
-    font-size: $big_font_size;
     letter-spacing: 2px;
   }
 }

@@ -17,9 +17,10 @@
         <button mat-menu-item>Import</button>
       </mat-menu>
 
-      <button mat-mini-fab class="d-md-none" *ngIf="incident.listOfEvents.length > 0">
+      <a mat-mini-fab class="d-md-none" *ngIf="incident.listOfEvents.length > 0"
+              scrollTo href="#statistics">
         <mat-icon aria-label="Stats icon">equalizer</mat-icon>
-      </button>
+      </a>
 
     </div> <!-- end event-options -->
 
@@ -35,14 +36,14 @@
           </div>
         </div>
 
-        <div *ngIf="incident?.listOfEvents.length === 0">
+        <div *ngIf="incident?.listOfEvents.length === 0" class="no-events">
           <p>You don't have any events in this incident.</p>
-          <span>TODO make me beautiful :V</span>
+          <p>Add some!</p>
         </div>
 
       </div>
 
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-6" id="statistics">
         <p class="header">STATISTICS</p>
         <p class="text-center">TODO</p>
       </div>

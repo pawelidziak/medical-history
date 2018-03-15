@@ -25,7 +25,7 @@ import {IncidentListComponent} from './incident-list/incident-list.component';
     CommonModule,
     SharedComponentsModule,
     MaterialModule,
-    ScrollToModule.forRoot(),
+    ScrollToModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule
