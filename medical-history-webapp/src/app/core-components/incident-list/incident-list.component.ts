@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {IncidentModel} from '../../_models/IncidentModel';
 import {IncidentService} from '../../_services/incident.service';
-import {ISubscription} from "rxjs/Subscription";
+import {ISubscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-occurrence-list',

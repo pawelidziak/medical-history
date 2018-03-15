@@ -9,6 +9,7 @@ import {UserProfileComponent} from './core-components/user-profile/user-profile.
 export const appRoutes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path: 'main', component: MainComponent, canActivate: [AuthGuard], children: [
+      {path: '', redirectTo: '', pathMatch: 'full' },
       {path: 'profile', component: UserProfileComponent},
     {path: ':key', component: TimelineComponent},
   ]},
