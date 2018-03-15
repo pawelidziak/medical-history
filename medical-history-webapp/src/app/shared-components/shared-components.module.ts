@@ -7,6 +7,7 @@ import {EventComponent} from './timeline/event/event.component';
 import {EventDialogComponent} from './timeline/event-dialog/event-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ScrollToModule} from 'ng2-scroll-to';
+import {NotFoundComponent} from './not-found/not-found.component';
 
 @NgModule({
   declarations: [

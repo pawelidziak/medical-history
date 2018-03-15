@@ -44,7 +44,6 @@ export class TimelineComponent implements OnInit {
   getIncident(id: string) {
     this._incidentService.getOneIncident(id).subscribe(
       (res) => {
-        console.log(res);
         if (typeof res !== 'undefined' && res !== null) {
           this.incident = res;
           this.incident.incidentID = id;
