@@ -111,7 +111,6 @@ export class IncidentListComponent implements OnInit {
    *  Method organizes all of the positions number starting by te given index
    */
   private organizePositions(index: number): void {
-    console.log(index);
     for (let i = index; i < this.userIncidents.length; i++) {
       this.userIncidents[i].positionOnList = i;
       this._incidentService.updateIncidentInFirestore(this.userIncidents[i])
