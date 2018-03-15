@@ -69,7 +69,7 @@ export class IncidentService {
    * @returns {Promise<void[]>}
    * @param incidents
    */
-  updateIncidentInFirestore(...incidents): Promise<void[]> {
+  updateIncidentInFirestore(...incidents: IncidentModel[]): Promise<void[]> {
     const data: Promise<void>[] = [];
 
     for (const incident of incidents) {

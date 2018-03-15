@@ -35,12 +35,8 @@ export class IncidentListComponent implements OnInit {
       this.addNewIncident = false;
       this._incidentService
         .addIncidentToFirestore(this.incidentInput.value, this.userIncidents.length)
-        .then(() => {
-          this.incidentInput.reset();
-        })
-        .catch(error => {
-          this.error = error;
-        });
+        .then(() => this.incidentInput.reset())
+        .catch(error => this.error = error);
     }
   }
 
@@ -50,9 +46,7 @@ export class IncidentListComponent implements OnInit {
   updateIncidentName(index: string): void {
     this.userIncidents[index].name = (<HTMLInputElement>document.getElementById('inputName' + index)).value;
     this._incidentService.updateIncidentInFirestore(this.userIncidents[index])
-      .catch(error => {
-        this.error = error;
-      });
+      .catch(error => this.error = error);
   }
 
   /**
@@ -61,17 +55,11 @@ export class IncidentListComponent implements OnInit {
    * @param {string} id
    */
   deleteIncident(id: string): void {
+    const tmpIndex = this.userIncidents.findIndex(x => x.incidentID === id);
+
     this._incidentService.deleteIncidentFromFirestore(id)
-      .catch(error => {
-        this.error = error;
-      });
-
-    this.organizePositions(this.userIncidents.findIndex(i => i.incidentID === id));
-
-    this._incidentService.updateIncidentInFirestore(this.userIncidents)
-      .catch(error => {
-        this.error = error;
-      });
+      .then(() => this.organizePositions(tmpIndex))
+      .catch(error => this.error = error);
   }
 
   /**
@@ -116,17 +104,18 @@ export class IncidentListComponent implements OnInit {
     this._incidentService.updateIncidentInFirestore(
       up ? this.userIncidents[index - 1] : this.userIncidents[index + 1],
       this.userIncidents[index]
-    ).catch(error => {
-      this.error = error;
-    });
+    ).catch(error => this.error = error);
   }
 
   /**
    *  Method organizes all of the positions number starting by te given index
    */
   private organizePositions(index: number): void {
+    console.log(index);
     for (let i = index; i < this.userIncidents.length; i++) {
       this.userIncidents[i].positionOnList = i;
+      this._incidentService.updateIncidentInFirestore(this.userIncidents[i])
+        .catch(error => this.error = error);
     }
   }
 }
