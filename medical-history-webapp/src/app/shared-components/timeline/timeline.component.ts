@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {MatDialog} from '@angular/material';
 import {EventDialogComponent, EventOperation} from './event-dialog/event-dialog.component';
@@ -21,10 +21,12 @@ export class TimelineComponent implements OnInit {
   /**
    * Constructor subscribes to current route and gets the key (incident ID)
    * @param {ActivatedRoute} _route
+   * @param _router
    * @param {MatDialog} _dialog
    * @param {IncidentService} _incidentService
    */
-  constructor(private _route: ActivatedRoute, private _dialog: MatDialog,
+  constructor(private _route: ActivatedRoute, private _router: Router,
+              private _dialog: MatDialog,
               private _incidentService: IncidentService) {
     this.sub = this._route.params.subscribe(
       params => {
@@ -42,12 +44,17 @@ export class TimelineComponent implements OnInit {
   getIncident(id: string) {
     this._incidentService.getOneIncident(id).subscribe(
       (res) => {
+        console.log(res);
         if (typeof res !== 'undefined' && res !== null) {
           this.incident = res;
           this.incident.incidentID = id;
           this.incident.listOfEvents.sort((a, b) => {
             return a.date < b.date ? 1 : -1;
           });
+        }
+        // if response is null (no founded incident) then redirect to 404
+        if (res === null) {
+          this._router.navigate(['/main/404']);
         }
         this.loading = false;
       },

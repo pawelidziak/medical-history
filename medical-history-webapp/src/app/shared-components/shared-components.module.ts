@@ -13,7 +13,8 @@ import {ScrollToModule} from 'ng2-scroll-to';
     SpinnerComponent,
     TimelineComponent,
     EventComponent,
-    EventDialogComponent
+    EventDialogComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +24,8 @@ import {ScrollToModule} from 'ng2-scroll-to';
     ScrollToModule
   ],
   exports: [
-    SpinnerComponent
+    SpinnerComponent,
+    NotFoundComponent
   ],
   providers: [],
   entryComponents: [EventDialogComponent]
