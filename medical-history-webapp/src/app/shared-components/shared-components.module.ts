@@ -6,8 +6,7 @@ import {TimelineComponent} from './timeline/timeline.component';
 import {EventComponent} from './timeline/event/event.component';
 import {EventDialogComponent} from './timeline/event-dialog/event-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { NotFoundComponent } from './not-found/not-found.component';
-import {RouterModule} from "@angular/router";
+import {ScrollToModule} from 'ng2-scroll-to';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,7 @@ import {RouterModule} from "@angular/router";
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    ScrollToModule
   ],
   exports: [
     SpinnerComponent,
