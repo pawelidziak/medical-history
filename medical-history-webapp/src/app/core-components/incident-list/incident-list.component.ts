@@ -1,24 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {IncidentModel} from '../../_models/IncidentModel';
 import {IncidentService} from '../../_services/incident.service';
-import {ISubscription} from "rxjs/Subscription";
+import {ISubscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-occurrence-list',
   templateUrl: './incident-list.component.html',
   styleUrls: ['./incident-list.component.scss'],
 })
-export class IncidentListComponent implements OnInit, OnDestroy {
+export class IncidentListComponent implements OnInit {
 
-  // http://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-  private subscription: ISubscription;
-
-  userIncidents: Array<IncidentModel> = [];
+  @Input('userIncidents') userIncidents: Array<IncidentModel>;
   addNewIncident = false;
   incidentInput = new FormControl('');
 
-  loading: boolean;
   error: string;
 
   showIncidentOption = false;
@@ -27,30 +23,6 @@ export class IncidentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getUserIncidents();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  /**
-   * Method gets incidents (of current logged user) from DB and
-   * subscribes for its possible changes
-   */
-  private getUserIncidents(): void {
-    this.loading = true;
-    this.subscription = this._incidentService.incidents.subscribe(
-      (list) => {
-        this.userIncidents = [];
-        this.userIncidents = list;
-        this.loading = false;
-      },
-      error => {
-        this.error = error;
-        this.loading = false;
-      }
-    );
   }
 
   /**

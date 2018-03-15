@@ -1,10 +1,5 @@
 <section class="occurrence-list">
 
-  <app-spinner [loading]="loading"></app-spinner>
-
-
-  <div *ngIf="!loading">
-
     <div class="alert-msg msg-error" *ngIf="error" style="margin: 10px;">
       <span>{{error}}</span>
       <div class="close">
@@ -82,5 +77,4 @@
       </button>
     </div>
 
-  </div> <!-- end of spinner-->
 </section>
