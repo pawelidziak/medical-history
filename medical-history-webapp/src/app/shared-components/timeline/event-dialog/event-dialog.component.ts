@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventModel} from '../../../_models/EventModel';
+import {DateTimeAdapter} from 'ng-pick-datetime';
+import {environment} from '../../../../environments/environment';
 
 export enum EventOperation {
   toAdd,
@@ -33,7 +35,9 @@ export class EventDialogComponent implements OnInit {
   selectedType: any;
 
   constructor(private _dialogRef: MatDialogRef<EventDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              dateTimeAdapter: DateTimeAdapter<any>) {
+    dateTimeAdapter.setLocale(environment.language);
   }
 
   /**
@@ -63,6 +67,7 @@ export class EventDialogComponent implements OnInit {
   closeDialog(): void {
     this._dialogRef.close();
   }
+
   /**
    * Method closes event dialog with event to add/update and operation 'toAdd'/'toDelete'
    */

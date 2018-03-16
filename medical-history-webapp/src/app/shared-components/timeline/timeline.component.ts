@@ -16,7 +16,6 @@ export class TimelineComponent implements OnInit {
 
   private sub: Subscription;
   incident: IncidentModel;
-  loading = true;
 
   /**
    * Constructor subscribes to current route and gets the key (incident ID)
@@ -55,12 +54,10 @@ export class TimelineComponent implements OnInit {
         if (res === null) {
           this._router.navigate(['/main/404']);
         }
-        this.loading = false;
       },
       (error) => {
         // FIXME
         console.log(error);
-        this.loading = false;
       }
     );
   }
