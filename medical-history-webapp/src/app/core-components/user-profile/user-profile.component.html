@@ -1,32 +1,39 @@
 <div class="user-container">
-  <mat-card>
-    <div class="example-container">
-      <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
-        <mat-form-field>
-          <input matInput placeholder="Full Name" [formControl]="displayName">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Adress">
-        </mat-form-field>
-        <mat-form-field>
-          <span matPrefix>+48 &nbsp;</span>
-          <input maxlength="9" type="tel" matInput placeholder="Telephone" [formControl]="displayMobileNumber" type="number">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Weight" [formControl]="displayWeight" type="number">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Height" [formControl]="displayHeight" type="number">
-        </mat-form-field>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <mat-card>
+          <div>
+            <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
+              <mat-form-field>
+                <input matInput placeholder="Full Name" [formControl]="displayName">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Adress">
+              </mat-form-field>
+              <mat-form-field>
+                <span matPrefix>+48 &nbsp;</span>
+                <input max="9" type="tel" matInput placeholder="Telephone" [formControl]="displayMobileNumber"
+                       type="number">
+              </mat-form-field>
+              <mat-form-field>
+                <input max="3" matInput placeholder="Weight" [formControl]="displayWeight" type="number">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Height" [formControl]="displayHeight" type="number">
+              </mat-form-field>
 
-        <button mat-raised-button type="submit">OK</button>
-      </form>
-    </div>
-  </mat-card>
-  <div>
+              <button mat-raised-button type="submit">OK</button>
+            </form>
+          </div>
+        </mat-card>
+      </div>
 
-    <div>
-      {{countBMI()}}
+      <div class="col-6">
+        <div>
+          {{countBMI()}}
+        </div>
+      </div>
     </div>
   </div>
 </div>

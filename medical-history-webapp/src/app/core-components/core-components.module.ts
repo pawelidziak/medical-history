@@ -27,7 +27,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     CommonModule,
     SharedComponentsModule,
     MaterialModule,
-    ScrollToModule.forRoot(),
+    ScrollToModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule

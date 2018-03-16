@@ -1,39 +1,43 @@
-<mat-drawer-container (backdropClick)="hideDrawer ? drawer.close() : null">
+<app-spinner [loading]="loading"></app-spinner>
 
-  <mat-drawer [disableClose]="true" #drawer [mode]="hideDrawer ? 'over' : 'side'" [opened]="!hideDrawer">
-    <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+<section class="section-main" *ngIf="!loading">
+  <mat-drawer-container (backdropClick)="hideDrawer ? drawer.close() : null">
 
-    <div class="drawer-header">
-      <div class="wave-bg"></div>
+    <mat-drawer [disableClose]="true" #drawer [mode]="hideDrawer ? 'over' : 'side'" [opened]="!hideDrawer">
+      <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
 
-      <div class="header-title">
-        <div class="z-index app-name">Medical History</div>
-        <button mat-icon-button (click)="logout()">
-          <mat-icon class="z-index" aria-label="Logout icon">exit_to_app</mat-icon>
-        </button>
+      <div class="drawer-header">
+        <div class="wave-bg"></div>
+
+        <div class="header-title">
+          <div class="z-index app-name">Medical History</div>
+          <button mat-icon-button (click)="logout()">
+            <mat-icon class="z-index" aria-label="Logout icon">exit_to_app</mat-icon>
+          </button>
+        </div>
+
+        <div class="user-info">
+          <button mat-raised-button [routerLink]="['/main/profile']">
+            <mat-icon aria-label="Account icon">account_circle</mat-icon>
+            <span>{{getUserName()}}</span>
+          </button>
+        </div>
       </div>
 
-      <div class="user-info">
-        <button mat-raised-button [routerLink]="['/main/profile']">
-          <mat-icon aria-label="Account icon">account_circle</mat-icon>
-          <span>{{getUserName()}}</span>
-        </button>
+      <div class="drawer-content">
+        <app-occurrence-list [userIncidents]="userIncidents"></app-occurrence-list>
       </div>
-    </div>
 
-<!-- to do set parameter do routingu -->
-    <div class="drawer-content">
-      <app-occurrence-list></app-occurrence-list>
-    </div>
+    </mat-drawer>
 
-  </mat-drawer>
-
-  <span id="button-menu" *ngIf="hideDrawer" (click)="drawer.toggle()">
+    <span id="button-menu" *ngIf="hideDrawer" (click)="drawer.toggle()">
     <mat-icon aria-label="Open menu icon">menu</mat-icon>
   </span>
 
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
 
-</mat-drawer-container>
+  </mat-drawer-container>
+
+</section>

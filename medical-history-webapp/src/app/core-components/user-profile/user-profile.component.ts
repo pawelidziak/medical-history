@@ -10,7 +10,7 @@ export class UserProfileComponent implements OnInit {
 
   userForm: FormGroup;
   displayName = new FormControl('', Validators.required);
-  displayHeight = new FormControl('', [Validators.required, Validators.pattern('[0-9]\\.[0-9]{2}')]);
+  displayHeight = new FormControl('', [Validators.required, Validators.pattern('[0-9]\\.[0-9]+')]);
   displayBMI = new FormControl('');
   displayWeight = new FormControl('');
   displayMobileNumber = new FormControl('', Validators.pattern('[0-9]{9}'))

@@ -5,14 +5,16 @@ import {MainComponent} from './core-components/main/main.component';
 import {AuthGuard} from './_guard/auth.guard';
 import {TimelineComponent} from './shared-components/timeline/timeline.component';
 import {UserProfileComponent} from './core-components/user-profile/user-profile.component';
+import {NotFoundComponent} from './shared-components/not-found/not-found.component';
 
 export const appRoutes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path: 'main', component: MainComponent, canActivate: [AuthGuard], children: [
       {path: '', redirectTo: '', pathMatch: 'full' },
       {path: 'profile', component: UserProfileComponent},
-    {path: ':key', component: TimelineComponent},
-  ]},
+      {path: '404', component: NotFoundComponent},
+      {path: ':key', component: TimelineComponent}
+    ]},
   {path: '**', redirectTo: 'main'}
 ]as Routes;
 
