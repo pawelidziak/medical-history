@@ -14,6 +14,7 @@ import {routing} from './app.routing';
 import {AuthGuard} from './_guard/auth.guard';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {IncidentService} from './_services/incident.service';
+import {EventsService} from './_services/events.service';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {IncidentService} from './_services/incident.service';
   providers: [
     AuthService,
     IncidentService,
+    EventsService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

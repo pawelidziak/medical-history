@@ -21,7 +21,7 @@
   <form class="add-event-form" [formGroup]="addEventForm">
 
     <mat-form-field class="full-width">
-      <input type="text" matInput placeholder="Title" [formControl]="title" required>
+      <input type="text" matInput placeholder="Title" [formControl]="eventTitle" required>
     </mat-form-field>
 
     <div class="">
@@ -38,24 +38,27 @@
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" placeholder="Choose a date" [formControl]="date"
-               required style="cursor: pointer;">
+        <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" placeholder="Choose a date"
+               [formControl]="eventDate" required style="cursor: pointer;">
         <mat-icon aria-label="Calendar icon" matSuffix>today</mat-icon>
         <owl-date-time [pickerMode]="'dialog'" #dt></owl-date-time>
       </mat-form-field>
 
     </div>
     <mat-form-field class="full-width">
-      <textarea rows="4" matInput placeholder="Description" [formControl]="desc"></textarea>
+      <textarea rows="4" matInput placeholder="Description" [formControl]="eventDesc"></textarea>
     </mat-form-field>
 
 
     <div class="add-event-buttons">
       <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
       <button mat-raised-button color="primary" [disabled]="addEventForm.invalid"
-              (click)="addEvent()">
-        <span *ngIf="!eventIsToUpdate">Add</span>
-        <span *ngIf="eventIsToUpdate">Update</span>
+              *ngIf="!eventIsToUpdate" (click)="addEvent()">
+        Add
+      </button>
+      <button mat-raised-button color="primary" [disabled]="addEventForm.invalid"
+              *ngIf="eventIsToUpdate" (click)="updateEvent()">
+        Update
       </button>
     </div>
   </form>
