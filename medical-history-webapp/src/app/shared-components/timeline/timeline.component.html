@@ -1,8 +1,4 @@
-<section class="timeline-section">
-
-  <app-spinner [loading]="loading"></app-spinner>
-
-  <div *ngIf="!loading">
+<section class="timeline-section" *ngIf="incident">
 
     <div class="event-options">
       <button mat-mini-fab color="primary" (click)="openEventDialog(null, null)">
@@ -48,7 +44,5 @@
         <p class="text-center">TODO</p>
       </div>
     </div> <!-- end row -->
-
-  </div>
 
 </section>

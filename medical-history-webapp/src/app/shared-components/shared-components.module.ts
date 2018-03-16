@@ -8,6 +8,7 @@ import {EventDialogComponent} from './timeline/event-dialog/event-dialog.compone
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {NotFoundComponent} from './not-found/not-found.component';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import {NotFoundComponent} from './not-found/not-found.component';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    ScrollToModule
+    ScrollToModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   exports: [
     SpinnerComponent,

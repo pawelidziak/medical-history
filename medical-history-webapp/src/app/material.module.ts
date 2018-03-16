@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {
   MatButtonModule, MatButtonToggleModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
   MatSidenavModule, MatDialogModule, MatProgressSpinnerModule, MatListModule, MatMenuModule, MatSelectModule,
-  MatDatepickerModule, MatNativeDateModule
+  MatNativeDateModule
 } from '@angular/material';
 
 @NgModule({
@@ -19,7 +19,6 @@ import {
     MatListModule,
     MatMenuModule,
     MatSelectModule,
-    MatDatepickerModule,
     MatNativeDateModule,
   ],
   exports: [
@@ -35,7 +34,6 @@ import {
     MatListModule,
     MatMenuModule,
     MatSelectModule,
-    MatDatepickerModule,
     MatNativeDateModule
   ]
 })
