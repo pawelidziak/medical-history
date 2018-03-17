@@ -19,13 +19,13 @@ export enum EventOperation {
 export class EventDialogComponent implements OnInit {
 
   public addEventForm: FormGroup;
-  private title = new FormControl('', Validators.required);
-  private date = new FormControl('', Validators.required);
-  private desc = new FormControl();
+  eventTitle = new FormControl('', Validators.required);
+  eventDate = new FormControl('', Validators.required);
+  eventDesc = new FormControl();
 
   eventIsToUpdate: boolean;
 
-  // TODO get types from FB
+  // PROPOSAL get types from FB
   eventTypes = [
     {name: 'VISIT', color: '#8BC34A'},
     {name: 'INFO', color: '#1976D2'},
@@ -46,18 +46,16 @@ export class EventDialogComponent implements OnInit {
    */
   ngOnInit() {
     this.eventIsToUpdate = this.data.event !== null;
-
     if (this.eventIsToUpdate) {
-      this.title.setValue(this.data.event.title);
-      this.date.setValue(this.data.event.date);
-      this.desc.setValue(this.data.event.desc);
+      this.eventTitle.setValue(this.data.event.title);
+      this.eventDate.setValue(this.data.event.date);
+      this.eventDesc.setValue(this.data.event.desc);
       this.selectedType = this.eventTypes.find(x => x.name === this.data.event.type.name);
-
     }
     this.addEventForm = new FormGroup({
-      title: this.title,
-      date: this.date,
-      desc: this.desc,
+      title: this.eventTitle,
+      date: this.eventDate,
+      desc: this.eventDesc,
     });
   }
 
@@ -69,21 +67,33 @@ export class EventDialogComponent implements OnInit {
   }
 
   /**
-   * Method closes event dialog with event to add/update and operation 'toAdd'/'toDelete'
+   * Method closes event dialog with event to add and operation 'toAdd'
    */
   addEvent(): void {
     if (this.addEventForm.valid) {
       const eventModel: EventModel = {
-        title: this.title.value,
-        desc: this.desc.value,
-        date: this.date.value,
+        title: this.eventTitle.value,
+        desc: this.eventDesc.value,
+        date: this.eventDate.value,
         type: this.selectedType
       };
-      if (this.eventIsToUpdate) {
-        this._dialogRef.close({eventModel: eventModel, operation: EventOperation.toUpdate});
-      } else {
-        this._dialogRef.close({eventModel: eventModel, operation: EventOperation.toAdd});
-      }
+      this._dialogRef.close({eventModel: eventModel, operation: EventOperation.toAdd});
+    }
+  }
+
+  /**
+   * Method closes event dialog with event to update and operation 'toUpdate'
+   */
+  updateEvent(): void {
+    if (this.addEventForm.valid) {
+      const eventModel: EventModel = {
+        title: this.eventTitle.value,
+        desc: this.eventDesc.value,
+        date: this.eventDate.value,
+        type: this.selectedType,
+        eventID: this.data.event.eventID
+      };
+      this._dialogRef.close({eventModel: eventModel, operation: EventOperation.toUpdate});
     }
   }
 
