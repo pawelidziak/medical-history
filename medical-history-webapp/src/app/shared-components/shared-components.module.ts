@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {RouterModule} from '@angular/router';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import {RouterModule} from '@angular/router';
     TimelineComponent,
     EventComponent,
     EventDialogComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -24,7 +25,9 @@ import {RouterModule} from '@angular/router';
     ReactiveFormsModule,
     FormsModule,
     ScrollToModule,
-    RouterModule
+    RouterModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   exports: [
     SpinnerComponent,

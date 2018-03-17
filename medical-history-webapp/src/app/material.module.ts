@@ -19,7 +19,6 @@ import {
     MatListModule,
     MatMenuModule,
     MatSelectModule,
-    MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
   ],

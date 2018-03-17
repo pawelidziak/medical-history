@@ -12,5 +12,6 @@ export const environment = {
     projectId: 'medical-history-web',
     storageBucket: 'medical-history-web.appspot.com',
     messagingSenderId: '513029167459'
-  }
+  },
+  language: 'pl'
 };

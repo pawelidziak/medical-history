@@ -38,9 +38,10 @@
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date" required>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker touchUi="true" #picker></mat-datepicker>
+        <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" placeholder="Choose a date" [formControl]="date"
+               required style="cursor: pointer;">
+        <mat-icon aria-label="Calendar icon" matSuffix>today</mat-icon>
+        <owl-date-time [pickerMode]="'dialog'" #dt></owl-date-time>
       </mat-form-field>
 
     </div>
