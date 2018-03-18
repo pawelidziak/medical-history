@@ -8,8 +8,10 @@ import {EventDialogComponent} from './timeline/event-dialog/event-dialog.compone
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {NotFoundComponent} from './not-found/not-found.component';
-import {RouterModule} from '@angular/router';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {RouterModule} from '@angular/router';
+import { GraphComponent } from './graph/graph.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
     EventComponent,
     EventDialogComponent,
     NotFoundComponent,
+    GraphComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +30,9 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
     ScrollToModule,
     RouterModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    RouterModule,
+    HttpClientModule
   ],
   exports: [
     SpinnerComponent,

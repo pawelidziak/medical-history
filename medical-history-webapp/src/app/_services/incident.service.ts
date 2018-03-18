@@ -8,12 +8,14 @@ import DocumentReference = firebase.firestore.DocumentReference;
 @Injectable()
 export class IncidentService {
 
+  private readonly INCIDENTS_NAME = 'incidents';
+  private readonly USER_ID_FIELD = 'userID';
+  private readonly POSITION_ON_LIST_FIELD = 'positionOnList';
+
   private _incidentsCollectionRef: AngularFirestoreCollection<IncidentModel>;
-  private _incidents: Observable<Array<IncidentModel>>;
 
   constructor(private readonly _afs: AngularFirestore, private _auth: AuthService) {
     this.initCollectionRef();
-    this.initCollection();
   }
 
   /**
@@ -22,19 +24,19 @@ export class IncidentService {
    * and orders the result by declared position on the list
    */
   private initCollectionRef(): void {
-    this._incidentsCollectionRef = this._afs.collection<IncidentModel>('incidents',
+    this._incidentsCollectionRef = this._afs.collection<IncidentModel>(this.INCIDENTS_NAME,
       ref => ref
-        .where('userID', '==', this._auth.userUID)
-        .orderBy('positionOnList'));
+        .where(this.USER_ID_FIELD, '==', this._auth.userUID)
+        .orderBy(this.POSITION_ON_LIST_FIELD));
   }
 
   /**
-   * Method initializes the observable stream between Firestore documents (all of user incidents)
-   * and additionally it assigns the incidents ids (that's why we use snapshotChanges().map(...) and
+   * Method returns the observable stream between Firestore documents (all of user incidents)
+   * and additionally it assigns the incident ids (that's why we use snapshotChanges().map(...) and
    * not valueChanges())
    */
-  private initCollection(): void {
-    this._incidents = this._incidentsCollectionRef.snapshotChanges().map(actions => {
+  get(): Observable<IncidentModel[]> {
+    return this._incidentsCollectionRef.snapshotChanges().map(actions => {
       return actions.map(a => {
         const incidentID = a.payload.doc.id;
         const data = a.payload.doc.data() as IncidentModel;
@@ -46,18 +48,16 @@ export class IncidentService {
   /**
    * Method creates and adds incident into Firestore.
    * It takes the current logged user ID from {AuthService}, name,
-   * position on the list (by default it's pushed at the end of list), and list of
-   * events (at the beginning it's empty)
+   * position on the list (by default it's pushed at the end of list)
    * @param {string} newName
    * @param {number} position
    * @returns {Promise<firebase.firestore.DocumentReference>}
    */
-  addIncidentToFirestore(newName: string, position: number): Promise<DocumentReference> {
+  add(newName: string, position: number): Promise<DocumentReference> {
     const newIncident: IncidentModel = {
       userID: this._auth.userUID,
       name: newName,
-      positionOnList: position,
-      listOfEvents: []
+      positionOnList: position
     };
     return this._incidentsCollectionRef.add(newIncident);
   }
@@ -69,15 +69,14 @@ export class IncidentService {
    * @returns {Promise<void[]>}
    * @param incidents
    */
-  updateIncidentInFirestore(...incidents: IncidentModel[]): Promise<void[]> {
+  update(...incidents: IncidentModel[]): Promise<void[]> {
     const data: Promise<void>[] = [];
 
     for (const incident of incidents) {
       const tmp: IncidentModel = {
         userID: incident.userID,
         name: incident.name,
-        positionOnList: incident.positionOnList,
-        listOfEvents: incident.listOfEvents
+        positionOnList: incident.positionOnList
       };
       data.push(this._incidentsCollectionRef.doc(incident.incidentID).update(tmp));
     }
@@ -92,20 +91,4 @@ export class IncidentService {
   deleteIncidentFromFirestore(idDoc: string): Promise<void> {
     return this._incidentsCollectionRef.doc(idDoc).delete();
   }
-
-  /**
-   * Method gets one incident (document in firestore) by given id
-   * and returns the observable of this element
-   * @param {string} idDoc
-   * @returns {Observable<any>}
-   */
-  getOneIncident(idDoc: string): Observable<any> {
-    return this._afs.doc('incidents/' + idDoc).valueChanges();
-  }
-
-  // Getters & setters
-  get incidents(): Observable<IncidentModel[]> {
-    return this._incidents;
-  }
-
 }

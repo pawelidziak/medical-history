@@ -1,8 +1,8 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {IncidentModel} from '../../_models/IncidentModel';
 import {IncidentService} from '../../_services/incident.service';
-import {ISubscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-occurrence-list',
@@ -19,7 +19,7 @@ export class IncidentListComponent implements OnInit {
 
   showIncidentOption = false;
 
-  constructor(public _incidentService: IncidentService) {
+  constructor(public _incidentService: IncidentService, private _router: Router) {
   }
 
   ngOnInit(): void {
@@ -33,9 +33,11 @@ export class IncidentListComponent implements OnInit {
   addIncident(): void {
     if (this.incidentInput.value !== '' && this.incidentInput.value !== ' ') {
       this.addNewIncident = false;
-      this._incidentService
-        .addIncidentToFirestore(this.incidentInput.value, this.userIncidents.length)
-        .then(() => this.incidentInput.reset())
+      this._incidentService.add(this.incidentInput.value, this.userIncidents.length)
+        .then((doc) => {
+          this._router.navigate(['/main/' + doc.id]);
+          this.incidentInput.reset();
+        })
         .catch(error => this.error = error);
     }
   }
@@ -45,7 +47,7 @@ export class IncidentListComponent implements OnInit {
    */
   updateIncidentName(index: string): void {
     this.userIncidents[index].name = (<HTMLInputElement>document.getElementById('inputName' + index)).value;
-    this._incidentService.updateIncidentInFirestore(this.userIncidents[index])
+    this._incidentService.update(this.userIncidents[index])
       .catch(error => this.error = error);
   }
 
@@ -58,7 +60,10 @@ export class IncidentListComponent implements OnInit {
     const tmpIndex = this.userIncidents.findIndex(x => x.incidentID === id);
 
     this._incidentService.deleteIncidentFromFirestore(id)
-      .then(() => this.organizePositions(tmpIndex))
+      .then(() => {
+        this._router.navigate(['/main']);
+        this.organizePositions(tmpIndex);
+      })
       .catch(error => this.error = error);
   }
 
@@ -101,7 +106,7 @@ export class IncidentListComponent implements OnInit {
       return a.positionOnList < b.positionOnList ? -1 : 1;
     });
 
-    this._incidentService.updateIncidentInFirestore(
+    this._incidentService.update(
       up ? this.userIncidents[index - 1] : this.userIncidents[index + 1],
       this.userIncidents[index]
     ).catch(error => this.error = error);
@@ -113,7 +118,7 @@ export class IncidentListComponent implements OnInit {
   private organizePositions(index: number): void {
     for (let i = index; i < this.userIncidents.length; i++) {
       this.userIncidents[i].positionOnList = i;
-      this._incidentService.updateIncidentInFirestore(this.userIncidents[i])
+      this._incidentService.update(this.userIncidents[i])
         .catch(error => this.error = error);
     }
   }

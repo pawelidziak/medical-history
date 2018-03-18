@@ -43,7 +43,7 @@ export class MainComponent implements OnInit, OnDestroy {
    */
   private getUserIncidents(): void {
     this.loading = true;
-    this.subscription = this._incidentService.incidents.subscribe(
+    this.subscription = this._incidentService.get().subscribe(
       (list) => {
         this.userIncidents = [];
         this.userIncidents = list;

@@ -14,7 +14,9 @@ import {routing} from './app.routing';
 import {AuthGuard} from './_guard/auth.guard';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {IncidentService} from './_services/incident.service';
-import {ChartModule} from 'angular2-chartjs';
+import {EventsService} from './_services/events.service';
+import {TestService} from './_services/test.service';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -33,12 +35,14 @@ import {ChartModule} from 'angular2-chartjs';
     CoreComponentsModule,
     routing,
     AngularFirestoreModule,
-    ChartModule
+    ChartsModule
   ],
   providers: [
     AuthService,
     IncidentService,
-    AuthGuard
+    EventsService,
+    AuthGuard,
+    TestService,
   ],
   bootstrap: [AppComponent]
 })

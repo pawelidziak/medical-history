@@ -1,48 +1,50 @@
-<section class="timeline-section" *ngIf="incident">
+<app-spinner [loading]="loading"></app-spinner>
 
-    <div class="event-options">
-      <button mat-mini-fab color="primary" (click)="openEventDialog(null, null)">
-        <mat-icon aria-label="Add icon">add</mat-icon>
-      </button>
+<section class="timeline-section" *ngIf="!loading">
 
-      <button mat-mini-fab [matMenuTriggerFor]="settingsOption" *ngIf="incident.listOfEvents.length > 0">
-        <mat-icon aria-label="Add icon">settings</mat-icon>
-      </button>
-      <mat-menu #settingsOption>
-        <button mat-menu-item>Export to PDF</button>
-        <button mat-menu-item>Import</button>
-      </mat-menu>
+  <div class="event-options">
+    <button mat-mini-fab color="primary" (click)="openEventDialog(null)">
+      <mat-icon aria-label="Add icon">add</mat-icon>
+    </button>
 
-      <a mat-mini-fab class="d-md-none" *ngIf="incident.listOfEvents.length > 0"
-              scrollTo href="#statistics">
-        <mat-icon aria-label="Stats icon">equalizer</mat-icon>
-      </a>
+    <button mat-mini-fab [matMenuTriggerFor]="settingsOption" *ngIf="events.length > 0">
+      <mat-icon aria-label="Add icon">settings</mat-icon>
+    </button>
+    <mat-menu #settingsOption>
+      <button mat-menu-item>Export to PDF</button>
+      <button mat-menu-item>Import</button>
+    </mat-menu>
 
-    </div> <!-- end event-options -->
+    <a mat-mini-fab class="d-md-none" *ngIf="events.length > 0"
+       scrollTo href="#statistics">
+      <mat-icon aria-label="Stats icon">equalizer</mat-icon>
+    </a>
 
-    <div class="row">
+  </div> <!-- end event-options -->
 
-      <div class="col-12 col-md-6">
+  <div class="row">
 
-        <p class="header">TIME-LINE</p>
+    <div class="col-12 col-md-6">
 
-        <div class="timeline-container" *ngIf="incident.listOfEvents.length > 0">
-          <div class="one-event" *ngFor="let event of incident.listOfEvents; let i=index;">
-            <app-event [event]="event" (click)="openEventDialog(event, i)"></app-event>
-          </div>
+      <p class="header">TIME-LINE</p>
+
+      <div class="timeline-container" *ngIf="events.length > 0">
+        <div class="one-event" *ngFor="let event of events">
+          <app-event [event]="event" (click)="openEventDialog(event)"></app-event>
         </div>
-
-        <div *ngIf="incident?.listOfEvents.length === 0" class="no-events">
-          <p>You don't have any events in this incident.</p>
-          <p>Add some!</p>
-        </div>
-
       </div>
 
-      <div class="col-12 col-md-6" id="statistics">
-        <p class="header">STATISTICS</p>
-        <p class="text-center">TODO</p>
+      <div *ngIf="events.length === 0" class="no-events">
+        <p>You don't have any events in this incident.</p>
+        <p>Add some!</p>
       </div>
-    </div> <!-- end row -->
+
+    </div>
+
+    <div class="col-12 col-md-6" id="statistics">
+      <p class="header">STATISTICS</p>
+      <p class="text-center">TODO</p>
+    </div>
+  </div> <!-- end row -->
 
 </section>
