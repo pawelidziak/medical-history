@@ -8,14 +8,13 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {environment} from '../environments/environment';
-import {AuthService} from './_services/auth.service';
-import {CoreComponentsModule} from './core-components/core-components.module';
+import {AuthService} from './core/auth.service';
 import {routing} from './app.routing';
-import {AuthGuard} from './_guard/auth.guard';
+import {AuthGuard} from './core/auth.guard';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
-import {IncidentService} from './_services/incident.service';
-import {EventsService} from './_services/events.service';
-
+import {IncidentService} from './core/incident.service';
+import {EventsService} from './core/events.service';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,7 @@ import {EventsService} from './_services/events.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    CoreComponentsModule,
+    CoreModule,
     routing,
     AngularFirestoreModule
   ],

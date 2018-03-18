@@ -1,20 +1,20 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MaterialModule} from '../material.module';
-import {SpinnerComponent} from './spinner/spinner.component';
-import {TimelineComponent} from './timeline/timeline.component';
-import {EventComponent} from './timeline/event/event.component';
-import {EventDialogComponent} from './timeline/event-dialog/event-dialog.component';
+import {SpinnerComponent} from '../core/spinner/spinner.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ScrollToModule} from 'ng2-scroll-to';
-import {NotFoundComponent} from './not-found/not-found.component';
+import {NotFoundComponent} from '../core/not-found/not-found.component';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {RouterModule} from '@angular/router';
+import {EventListComponent} from './event-list/event-list.component';
+import {EventComponent} from './event-list/event/event.component';
+import {EventDialogComponent} from './event-list/event-dialog/event-dialog.component';
 
 @NgModule({
   declarations: [
     SpinnerComponent,
-    TimelineComponent,
+    EventListComponent,
     EventComponent,
     EventDialogComponent,
     NotFoundComponent
@@ -36,5 +36,5 @@ import {RouterModule} from '@angular/router';
   providers: [],
   entryComponents: [EventDialogComponent]
 })
-export class SharedComponentsModule {
+export class FeaturesModule {
 }

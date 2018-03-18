@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {AuthService} from '../../_services/auth.service';
-import {RegisterDialogComponent} from '../register-dialog/register-dialog.component';
+import {AuthService} from '../../core/auth.service';
+import {RegisterDialogComponent} from './register-dialog/register-dialog.component';
 import {FormControl} from '@angular/forms';
-import {ForgotDialogComponent} from '../forgot-dialog/forgot-dialog.component';
+import {ForgotDialogComponent} from './forgot-dialog/forgot-dialog.component';
 import {Router} from '@angular/router';
 
 @Component({
@@ -66,11 +66,11 @@ export class LoginComponent implements OnInit {
     return this._authService.emailPasswordLogin(this.email.value, this.password.value);
   }
 
-  openRegisterDialog() {
+  openRegisterDialog(): void {
     this._dialog.open(RegisterDialogComponent);
   }
 
-  openForgotDialog() {
+  openForgotDialog(): void {
     this._dialog.open(ForgotDialogComponent);
   }
 }

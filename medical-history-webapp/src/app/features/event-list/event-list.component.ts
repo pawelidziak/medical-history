@@ -4,14 +4,14 @@ import {ISubscription, Subscription} from 'rxjs/Subscription';
 import {MatDialog} from '@angular/material';
 import {EventDialogComponent, EventOperation} from './event-dialog/event-dialog.component';
 import {EventModel} from '../../_models/EventModel';
-import {EventsService} from '../../_services/events.service';
+import {EventsService} from '../../core/events.service';
 
 @Component({
-  selector: 'app-timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.scss']
+  selector: 'app-event-list',
+  templateUrl: './event-list.component.html',
+  styleUrls: ['./event-list.component.scss']
 })
-export class TimelineComponent implements OnInit, OnDestroy {
+export class EventListComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
   private subscription: ISubscription;

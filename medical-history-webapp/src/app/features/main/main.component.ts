@@ -1,10 +1,10 @@
 import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from '@angular/material';
-import {AuthService} from '../../_services/auth.service';
+import {AuthService} from '../../core/auth.service';
 import {Router} from '@angular/router';
 import {ISubscription} from 'rxjs/Subscription';
 import {IncidentModel} from '../../_models/IncidentModel';
-import {IncidentService} from '../../_services/incident.service';
+import {IncidentService} from '../../core/incident.service';
 
 @Component({
   selector: 'app-main',

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {IncidentModel} from '../../_models/IncidentModel';
-import {IncidentService} from '../../_services/incident.service';
+import {IncidentService} from '../../core/incident.service';
 import {Router} from '@angular/router';
 
 @Component({
