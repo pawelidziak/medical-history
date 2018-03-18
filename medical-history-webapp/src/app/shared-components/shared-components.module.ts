@@ -12,6 +12,7 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {RouterModule} from '@angular/router';
 import { GraphComponent } from './graph/graph.component';
 import {HttpClientModule} from '@angular/common/http';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {HttpClientModule} from '@angular/common/http';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   exports: [
     SpinnerComponent,

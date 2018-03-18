@@ -53,7 +53,7 @@ export class IncidentService {
    * @param {number} position
    * @returns {Promise<firebase.firestore.DocumentReference>}
    */
-  add(newName: string, position: number): Promise<DocumentReference> {
+  add(newName: string, position: number): Promise<any> {
     const newIncident: IncidentModel = {
       userID: this._auth.userUID,
       name: newName,

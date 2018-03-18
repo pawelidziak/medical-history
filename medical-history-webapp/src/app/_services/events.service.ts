@@ -32,7 +32,7 @@ export class EventsService {
     });
   }
 
-  add(incidentId: string, eventModel: EventModel): Promise<DocumentReference> {
+  add(incidentId: string, eventModel: EventModel): Promise<any> {
     return this._afs.collection(this.INCIDENT_PATH + incidentId + this.EVENT_PATH).add(eventModel);
   }
 

@@ -1,3 +1,20 @@
-<div *ngIf="chart">
-  <canvas id="canvas">{{ chart }}</canvas>
+<h2>[colors] being undefined prevents all of [datasets]'s colors</h2>
+<div style="display: block">
+  <canvas baseChart
+          [labels]="labels"
+          [data]="data"
+          [colors]="colorsUndefined"
+          [chartType]="type"
+  ></canvas>
 </div>
+
+<h2>[colors] being empty prevents [datasets]'s backgroundColor</h2>
+<div style="display: block">
+  <canvas baseChart
+          [labels]="labels"
+          [datasets]="datasets"
+          [colors]="colorsEmpty"
+          [chartType]="type"
+  ></canvas>
+</div>
+

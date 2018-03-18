@@ -1,6 +1,7 @@
-import {Component, NgModule, OnInit} from '@angular/core';
-import { Chart } from 'chart.js';
+import {Component, OnInit} from '@angular/core';
+import {Chart} from 'chart.js';
 import {TestService} from '../../_services/test.service';
+import {Color} from 'ng2-charts';
 
 @Component({
   selector: 'app-graph',
@@ -10,54 +11,34 @@ import {TestService} from '../../_services/test.service';
 })
 export class GraphComponent implements OnInit {
 
-  chart = []; // This will hold our chart info
+  name: string;
+  labels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  data: number[] = [350, 450, 100];
+  type = 'doughnut';
 
-  constructor(private _test: TestService) {}
+  colorsUndefined: Array<Color>;
+  colorsEmpty: Array<Color> = [];
+
+  datasets: any[] = [
+    {
+      data: this.data,
+      backgroundColor: [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56'
+      ],
+      hoverBackgroundColor: [
+        '#000',
+        '#36A2EB',
+        '#FFCE56'
+      ]
+    }];
+
+  constructor() {
+    this.name = 'Angular2';
+  }
 
   ngOnInit() {
-    this._test.dailyForecast()
-      .subscribe(res => {
-        console.log(res)
-        const temp_max = res['list'].map(res1 => res1.main.temp_max);
-        const temp_min = res['list'].map(res1 => res1.main.temp_min);
-        const alldates = res['list'].map(res1 => res1.dt);
-
-        const weatherDates = [];
-        alldates.forEach((res1) => {
-          const jsdate = new Date(res1 * 1000);
-          weatherDates.push(jsdate.toLocaleTimeString('en', { year: 'numeric', month: 'short', day: 'numeric' }));
-        });
-        this.chart = new Chart('canvas', {
-          type: 'line',
-          data: {
-            labels: weatherDates,
-            datasets: [
-              {
-                data: temp_max,
-                borderColor: '#3cba9f',
-                fill: false
-              },
-              {
-                data: temp_min,
-                borderColor: '#ffcc00',
-                fill: false
-              },
-            ]
-          },
-          options: {
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [{
-                display: true
-              }],
-              yAxes: [{
-                display: true
-              }],
-            }
-          }
-        });
-      });
   }
+
 }
