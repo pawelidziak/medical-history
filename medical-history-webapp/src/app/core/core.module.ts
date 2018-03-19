@@ -5,8 +5,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FirebaseModule} from './firebase.module';
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {AuthService} from './services/auth.service';
-import {IncidentService} from './services/incident.service';
-import {EventsService} from './services/events.service';
 
 @NgModule({
   imports: [
@@ -18,11 +16,8 @@ import {EventsService} from './services/events.service';
     RouterModule
   ],
   providers: [
-    AuthService,
-    IncidentService,
-    EventsService,
+    AuthService
   ]
-
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

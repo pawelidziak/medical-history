@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {MatButtonModule, MatIconModule, MatInputModule, MatMenuModule, MatSidenavModule} from '@angular/material';
 import {IncidentListComponent} from './incident-list.component';
 import {SharedModule} from '../../shared/shared.module';
+import {IncidentService} from '../../core/services/incident.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import {SharedModule} from '../../shared/shared.module';
   exports: [
     IncidentListComponent
   ],
-  providers: []
+  providers: [
+    IncidentService
+  ]
 })
 export class IncidentListModule {
 }
