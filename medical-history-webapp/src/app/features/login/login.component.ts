@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {AuthService} from '../../core/auth.service';
+import {AuthService} from '../../core/services/auth.service';
 import {RegisterDialogComponent} from './register-dialog/register-dialog.component';
 import {FormControl} from '@angular/forms';
 import {ForgotDialogComponent} from './forgot-dialog/forgot-dialog.component';

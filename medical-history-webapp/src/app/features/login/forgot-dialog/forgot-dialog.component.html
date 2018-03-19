@@ -13,6 +13,7 @@
     <span *ngIf="error">{{error}}</span>
     <div class="close"><mat-icon (click)="error = ''; response=''" aria-label="Close alert icon">close</mat-icon></div>
   </div>
+
   <app-spinner [loading]="loading"></app-spinner>
 
   <form class="forgot-form">

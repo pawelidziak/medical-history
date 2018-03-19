@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFirestore} from 'angularfire2/firestore';
-import DocumentReference = firebase.firestore.DocumentReference;
-import {EventModel} from '../_models/EventModel';
+import {EventModel} from '../models/EventModel';
 import {Router} from '@angular/router';
+import * as firebase from 'firebase/app';
+import DocumentReference = firebase.firestore.DocumentReference;
 
 @Injectable()
 export class EventsService {

@@ -1,41 +1,31 @@
-import {NgModule} from '@angular/core';
-import {WelcomeComponent} from '../core/welcome/welcome.component';
+import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MaterialModule} from '../material.module';
-import {MainComponent} from '../features/main/main.component';
-import {LoginComponent} from '../features/login/login.component';
-import {ScrollToModule} from 'ng2-scroll-to';
-import {RegisterDialogComponent} from '../features/login/register-dialog/register-dialog.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ForgotDialogComponent} from '../features/login/forgot-dialog/forgot-dialog.component';
 import {RouterModule} from '@angular/router';
-import {IncidentListComponent} from '../features/incident-list/incident-list.component';
-import {FeaturesModule} from '../features/features.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FirebaseModule} from './firebase.module';
+import {throwIfAlreadyLoaded} from './module-import-guard';
+import {AuthService} from './services/auth.service';
+import {IncidentService} from './services/incident.service';
+import {EventsService} from './services/events.service';
 
 @NgModule({
-  declarations: [
-    WelcomeComponent,
-    MainComponent,
-    LoginComponent,
-    RegisterDialogComponent,
-    ForgotDialogComponent,
-    IncidentListComponent
-  ],
   imports: [
     CommonModule,
-    FeaturesModule,
-    MaterialModule,
-    ScrollToModule,
-    ReactiveFormsModule,
-    FormsModule,
-    RouterModule
+    FirebaseModule,
+    BrowserAnimationsModule
   ],
   exports: [
-    WelcomeComponent
+    RouterModule
   ],
-  providers: [],
-  entryComponents: [RegisterDialogComponent, ForgotDialogComponent]
+  providers: [
+    AuthService,
+    IncidentService,
+    EventsService,
+  ]
 
 })
 export class CoreModule {
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+    throwIfAlreadyLoaded(parentModule, 'CoreModule');
+  }
 }

@@ -2,8 +2,8 @@
 //@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 
-@import "app/_helpers/variables";
-@import "app/_helpers/mixins";
+@import "app/shared/variables";
+@import "app/shared/mixins";
 
 html, body {
   margin: 0;

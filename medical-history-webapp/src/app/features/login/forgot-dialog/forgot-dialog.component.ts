@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
-import {AuthService} from '../../../core/auth.service';
-import {FormControl, Validators} from '@angular/forms';
+import {AuthService} from '../../../core/services/auth.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-dialog',

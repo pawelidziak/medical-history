@@ -1,10 +1,10 @@
 import {RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
-import {WelcomeComponent} from './core/welcome/welcome.component';
+import {WelcomeComponent} from './features/welcome/welcome.component';
 import {MainComponent} from './features/main/main.component';
 import {AuthGuard} from './core/auth.guard';
 import {EventListComponent} from './features/event-list/event-list.component';
-import {NotFoundComponent} from './core/not-found/not-found.component';
+import {NotFoundComponent} from './features/not-found/not-found.component';
 
 export const appRoutes: Routes = [
   {path: 'welcome', component: WelcomeComponent},

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {EventModel} from '../../../_models/EventModel';
+import {EventModel} from '../../../core/models/EventModel';
 import {DateTimeAdapter} from 'ng-pick-datetime';
 import {environment} from '../../../../environments/environment';
 

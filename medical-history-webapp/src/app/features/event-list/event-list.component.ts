@@ -3,8 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ISubscription, Subscription} from 'rxjs/Subscription';
 import {MatDialog} from '@angular/material';
 import {EventDialogComponent, EventOperation} from './event-dialog/event-dialog.component';
-import {EventModel} from '../../_models/EventModel';
-import {EventsService} from '../../core/events.service';
+import {EventModel} from '../../core/models/EventModel';
+import {EventsService} from '../../core/services/events.service';
 
 @Component({
   selector: 'app-event-list',

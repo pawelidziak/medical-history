@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {IncidentModel} from '../../_models/IncidentModel';
-import {IncidentService} from '../../core/incident.service';
+import {IncidentModel} from '../../core/models/IncidentModel';
+import {IncidentService} from '../../core/services/incident.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-occurrence-list',
+  selector: 'app-incident-list',
   templateUrl: './incident-list.component.html',
   styleUrls: ['./incident-list.component.scss'],
 })

@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {AuthService} from './auth.service';
-import {IncidentModel} from '../_models/IncidentModel';
+import {IncidentModel} from '../models/IncidentModel';
+import * as firebase from 'firebase/app';
 import DocumentReference = firebase.firestore.DocumentReference;
 
 @Injectable()
