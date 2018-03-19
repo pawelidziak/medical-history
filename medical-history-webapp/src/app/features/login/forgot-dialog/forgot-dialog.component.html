@@ -8,10 +8,13 @@
     </button>
   </div>
 
-  <div class="alert-msg"  *ngIf="error || response" [ngClass]="{'msg-success': response, 'msg-error': error}" style="margin: 20px">
+  <div class="alert-msg" *ngIf="error || response" [ngClass]="{'msg-success': response, 'msg-error': error}"
+       style="margin: 20px">
     <span *ngIf="response">{{response}}</span>
     <span *ngIf="error">{{error}}</span>
-    <div class="close"><mat-icon (click)="error = ''; response=''" aria-label="Close alert icon">close</mat-icon></div>
+    <div class="close">
+      <mat-icon (click)="error = ''; response=''" aria-label="Close alert icon">close</mat-icon>
+    </div>
   </div>
 
   <app-spinner [loading]="loading"></app-spinner>

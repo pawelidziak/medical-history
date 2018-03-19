@@ -16,12 +16,12 @@
     <button mat-raised-button id="google" (click)="login('google')">Google</button>
     <button mat-raised-button id="fb" (click)="login('facebook')">Facebook</button>
     <button mat-raised-button (click)="emailButtonFocused = !emailButtonFocused;">
-      <div class="email">
+      <span class="email">
         <mat-icon aria-label="Email icon">mail_outline</mat-icon>
         <span>Email</span>
         <mat-icon *ngIf="!emailButtonFocused" aria-label="Open email icon">keyboard_arrow_down</mat-icon>
         <mat-icon *ngIf="emailButtonFocused" aria-label="Close email icon">keyboard_arrow_up</mat-icon>
-      </div>
+      </span>
     </button>
 
     <form class="login-form" *ngIf="emailButtonFocused">

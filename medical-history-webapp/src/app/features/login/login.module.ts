@@ -23,7 +23,6 @@ import {SharedModule} from '../../shared/shared.module';
   exports: [
     LoginComponent
   ],
-  providers: [],
   entryComponents: [RegisterDialogComponent, ForgotDialogComponent]
 })
 export class LoginModule {

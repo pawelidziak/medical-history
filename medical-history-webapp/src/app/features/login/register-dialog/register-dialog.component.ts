@@ -41,7 +41,6 @@ export class RegisterDialogComponent implements OnInit {
 
   register(): void {
     this.passwordMismatch = this.password.value !== this.confirmPassword.value;
-    // this.error = this.response = '';
 
     if (this.registerForm.valid && !this.passwordMismatch) {
       this.loading = true;

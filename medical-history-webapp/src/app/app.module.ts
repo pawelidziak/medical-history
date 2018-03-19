@@ -1,11 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
-// import {routing} from './app.routing';
 import {CoreModule} from './core/core.module';
-import {FeaturesModule} from './features/features.module';
-import {AppRouting} from './app.routing';
-// import {AppRoutingModule} from './app.routing';
+import {appRouting} from './app.routing';
 
 @NgModule({
   declarations: [
@@ -13,13 +10,9 @@ import {AppRouting} from './app.routing';
   ],
   imports: [
     BrowserModule,
-    // routing,
-    // AppRoutingModule,
+    appRouting,
 
-    AppRouting,
-
-    CoreModule,
-    FeaturesModule,
+    CoreModule
   ],
   bootstrap: [AppComponent]
 })
