@@ -23,7 +23,7 @@
     <li *ngFor="let incident of userIncidents; let i=index; let last = last"
         [ngClass]="{'list-item_hover': !showIncidentOption}">
 
-      <div *ngIf="!showIncidentOption" [routerLink]="['/main', incident.incidentID]" [routerLinkActive]="['active']"
+      <div *ngIf="!showIncidentOption" [routerLink]="['/dashboard/incident', incident.incidentID]" [routerLinkActive]="['active']"
            class="no-editable-list-item">
         <span>{{incident.name}}</span>
       </div>

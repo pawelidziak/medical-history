@@ -7,11 +7,11 @@ const appRoutes: Routes = [
     loadChildren: 'app/features/welcome/welcome.module#WelcomeModule'
   },
   {
-    path: 'main',
-    loadChildren: 'app/features/main/main.module#MainModule'
+    path: 'dashboard',
+    loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule'
   },
-  {path: '', redirectTo: 'main', pathMatch: 'full'},
-  {path: '**', redirectTo: 'main/404'}
+  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: '**', redirectTo: 'dashboard/404'}
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

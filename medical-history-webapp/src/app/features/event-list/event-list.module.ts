@@ -10,6 +10,7 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {SharedModule} from '../../shared/shared.module';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {EventsService} from '../../core/services/events.service';
+import {AuthGuard} from '../../core/auth.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {EventsService} from '../../core/services/events.service';
     EventListComponent
   ],
   providers: [
-    EventsService
+    EventsService,
+    AuthGuard
   ],
   entryComponents: [EventDialogComponent]
 })

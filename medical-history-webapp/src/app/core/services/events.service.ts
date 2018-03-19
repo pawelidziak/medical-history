@@ -69,6 +69,6 @@ export class EventsService {
           throw new Error('Document not found');
         }
       })
-      .catch(error => this._router.navigate(['/main/404']));
+      .catch(error => this._router.navigate(['/dashboard/404']));
   }
 }

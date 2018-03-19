@@ -35,7 +35,7 @@ export class IncidentListComponent implements OnInit {
       this.addNewIncident = false;
       this._incidentService.add(this.incidentInput.value, this.userIncidents.length)
         .then((doc) => {
-          this._router.navigate(['/main/' + doc.id]);
+          this._router.navigate(['/dashboard/' + doc.id]);
           this.incidentInput.reset();
         })
         .catch(error => this.error = error);
@@ -61,7 +61,7 @@ export class IncidentListComponent implements OnInit {
 
     this._incidentService.deleteIncidentFromFirestore(id)
       .then(() => {
-        this._router.navigate(['/main']);
+        this._router.navigate(['/dashboard']);
         this.organizePositions(tmpIndex);
       })
       .catch(error => this.error = error);

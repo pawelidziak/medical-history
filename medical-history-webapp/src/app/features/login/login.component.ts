@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
     provider
       .then(() => {
-        this.router.navigate(['/main']);
+        this.router.navigate(['/dashboard']);
         this.loading = false;
       })
       .catch((error: any) => {

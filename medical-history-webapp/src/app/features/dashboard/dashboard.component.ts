@@ -7,11 +7,11 @@ import {IncidentModel} from '../../core/models/IncidentModel';
 import {IncidentService} from '../../core/services/incident.service';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
   public hideDrawer = false;
   private SMALL_DEVICES = 1279;
   @ViewChild('drawer') drawer: MatSidenav;
