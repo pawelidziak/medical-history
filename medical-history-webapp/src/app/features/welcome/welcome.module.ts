@@ -4,6 +4,7 @@ import {WelcomeComponent} from './welcome.component';
 import {LoginModule} from '../login/login.module';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {SharedModule} from '../../shared/shared.module';
+import {welcomeRouting} from './welcome-routing.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   imports: [
     SharedModule,
+    welcomeRouting,
 
     LoginModule,
     ScrollToModule,
@@ -18,9 +20,6 @@ import {SharedModule} from '../../shared/shared.module';
     // Material angular modules
     MatButtonModule,
     MatIconModule
-  ],
-  exports: [
-    WelcomeComponent
   ],
   providers: []
 })

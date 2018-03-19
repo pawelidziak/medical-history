@@ -23,7 +23,10 @@ export class MainComponent implements OnInit, OnDestroy {
   loading: boolean;
   error: string;
 
+  userName: string;
+
   constructor(private _auth: AuthService, private _incidentService: IncidentService, private _router: Router) {
+
     if (window.innerWidth < this.SMALL_DEVICES) {
       this.hideDrawer = true;
     }
@@ -31,6 +34,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getUserIncidents();
+    this.userName = this._auth.userName;
   }
 
   ngOnDestroy(): void {
@@ -57,12 +61,8 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize(event: any): void {
     this.hideDrawer = event.target.innerWidth <= this.SMALL_DEVICES;
-  }
-
-  getUserName(): string {
-    return this._auth.userName;
   }
 
   logout(): void {

@@ -9,12 +9,13 @@ import {AuthService} from '../../core/services/auth.service';
 export class WelcomeComponent implements OnInit {
 
   alreadyLogged: boolean;
+  private state$;
 
   constructor(private _auth: AuthService) {
   }
 
   ngOnInit() {
-    this._auth.currentUserAuthState.subscribe(
+    this.state$ = this._auth.currentUserAuthState.subscribe(
       (state) => {
         this.alreadyLogged = state;
       }
