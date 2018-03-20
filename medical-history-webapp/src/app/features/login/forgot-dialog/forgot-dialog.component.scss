@@ -1,0 +1,14 @@
+@import "../../../shared/variables";
+@import "../../../shared/mixins";
+
+.section-forgot {
+  @include section_dialog;
+}
+
+.header {
+  @include header_in_dialog;
+}
+
+.forgot-form {
+  @include form_in_dialog;
+}
