@@ -75,15 +75,15 @@
     <!-- Add and edit incident buttons -->
     <div class="add-edit">
 
-      <button mat-button *ngIf="!addNewIncident && !showIncidentOption" (click)="addNewIncident = true;">
-        <mat-icon aria-label="Add item icon">add</mat-icon>
-        <span>Add</span>
-      </button>
-
       <button mat-button (click)="showIncidentOption = true;"
               *ngIf="!showIncidentOption && !addNewIncident">
         <mat-icon aria-label="More icon">edit_mode</mat-icon>
         <span>Edit</span>
+      </button>
+
+      <button mat-button *ngIf="!addNewIncident && !showIncidentOption" (click)="addNewIncident = true;">
+        <mat-icon aria-label="Add item icon">add</mat-icon>
+        <span>Add</span>
       </button>
 
       <button mat-button color="warn" *ngIf="showIncidentOption" (click)="showIncidentOption = false;">
