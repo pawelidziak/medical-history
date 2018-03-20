@@ -19,6 +19,9 @@ export class IncidentListComponent implements OnInit {
 
   showIncidentOption = false;
 
+  panelOpenState = false;
+  showAddEdit = false;
+
   constructor(public _incidentService: IncidentService, private _router: Router) {
   }
 
@@ -35,7 +38,7 @@ export class IncidentListComponent implements OnInit {
       this.addNewIncident = false;
       this._incidentService.add(this.incidentInput.value, this.userIncidents.length)
         .then((doc) => {
-          this._router.navigate(['/dashboard/' + doc.id]);
+          this._router.navigate(['/dashboard/incident/' + doc.id]);
           this.incidentInput.reset();
         })
         .catch(error => this.error = error);
