@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IncidentService} from '../../../core/services/incident.service';
-import {EventsService} from '../../../core/services/events.service';
-import {IncidentModel} from '../../../core/models/IncidentModel';
 import {ISubscription} from 'rxjs/Subscription';
+import {IncidentModel} from '../../../core/models/IncidentModel';
 
 @Component({
   selector: 'app-main',
@@ -12,10 +11,11 @@ import {ISubscription} from 'rxjs/Subscription';
 export class MainComponent implements OnInit, OnDestroy {
 
   private subscription: ISubscription;
-  userEvents: Array<any> = [];
 
-  constructor(private incidentService: IncidentService,
-              private eventsService: EventsService) {
+  allEventsCount: number;
+  allIncidentCount: number;
+
+  constructor(private incidentService: IncidentService) {
   }
 
   ngOnInit() {
@@ -33,10 +33,8 @@ export class MainComponent implements OnInit, OnDestroy {
   private getUserIncidents(): void {
     this.subscription = this.incidentService.get().subscribe(
       list => {
-        const tmp = [];
-        list.forEach((incident: IncidentModel) => {
-          tmp.push(incident.incidentID);
-        });
+        console.log(list);
+        this.setCounts(list);
       },
       error => {
         // FIXME
@@ -44,5 +42,10 @@ export class MainComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  private setCounts(list: IncidentModel[]) {
+    this.allIncidentCount = 0;
+    this.allEventsCount = 0;
+    this.allIncidentCount = list.length;
+    list.forEach(x => this.allEventsCount += x.eventsCount);
+  }
 }

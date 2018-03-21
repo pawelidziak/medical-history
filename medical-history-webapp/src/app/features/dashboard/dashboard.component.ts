@@ -1,7 +1,7 @@
 import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../core/services/auth.service';
-import {Router} from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
 import {ISubscription} from 'rxjs/Subscription';
 import {IncidentModel} from '../../core/models/IncidentModel';
 import {IncidentService} from '../../core/services/incident.service';
