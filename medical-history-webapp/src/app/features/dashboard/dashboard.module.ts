@@ -1,6 +1,10 @@
 import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
-import {MatButtonModule, MatIconModule, MatSidenavModule} from '@angular/material';
+import {
+  MatButtonModule, MatCardModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule,
+  MatSelectModule,
+  MatSidenavModule
+} from '@angular/material';
 import {IncidentListModule} from '../incident-list/incident-list.module';
 import {AuthGuard} from '../../core/auth.guard';
 import {SharedModule} from '../../shared/shared.module';
@@ -8,11 +12,14 @@ import {NotFoundModule} from '../not-found/not-found.module';
 import {EventListModule} from '../event-list/event-list.module';
 import {dashboardRouting} from './dashboard-routing.module';
 import {MainComponent} from './main/main.component';
+import {UserProfileComponent} from './user-profile/user-profile.component';
+import {UserProfileModule} from './user-profile/user-profile.module';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    MainComponent
+    MainComponent,
+    UserProfileComponent
   ],
   imports: [
     SharedModule,
@@ -25,7 +32,13 @@ import {MainComponent} from './main/main.component';
     // Material angular modules
     MatSidenavModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [
     AuthGuard

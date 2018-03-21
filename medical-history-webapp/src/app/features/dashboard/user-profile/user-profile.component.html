@@ -1,0 +1,64 @@
+<div class="user-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <mat-card>
+          <div>
+            <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
+              <mat-form-field>
+                <input matInput placeholder="Full Name" value={{fullname()}} [formControl]="displayName">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Birthday">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select placeholder="Gender">
+                  <mat-option *ngFor="let gender of gender" [value]="gender.value">
+                    {{ gender.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Adress">
+              </mat-form-field>
+              <mat-form-field>
+                <span matPrefix>+48 &nbsp;</span>
+                <input type="tel" matInput name="phone" maxlength="9" placeholder="Telephone"
+                       [formControl]="displayMobileNumber">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Weight" [formControl]="displayWeight" type="number">
+                <span matSuffix>[kg]</span>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Height" [formControl]="displayHeight" type="number">
+                <span matSuffix>[m]</span>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Waist" [formControl]="displayWaist" type="number">
+                <span matSuffix>[cm]</span>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Hip" [formControl]="displayHip" type="number">
+                <span matSuffix>[cm]</span>
+              </mat-form-field>
+
+              <button mat-raised-button type="submit">OK</button>
+            </form>
+          </div>
+        </mat-card>
+      </div>
+
+      <div class="col-6">
+        <div>
+          <p> Your BMI: {{countBMI()}} </p>
+        </div>
+        <div>
+          <p> Your WHR: {{countWHR()}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
