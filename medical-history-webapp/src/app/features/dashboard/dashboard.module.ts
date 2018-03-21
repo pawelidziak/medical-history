@@ -7,12 +7,11 @@ import {SharedModule} from '../../shared/shared.module';
 import {NotFoundModule} from '../not-found/not-found.module';
 import {EventListModule} from '../event-list/event-list.module';
 import {dashboardRouting} from './dashboard-routing.module';
-import {MainComponent} from './main/main.component';
+import {MainModule} from './main/main.module';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    MainComponent
+    DashboardComponent
   ],
   imports: [
     SharedModule,
@@ -21,6 +20,7 @@ import {MainComponent} from './main/main.component';
     IncidentListModule,
     EventListModule,
     NotFoundModule,
+    MainModule,
 
     // Material angular modules
     MatSidenavModule,

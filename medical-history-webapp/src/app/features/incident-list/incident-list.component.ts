@@ -20,7 +20,6 @@ export class IncidentListComponent implements OnInit {
   showIncidentOption = false;
 
   panelOpenState = false;
-  showAddEdit = false;
 
   constructor(public _incidentService: IncidentService, private _router: Router) {
   }

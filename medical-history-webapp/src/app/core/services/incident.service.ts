@@ -5,11 +5,12 @@ import {AuthService} from './auth.service';
 import {IncidentModel} from '../models/IncidentModel';
 import * as firebase from 'firebase/app';
 import DocumentReference = firebase.firestore.DocumentReference;
+import {EventModel} from '../models/EventModel';
 
 @Injectable()
 export class IncidentService {
 
-  private readonly INCIDENTS_NAME = 'incidents';
+  private readonly INCIDENTS_PATH = 'incidents';
   private readonly USER_ID_FIELD = 'userID';
   private readonly POSITION_ON_LIST_FIELD = 'positionOnList';
 
@@ -25,7 +26,7 @@ export class IncidentService {
    * and orders the result by declared position on the list
    */
   private initCollectionRef(): void {
-    this._incidentsCollectionRef = this._afs.collection<IncidentModel>(this.INCIDENTS_NAME,
+    this._incidentsCollectionRef = this._afs.collection<IncidentModel>(this.INCIDENTS_PATH,
       ref => ref
         .where(this.USER_ID_FIELD, '==', this._auth.userUID)
         .orderBy(this.POSITION_ON_LIST_FIELD));
