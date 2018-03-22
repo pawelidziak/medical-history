@@ -93,4 +93,5 @@ export class IncidentService {
   deleteIncidentFromFirestore(idDoc: string): Promise<void> {
     return this._incidentsCollectionRef.doc(idDoc).delete();
   }
+
 }

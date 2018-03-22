@@ -9,9 +9,16 @@
   display: flex;
   justify-content: flex-end;
   margin: $normal_margin;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
   button, a {
     margin-left: .5*$normal_margin;
   }
+}
+.section-content{
+  padding-top: 2*$normal_margin;
 }
 
 .timeline-container {
@@ -58,4 +65,18 @@
   p {
     padding: 0 !important;
   }
+}
+
+#statistics {
+  margin-top: 3*$normal_margin;
+  margin-bottom: 3*$normal_margin;
+  @media #{$gt-sm_size} {
+    margin-top: 0;
+  }
+}
+
+.static-stats {
+  position: fixed;
+  top: 2*$normal_margin;
+  right: -$normal_margin;
 }
