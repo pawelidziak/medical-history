@@ -1,5 +1,6 @@
 <section class="section-incident-list">
 
+  <!-- Error message -->
   <div class="alert-msg msg-error" *ngIf="error" style="margin: 10px;">
     <span>{{error}}</span>
     <div class="close">
@@ -7,35 +8,48 @@
     </div>
   </div>
 
-  <div class="incident-header">
-    <span>Incidents:</span>
-    <button mat-icon-button (click)="showIncidentOption = true;" *ngIf="!showIncidentOption">
-      <mat-icon aria-label="More icon">more_vert</mat-icon>
-    </button>
-    <div *ngIf="showIncidentOption">
-      <button mat-icon-button (click)="showIncidentOption = false;">
-        <mat-icon aria-label="Cancel item icon" class="material-color-red">close</mat-icon>
-      </button>
+  <!-- Dashboard button -->
+  <div class="list-element" [routerLink]="['/dashboard/main']" routerLinkActive="active">
+    <div class="icon-with-name">
+      <mat-icon aria-label="List icon">dashboard</mat-icon>
+      <span>Dashboard</span>
     </div>
   </div>
 
-  <ul>
-    <li *ngFor="let incident of userIncidents; let i=index; let last = last"
-        [ngClass]="{'list-item_hover': !showIncidentOption}">
+  <!-- Incident button -->
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="icon-with-name">
+          <mat-icon aria-label="List icon">view_list</mat-icon>
+          <span>Incidents</span>
+        </div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-      <div *ngIf="!showIncidentOption" [routerLink]="['/dashboard/incident', incident.incidentID]" [routerLinkActive]="['active']"
-           class="no-editable-list-item">
-        <span>{{incident.name}}</span>
-      </div>
+    <!-- Incident list (no editable)-->
+    <mat-nav-list *ngIf="!showIncidentOption">
+      <mat-list-item *ngFor="let incident of userIncidents"
+                     [routerLink]="['/dashboard/incident', incident.incidentID]"
+                     routerLinkActive="active">
+        <span class="no-editable-child">{{incident.name}}</span>
+      </mat-list-item>
 
-      <div class="editable-list-item" *ngIf="showIncidentOption">
+    </mat-nav-list>
+
+    <!-- Incident list (editable)-->
+    <div *ngIf="showIncidentOption">
+
+      <div *ngFor="let incident of userIncidents; let i=index; let last = last"
+           class="editable-child">
 
         <mat-form-field floatPlaceholder="never" style="width: 100%;">
           <input matInput [id]="'inputName'+i" [(ngModel)]="userIncidents[i].name" type="text"
                  (change)="updateIncidentName(i)">
         </mat-form-field>
 
-        <div class="list-item-right">
+        <div class="edit-options">
           <button mat-icon-button [matMenuTriggerFor]="confirmDeleteOption">
             <mat-icon aria-label="Delete icon" class="">delete</mat-icon>
           </button>
@@ -46,35 +60,54 @@
 
           <div class="moves">
             <button mat-icon-button *ngIf="i>0" (click)="moveElementUp(i)">
-              <mat-icon aria-label="Move up icon">keyboard_arrow_up</mat-icon>
+              <mat-icon aria-label="Move up icon">arrow_drop_up</mat-icon>
             </button>
             <button mat-icon-button *ngIf="!last" (click)="moveElementDown(i)">
-              <mat-icon aria-label="Move down icon">keyboard_arrow_down</mat-icon>
+              <mat-icon aria-label="Move down icon">arrow_drop_down</mat-icon>
             </button>
           </div>
 
-        </div> <!-- end of list-item-right-->
+        </div>
       </div>
 
-    </li>
-  </ul>
+    </div>
 
-  <div class="add-item">
-    <mat-form-field *ngIf="addNewIncident" floatPlaceholder="never">
-      <input matInput placeholder="Enter the name" [formControl]="incidentInput">
-    </mat-form-field>
+    <!-- Add and edit incident buttons -->
+    <div class="add-edit">
 
-    <button mat-icon-button *ngIf="addNewIncident" [disabled]="!addNewIncident" (click)="addIncident()">
-      <mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>
-    </button>
+      <button mat-button (click)="showIncidentOption = true;"
+              *ngIf="!showIncidentOption && !addNewIncident">
+        <mat-icon aria-label="More icon">edit_mode</mat-icon>
+        <span>Edit</span>
+      </button>
 
-    <button mat-mini-fab *ngIf="!addNewIncident" (click)="addNewIncident = true;">
-      <mat-icon aria-label="Add item icon">add</mat-icon>
-    </button>
+      <button mat-button *ngIf="!addNewIncident && !showIncidentOption" (click)="addNewIncident = true;">
+        <mat-icon aria-label="Add item icon">add</mat-icon>
+        <span>Add</span>
+      </button>
 
-    <button mat-icon-button *ngIf="addNewIncident" (click)="addNewIncident = false">
-      <mat-icon aria-label="Cancel item icon" class="material-color-red">close</mat-icon>
-    </button>
-  </div>
+      <button mat-button color="warn" *ngIf="showIncidentOption" (click)="showIncidentOption = false;">
+        <mat-icon aria-label="Cancel item icon">close</mat-icon>
+        <span>Cancel</span>
+      </button>
+    </div>
+
+    <!-- Add incident form -->
+    <div class="add-item">
+      <mat-form-field *ngIf="addNewIncident" floatPlaceholder="never">
+        <input matInput placeholder="Enter the name" [formControl]="incidentInput">
+      </mat-form-field>
+
+      <button mat-icon-button *ngIf="addNewIncident" [disabled]="!addNewIncident" (click)="addIncident()">
+        <mat-icon aria-label="Confirm item icon" class="material-color-green">check</mat-icon>
+      </button>
+
+      <button mat-icon-button *ngIf="addNewIncident" (click)="addNewIncident = false">
+        <mat-icon aria-label="Cancel item icon" class="material-color-red">close</mat-icon>
+      </button>
+
+    </div>
+
+  </mat-expansion-panel>
 
 </section>
