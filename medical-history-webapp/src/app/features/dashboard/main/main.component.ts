@@ -12,8 +12,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private subscription: ISubscription;
 
-  allEventsCount: number;
   allIncidentCount: number;
+  allEventsCount: number;
 
   constructor(private incidentService: IncidentService) {
   }
@@ -33,7 +33,6 @@ export class MainComponent implements OnInit, OnDestroy {
   private getUserIncidents(): void {
     this.subscription = this.incidentService.get().subscribe(
       list => {
-        console.log(list);
         this.setCounts(list);
       },
       error => {

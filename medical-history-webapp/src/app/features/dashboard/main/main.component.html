@@ -1,3 +1,36 @@
-<p>
-  main works!
-</p>
+<section class="section-dashboard-main">
+
+  <div class="row">
+
+    <div class="col-12 col-sm-6 col-lg-3">
+      <mat-card>
+        <div class="my-card-header">
+          <mat-icon aria-label="Incidents count icon">label</mat-icon>
+        </div>
+
+        <div class="simple-stats">
+          <span class="stats-title">Total incidents</span>
+          <span class="stats-count">{{allIncidentCount}}</span>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="col-12 col-sm-6 col-lg-3">
+      <mat-card class="my-card">
+        <div class="my-card-header">
+          <mat-icon aria-label="Events count icon">work</mat-icon>
+        </div>
+
+        <div class="simple-stats">
+          <span class="stats-title">Total events</span>
+          <span class="stats-count">{{allEventsCount}}</span>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="col-12 col-lg-6">some statistics</div>
+
+  </div>
+
+
+</section>
