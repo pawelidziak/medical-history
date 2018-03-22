@@ -64,9 +64,15 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   getIncidentName() {
-   this.subscription2 = this._eventService.getIncidentName(this.incidentID).subscribe(
+    this.loading = true;
+
+    this.subscription2 = this._eventService.getIncidentName(this.incidentID).subscribe(
       (res: IncidentModel) => {
         this.incidentName = res.name;
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
       }
     );
   }
