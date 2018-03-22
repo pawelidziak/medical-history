@@ -1,5 +1,4 @@
 <app-spinner [loading]="loading"></app-spinner>
-
 <section class="timeline-section" *ngIf="!loading">
 
   <div class="event-options">
@@ -11,8 +10,7 @@
       <mat-icon aria-label="Add icon">settings</mat-icon>
     </button>
     <mat-menu #settingsOption>
-      <button mat-menu-item>Export to PDF</button>
-      <button mat-menu-item>Import</button>
+      <button mat-menu-item (click)="saveAsPDF()">Export to PDF</button>
     </mat-menu>
 
     <a mat-mini-fab class="d-md-none" *ngIf="events.length > 0"
@@ -43,7 +41,16 @@
 
     <div class="col-12 col-md-6" id="statistics">
       <p class="header">STATISTICS</p>
-      <p class="text-center">TODO</p>
+      <div style="display: block">
+        <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                [colors]="pieChartColor"
+                [options]="options"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
     </div>
   </div> <!-- end row -->
 
