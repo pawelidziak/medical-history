@@ -51,13 +51,16 @@
         </mat-card>
       </div>
 
-      <div class="col-6">
-        <div>
-          <p> Your BMI: {{countBMI()}} </p>
-        </div>
-        <div>
-          <p> Your WHR: {{countWHR()}}</p>
-        </div>
+      <div class="col-6" id="mapdiv">
+
+          <p class="header">BMI classification</p><br>
+          <p class="quotation">„Normal range publicated by WHO counts 18.50 - 24.99”</p>
+          <p class="information">{{countBMI()}}</p>
+        <br><br>
+          <p class="header">WHR classification</p><br>
+          <p class="quotation">„Normal ratio publicated by DGSP is 0.80 for women and 0.90 for men”</p>
+          <p class="information">{{countWHR()}}</p>
+
       </div>
     </div>
   </div>

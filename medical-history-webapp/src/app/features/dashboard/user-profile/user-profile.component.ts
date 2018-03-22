@@ -8,12 +8,10 @@ import {AuthService} from '../../../core/services/auth.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  canvas: any;
-  ctx: any;
   userForm: FormGroup;
   displayName = new FormControl('', Validators.required);
   displayHeight = new FormControl('', [Validators.required, Validators.pattern('[0-9]\\.[0-9]*')]);
-  displayWeight = new FormControl('');
+  displayWeight = new FormControl('', Validators.required);
   displayWaist = new FormControl('');
   displayHip = new FormControl('');
   displayMobileNumber = new FormControl('', Validators.pattern('[0-9]{9}'));
@@ -37,15 +35,17 @@ export class UserProfileComponent implements OnInit {
   }
 
   countBMI() {
-    if (+this.displayHeight.value !== 0) {
+    if (+this.displayHeight.value !== 0 && +this.displayWeight.value !== 0) {
       const bmi = +this.displayWeight.value / (+this.displayHeight.value * +this.displayHeight.value);
-      return bmi.toFixed(2);
+      return 'Your BMI score: ' + bmi.toFixed(2);
     }
   }
 
   countWHR() {
-    const whr = +this.displayWaist.value / +this.displayHip.value;
-    return whr.toFixed(2);
+    if (+this.displayWaist.value !== 0 && +this.displayHip.value !== 0) {
+      const whr = +this.displayWaist.value / +this.displayHip.value;
+      return 'Your WHR score: ' + whr.toFixed(2);
+    }
   }
 
   fullname(): string {

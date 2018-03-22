@@ -5,7 +5,6 @@ import {MatDialog} from '@angular/material';
 import {EventDialogComponent, EventOperation} from './event-dialog/event-dialog.component';
 import {EventModel} from '../../core/models/EventModel';
 import {EventsService} from '../../core/services/events.service';
-import {EventColorModel} from '../../core/models/EventColorModel';
 
 @Component({
   selector: 'app-event-list',
@@ -16,7 +15,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private subscription: ISubscription;
   // Pie
-  public eventsCount: Array<EventColorModel> = [{name: 'DISEASE', count: 0}, {name: 'INFO', count: 0}, {name: 'VISIT', count: 0}];
+  public eventsCount: Array<any> = [{name: 'DISEASE', count: 0}, {name: 'INFO', count: 0}, {name: 'VISIT', count: 0}];
   public pieChartLabels: string[] = ['Disease', 'Info', 'Visit'];
   public pieChartData: number[] = [0, 1, 2];
   public pieChartType = 'pie';

@@ -59,3 +59,12 @@
     padding: 2*$normal_margin;
   }
 }
+
+@mixin quotation_in_content(){
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .1em;
+  font-size: $small_font_size;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
+}
