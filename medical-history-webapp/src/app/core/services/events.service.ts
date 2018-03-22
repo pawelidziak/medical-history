@@ -33,6 +33,10 @@ export class EventsService {
     });
   }
 
+  getIncidentName(incidentId: string): Observable<any> {
+    return this._afs.doc(`incidents/${incidentId}`).valueChanges();
+  }
+
   add(incidentId: string, eventModel: EventModel): Promise<DocumentReference> {
     return this._afs.collection(this.INCIDENT_PATH + incidentId + this.EVENT_PATH).add(eventModel);
   }
