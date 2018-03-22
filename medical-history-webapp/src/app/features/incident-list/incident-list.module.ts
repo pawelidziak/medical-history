@@ -1,5 +1,8 @@
 import {NgModule} from '@angular/core';
-import {MatButtonModule, MatIconModule, MatInputModule, MatMenuModule, MatSidenavModule} from '@angular/material';
+import {
+  MatButtonModule, MatIconModule, MatInputModule, MatMenuModule, MatSidenavModule, MatExpansionModule,
+  MatListModule
+} from '@angular/material';
 import {IncidentListComponent} from './incident-list.component';
 import {SharedModule} from '../../shared/shared.module';
 import {IncidentService} from '../../core/services/incident.service';
@@ -16,7 +19,9 @@ import {IncidentService} from '../../core/services/incident.service';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    MatListModule
   ],
   exports: [
     IncidentListComponent

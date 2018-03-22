@@ -13,7 +13,6 @@ import {EventListModule} from '../event-list/event-list.module';
 import {dashboardRouting} from './dashboard-routing.module';
 import {MainComponent} from './main/main.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
-import {UserProfileModule} from './user-profile/user-profile.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import {UserProfileModule} from './user-profile/user-profile.module';
   imports: [
     SharedModule,
     dashboardRouting,
-
     IncidentListModule,
     EventListModule,
     NotFoundModule,
