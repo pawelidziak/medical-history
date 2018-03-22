@@ -17,6 +17,7 @@ declare const jsPDF;
 export class EventListComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private subscription: ISubscription;
+  private subscription2: ISubscription;
   // Pie
   public eventsCount: Array<any> = [{name: 'DISEASE', count: 0}, {name: 'INFO', count: 0}, {name: 'VISIT', count: 0}];
   public pieChartLabels: string[] = ['Disease', 'Info', 'Visit'];
@@ -31,7 +32,6 @@ export class EventListComponent implements OnInit, OnDestroy {
   private incidentID: string;
 
   public staticStats = true;
-
 
   loading: boolean;
 
@@ -59,11 +59,12 @@ export class EventListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
     this.sub.unsubscribe();
   }
 
   getIncidentName() {
-    this._eventService.getIncidentName(this.incidentID).subscribe(
+   this.subscription2 = this._eventService.getIncidentName(this.incidentID).subscribe(
       (res: IncidentModel) => {
         this.incidentName = res.name;
       }
