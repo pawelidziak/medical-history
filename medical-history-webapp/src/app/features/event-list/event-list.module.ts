@@ -4,7 +4,7 @@ import {EventComponent} from './event/event.component';
 import {EventDialogComponent} from './event-dialog/event-dialog.component';
 import {
   MatButtonModule, MatIconModule, MatMenuModule, MatCardModule, MatFormFieldModule,
-  MatSelectModule, MatDialogModule, MatInputModule
+  MatSelectModule, MatDialogModule, MatInputModule, MatCheckboxModule
 } from '@angular/material';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {SharedModule} from '../../shared/shared.module';
@@ -35,7 +35,9 @@ import { ChartsModule } from 'ng2-charts';
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule,
-    ChartsModule,
+    MatCheckboxModule,
+
+    ChartsModule
   ],
   exports: [
     EventListComponent
