@@ -20,7 +20,7 @@
 
   </div> <!-- end event-options -->
 
-  <div class="row">
+  <div class="row section-content">
 
     <div class="col-12 col-md-6">
 
@@ -39,7 +39,7 @@
 
     </div>
 
-    <div class="col-12 col-md-6" id="statistics">
+    <div class="col-12 col-md-6" id="statistics" [ngClass]="{'static-stats': staticStats}">
       <p class="header">STATISTICS</p>
       <div style="display: block">
         <canvas baseChart
