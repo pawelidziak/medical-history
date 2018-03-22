@@ -9,37 +9,33 @@ mat-form-field{
   width: 100%;
 }
 .user-container{
-  margin-top: 2%;
+  margin-top: 2* $normal_margin;
 }
 .header {
   @include header_in_content;
   text-align: center;
-  @media #{$gt-xs_size}
+  @media #{$lt-sm_size}
   {
-    #mapdiv {
       display: none;
-    }
   }
 }
 .quotation {
   @include quotation_in_content;
   text-align: center;
   font-style: italic;
-  @media #{$gt-xs_size}
+  @media #{$lt-sm_size}
   {
-    #mapdiv {
       display: none;
-    }
+
   }
 }
 .information {
   @include quotation_in_content;
   text-align: center;
-  @media #{$gt-xs_size}
+  @media #{$lt-sm_size}
   {
-    #mapdiv {
       display: none;
-    }
+
   }
 
 }
