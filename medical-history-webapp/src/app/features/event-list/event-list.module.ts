@@ -11,6 +11,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {EventsService} from '../../core/services/events.service';
 import {AuthGuard} from '../../core/auth.guard';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {AuthGuard} from '../../core/auth.guard';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    ChartsModule,
   ],
   exports: [
     EventListComponent

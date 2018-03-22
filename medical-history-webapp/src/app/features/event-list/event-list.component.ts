@@ -15,11 +15,18 @@ declare const jsPDF;
   styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit, OnDestroy {
-
   private sub: Subscription;
   private subscription: ISubscription;
-
-  events: Array<EventModel> = [];
+  // Pie
+  public eventsCount: Array<any> = [{name: 'DISEASE', count: 0}, {name: 'INFO', count: 0}, {name: 'VISIT', count: 0}];
+  public pieChartLabels: string[] = ['Disease', 'Info', 'Visit'];
+  public pieChartData: number[] = [0, 1, 2];
+  public pieChartType = 'pie';
+  public options: any = {
+    legend: { position: 'bottom' }
+  }
+  public pieChartColor: Array<any> = [{ backgroundColor: ['#D50000', '#1976D2', '#8BC34A'] }];
+events: Array<EventModel> = [];
   private incidentID: string;
   loading: boolean;
 
@@ -67,6 +74,7 @@ export class EventListComponent implements OnInit, OnDestroy {
         this.events.sort((a, b) => {
           return a.date < b.date ? 1 : -1;
         });
+        this.updateChart();
         this.loading = false;
       },
       (error) => {
@@ -117,6 +125,29 @@ export class EventListComponent implements OnInit, OnDestroy {
   private deleteEvent(eventId: string | any) {
     this._eventService.delete(this.incidentID, eventId)
       .catch(error => console.log(error));
+  }
+  public updateChart() {
+    this.eventsCount.forEach(x => x.count = 0);
+    this.events.forEach(myevent => {
+      switch (myevent.type.name) {
+         case 'DISEASE':
+           this.eventsCount[0].count++;
+           break;
+         case 'INFO':
+           this.eventsCount[1].count++;
+           break;
+         case 'VISIT':
+           this.eventsCount[2].count++;
+           break;
+      }
+    });
+    this.pieChartData = [this.eventsCount[0].count, this.eventsCount[1].count, this.eventsCount[2].count];
+  }
+  // events
+  public chartClicked(e: any): void {
+  }
+
+  public chartHovered(e: any): void {
   }
 
   saveAsPDF(): void {

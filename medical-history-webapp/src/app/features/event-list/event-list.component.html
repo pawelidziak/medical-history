@@ -1,5 +1,4 @@
 <app-spinner [loading]="loading"></app-spinner>
-
 <section class="timeline-section" *ngIf="!loading">
 
   <div class="event-options">
@@ -42,7 +41,16 @@
 
     <div class="col-12 col-md-6" id="statistics">
       <p class="header">STATISTICS</p>
-      <p class="text-center">TODO</p>
+      <div style="display: block">
+        <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                [colors]="pieChartColor"
+                [options]="options"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
     </div>
   </div> <!-- end row -->
 
