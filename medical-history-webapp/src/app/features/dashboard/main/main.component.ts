@@ -41,10 +41,15 @@ export class MainComponent implements OnInit, OnDestroy {
       }
     );
   }
+
   private setCounts(list: IncidentModel[]) {
     this.allIncidentCount = 0;
     this.allEventsCount = 0;
     this.allIncidentCount = list.length;
-    list.forEach(x => this.allEventsCount += x.eventsCount);
+    list.forEach(x => {
+      if (typeof x.eventsCount !== 'undefined') {
+        this.allEventsCount += x.eventsCount;
+      }
+    });
   }
 }

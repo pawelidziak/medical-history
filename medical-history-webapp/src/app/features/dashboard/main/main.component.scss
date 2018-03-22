@@ -5,7 +5,7 @@
   padding: 3.5*$normal_margin $normal_margin $normal_margin $normal_margin;
 }
 
-.my-card{
+.my-card {
   margin-top: 2*$normal_margin;
   @media #{$gt-xs_size} {
     margin-top: 0;
@@ -13,7 +13,6 @@
 }
 
 .my-card-header {
-  background-color: $accent_color;
   color: $primary_text_white;
   position: absolute;
   top: -25px;
@@ -23,6 +22,14 @@
   align-items: center;
   justify-content: center;
   @include box_shadow;
+}
+
+.color-1 {
+  background-color: #ff5722;
+}
+
+.color-2 {
+  background-color: $material_green;
 }
 
 .simple-stats {
