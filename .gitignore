@@ -1,4 +1,4 @@
 # Firebase
-/functions/node_modules
-/functions/etc
-/functions/lib
+/firebase/functions/node_modules
+/firebase/functions/etc
+/firebase/functions/lib
