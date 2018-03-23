@@ -55,3 +55,17 @@ mat-form-field {
 .bmi {
   margin-bottom: 3*$normal_margin;
 }
+
+.profile_error {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 12px;
+  color: $material_red;
+}
+
+.profile_response {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 12px;
+  color: $material_green;
+}

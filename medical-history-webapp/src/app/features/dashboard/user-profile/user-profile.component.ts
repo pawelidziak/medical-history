@@ -13,14 +13,17 @@ import {ISubscription} from 'rxjs/Subscription';
 export class UserProfileComponent implements OnInit {
   private subscription: ISubscription;
   @Input('userProfile') userProfile: Array<UserModel>;
+
   error: string;
+  response: string;
+
   userForm: FormGroup;
   nameForm = new FormControl('', Validators.required);
   birthdayForm = new FormControl('');
   genderForm = new FormControl('');
   gender = [
-    {value: 'male-0', viewValue: 'Male'},
-    {value: 'female-1', viewValue: 'Female'},
+    {value: 'Male', viewValue: 'Male'},
+    {value: 'Female', viewValue: 'Female'},
   ];
   addressForm = new FormControl('');
   mobileNumberForm = new FormControl('', Validators.pattern('[0-9]{9}'));
@@ -88,6 +91,10 @@ export class UserProfileComponent implements OnInit {
       hip: this.hipForm.value
     };
     this._userProfileService.add(newUser)
+      .then(() => {
+        this.response = 'Success!';
+        console.log(this.response);
+      })
       .catch(error => this.error = error);
   }
 
