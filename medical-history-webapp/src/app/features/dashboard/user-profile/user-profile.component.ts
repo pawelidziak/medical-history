@@ -39,6 +39,12 @@ export class UserProfileComponent implements OnInit {
       displayName: this.nameForm,
       displayHeight: this.heightForm,
       displayWeight: this.weightForm,
+      displayBirthday: this.birthdayForm,
+      displayGender: this.genderForm,
+      displayAdress: this.addressForm,
+      displayPhone: this.mobileNumberForm,
+      displayWaist: this.waistForm,
+      displayHip: this.hipForm,
     });
     this.getUserProfile();
   }
