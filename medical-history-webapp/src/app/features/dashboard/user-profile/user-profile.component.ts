@@ -34,14 +34,14 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.nameForm.setValue(this.fullname());
+    this.nameForm.setValue(this.getFullName());
     this.userForm = new FormGroup({
       displayName: this.nameForm,
       displayHeight: this.heightForm,
       displayWeight: this.weightForm,
       displayBirthday: this.birthdayForm,
       displayGender: this.genderForm,
-      displayAdress: this.addressForm,
+      displayAddress: this.addressForm,
       displayPhone: this.mobileNumberForm,
       displayWaist: this.waistForm,
       displayHip: this.hipForm,
@@ -63,7 +63,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  fullname(): string {
+  getFullName(): string {
     return this._auth.userName;
   }
 

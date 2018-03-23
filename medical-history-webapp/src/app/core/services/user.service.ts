@@ -16,7 +16,9 @@ export class UserService {
   }
 
   add(newUser: UserModel): Promise<void> {
-    this._auth.updatePersonal(newUser.full_name);
+    this._auth.updatePersonal(newUser.full_name).catch((error: any) => {
+      throw new Error(error.message);
+    });
     return this._afs.collection(this.USER_PATH).doc(this._auth.userUID).set(newUser);
   }
 }

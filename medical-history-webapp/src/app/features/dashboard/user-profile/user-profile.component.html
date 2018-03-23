@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-12 col-md-6">
         <mat-card>
-          <div>
             <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
               <mat-form-field>
                 <input matInput placeholder="Full Name" [formControl]="nameForm" required>
@@ -50,7 +49,6 @@
                 <p *ngIf="error">Error: {{error}}</p>
               </div>
             </form>
-          </div>
         </mat-card>
       </div>
 
