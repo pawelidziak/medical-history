@@ -1,0 +1,50 @@
+@import "../../../shared/variables";
+@import "../../../shared/mixins";
+
+.section-dashboard-main {
+  padding: 3.5*$normal_margin $normal_margin $normal_margin $normal_margin;
+}
+
+.my-card {
+  margin-top: 2*$normal_margin;
+  @media #{$gt-xs_size} {
+    margin-top: 0;
+  }
+}
+
+.my-card-header {
+  color: $primary_text_white;
+  position: absolute;
+  top: -25px;
+  width: 75px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include box_shadow;
+}
+
+.color-1 {
+  background-color: #ff5722;
+}
+
+.color-2 {
+  background-color: $material_green;
+}
+
+.simple-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .stats-count {
+    font-size: $big_font_size;
+  }
+  .stats-title {
+    color: $secondary_text;
+  }
+}
+
+.mat-card {
+  padding: .5*$normal_margin;
+}

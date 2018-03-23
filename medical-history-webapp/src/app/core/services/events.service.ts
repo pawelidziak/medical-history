@@ -12,6 +12,8 @@ export class EventsService {
   private readonly INCIDENT_PATH = 'incidents/';
   private readonly EVENT_PATH = '/events';
 
+  private _allEventsCount: number;
+
   constructor(private readonly _afs: AngularFirestore, private _router: Router) {
   }
 

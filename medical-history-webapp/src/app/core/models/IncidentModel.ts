@@ -3,4 +3,5 @@ export interface IncidentModel {
   userID: string;
   name: string;
   positionOnList: number;
+  eventsCount?: number;
 }

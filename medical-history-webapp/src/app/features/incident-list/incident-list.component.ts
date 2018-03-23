@@ -36,8 +36,7 @@ export class IncidentListComponent implements OnInit {
     if (this.incidentInput.value !== '' && this.incidentInput.value !== ' ') {
       this.addNewIncident = false;
       this._incidentService.add(this.incidentInput.value, this.userIncidents.length)
-        .then((doc) => {
-          this._router.navigate(['/dashboard/incident/' + doc.id]);
+        .then(() => {
           this.incidentInput.reset();
         })
         .catch(error => this.error = error);
