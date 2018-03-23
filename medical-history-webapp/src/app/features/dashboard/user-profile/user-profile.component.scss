@@ -1,16 +1,12 @@
 @import "../../../shared/variables";
 @import "../../../shared/mixins";
 
-#mapdiv {
-  display: block;
-}
-
 mat-form-field {
   width: 100%;
 }
 
 .user-container {
-  margin-top: 2* $normal_margin;
+  padding-top: 2* $normal_margin;
 }
 
 .header {
@@ -68,4 +64,9 @@ mat-form-field {
   vertical-align: middle;
   margin-top: 12px;
   color: $material_green;
+}
+
+.response {
+  display: flex;
+  justify-content: center;
 }
