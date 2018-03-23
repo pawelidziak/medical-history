@@ -1,41 +1,57 @@
 @import "../../../shared/variables";
 @import "../../../shared/mixins";
 
-#mapdiv{
+#mapdiv {
   display: block;
 }
 
-mat-form-field{
+mat-form-field {
   width: 100%;
 }
-.user-container{
+
+.user-container {
   margin-top: 2* $normal_margin;
 }
+
 .header {
   @include header_in_content;
   text-align: center;
   @media #{$lt-sm_size}
   {
-      display: none;
+    display: none;
   }
 }
+
 .quotation {
   @include quotation_in_content;
   text-align: center;
   font-style: italic;
   @media #{$lt-sm_size}
   {
-      display: none;
+    display: none;
 
   }
 }
+
 .information {
   @include quotation_in_content;
   text-align: center;
+  font-size: $normal_font_size;
+  font-weight: 700;
   @media #{$lt-sm_size}
   {
-      display: none;
+    display: none;
 
   }
+}
 
+.bmi-whr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bmi {
+  margin-bottom: 3*$normal_margin;
 }

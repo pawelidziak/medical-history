@@ -6,61 +6,65 @@
           <div>
             <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
               <mat-form-field>
-                <input matInput placeholder="Full Name" value={{fullname()}} [formControl]="displayName">
+                <input matInput placeholder="Full Name" [formControl]="nameForm" required>
               </mat-form-field>
               <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Birthday">
+                <input matInput [matDatepicker]="picker" placeholder="Birthday" [formControl]="birthdayForm">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
               <mat-form-field>
-                <mat-select placeholder="Gender">
+                <mat-select placeholder="Gender" [formControl]="genderForm">
                   <mat-option *ngFor="let gender of gender" [value]="gender.value">
                     {{ gender.viewValue }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Adress">
+                <input matInput placeholder="Adress" [formControl]="addressForm">
               </mat-form-field>
               <mat-form-field>
                 <span matPrefix>+48 &nbsp;</span>
                 <input type="tel" matInput name="phone" maxlength="9" placeholder="Telephone"
-                       [formControl]="displayMobileNumber">
+                       [formControl]="mobileNumberForm">
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Weight" [formControl]="displayWeight" type="number">
+                <input matInput placeholder="Weight" [formControl]="weightForm" type="number" required>
                 <span matSuffix>[kg]</span>
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Height" [formControl]="displayHeight" type="number">
+                <input matInput placeholder="Height" [formControl]="heightForm" type="number" required>
                 <span matSuffix>[m]</span>
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Waist" [formControl]="displayWaist" type="number">
+                <input matInput placeholder="Waist" [formControl]="waistForm" type="number">
                 <span matSuffix>[cm]</span>
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Hip" [formControl]="displayHip" type="number">
+                <input matInput placeholder="Hip" [formControl]="hipForm" type="number">
                 <span matSuffix>[cm]</span>
               </mat-form-field>
-
-              <button mat-raised-button type="submit">OK</button>
+              <button mat-raised-button type="submit" [disabled]="userForm.invalid"
+                      (click)="addUserProfile()">Apply</button>
+              <div class="material-color-red">
+                <p *ngIf="error">Error: {{error}}</p>
+              </div>
             </form>
           </div>
         </mat-card>
       </div>
 
-      <div class="col-12 col-md-6">
-
-          <p class="header">BMI classification</p><br>
+      <div class="col-12 col-md-6 bmi-whr">
+        <div class="bmi">
+          <p class="header">BMI classification</p>
           <p class="quotation">„Normal range publicated by WHO counts 18.50 - 24.99”</p>
           <p class="information">{{countBMI()}}</p>
-        <br><br>
-          <p class="header">WHR classification</p><br>
+        </div>
+        <div class="whr">
+          <p class="header">WHR classification</p>
           <p class="quotation">„Normal ratio publicated by DGSP is 0.80 for women and 0.90 for men”</p>
           <p class="information">{{countWHR()}}</p>
-
+        </div>
       </div>
     </div>
   </div>

@@ -1,18 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  MatButtonModule, MatCardModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule,
-  MatSelectModule, MatSidenavModule,
-  NativeDateAdapter
-} from '@angular/material';
-import {RouterModule} from '@angular/router';
-import {UserProfileComponent} from './user-profile.component';
+import {NgModule} from '@angular/core';
+import {MatButtonModule, MatIconModule, MatSidenavModule} from '@angular/material';
 import {AuthGuard} from '../../../core/auth.guard';
 import {SharedModule} from '../../../shared/shared.module';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
     SharedModule,
     UserProfileModule,
@@ -26,4 +18,5 @@ import {SharedModule} from '../../../shared/shared.module';
     AuthGuard,
   ]
 })
-export class UserProfileModule { }
+export class UserProfileModule {
+}

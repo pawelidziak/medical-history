@@ -23,9 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   loading: boolean;
   error: string;
 
-  userName: string;
-
-  constructor(private _auth: AuthService, private _incidentService: IncidentService, private _router: Router) {
+  constructor(public _auth: AuthService, private _incidentService: IncidentService, private _router: Router) {
 
     if (window.innerWidth < this.SMALL_DEVICES) {
       this.hideDrawer = true;
@@ -34,7 +32,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getUserIncidents();
-    this.userName = this._auth.userName;
   }
 
   ngOnDestroy(): void {
