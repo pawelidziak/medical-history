@@ -18,6 +18,7 @@ export class MainComponent implements OnInit, OnDestroy {
   allIncidentCount: number;
   allEventsCount: number;
   USER_BMI = 0;
+
   constructor(private incidentService: IncidentService, private _userService: UserService) {
   }
 
@@ -56,11 +57,21 @@ export class MainComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   getUserProfile(): void {
     this.subscription = this._userService.get().subscribe(
       (res: UserModel) => {
         this.USER_BMI = res.bmi;
       }
     );
+  }
+
+  private coutBmiDifferecne() {
+    if (this.USER_BMI > 25) {
+      const bmi_diff = +this.USER_BMI - 25;
+      return('To achieve correct Body Mass Index You need lose ' + bmi_diff.toFixed(2) + ' BMI points.');
+    } else {
+      return('Your Body Mass Index is correct!');
+    }
   }
 }

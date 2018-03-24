@@ -59,6 +59,7 @@
 
 .header {
   @include header_in_content;
+  letter-spacing: .2em;
   text-align: center;
 }
 
@@ -66,4 +67,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.bmi_information {
+  @include quotation_in_content;
+  text-align: center;
+  margin-top: $normal_margin;
+  font-size: $small_font_size;
 }
