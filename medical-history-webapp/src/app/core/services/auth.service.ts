@@ -85,7 +85,7 @@ export class AuthService {
   }
 
   // method updates user profile (not in database!)
-  private updatePersonal(name: string) {
+  updatePersonal(name: string) {
     const user = firebase.auth().currentUser;
     return user.updateProfile({
       displayName: name,

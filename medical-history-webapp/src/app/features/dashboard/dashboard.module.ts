@@ -13,6 +13,7 @@ import {EventListModule} from '../event-list/event-list.module';
 import {dashboardRouting} from './dashboard-routing.module';
 import {MainComponent} from './main/main.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import {UserService} from '../../core/services/user.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
     MatCardModule
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    UserService
   ]
 })
 export class DashboardModule {
