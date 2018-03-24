@@ -2,6 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IncidentService} from '../../../core/services/incident.service';
 import {ISubscription} from 'rxjs/Subscription';
 import {IncidentModel} from '../../../core/models/IncidentModel';
+import {UserService} from '../../../core/services/user.service';
+import {AuthService} from '../../../core/services/auth.service';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {UserModel} from '../../../core/models/UserModel';
 
 @Component({
   selector: 'app-main',
@@ -11,15 +15,15 @@ import {IncidentModel} from '../../../core/models/IncidentModel';
 export class MainComponent implements OnInit, OnDestroy {
 
   private subscription: ISubscription;
-
   allIncidentCount: number;
   allEventsCount: number;
-
-  constructor(private incidentService: IncidentService) {
+  USER_BMI = 0;
+  constructor(private incidentService: IncidentService, private _userService: UserService) {
   }
 
   ngOnInit() {
     this.getUserIncidents();
+    this.getUserProfile();
   }
 
   ngOnDestroy(): void {
@@ -51,5 +55,12 @@ export class MainComponent implements OnInit, OnDestroy {
         this.allEventsCount += x.eventsCount;
       }
     });
+  }
+  getUserProfile(): void {
+    this.subscription = this._userService.get().subscribe(
+      (res: UserModel) => {
+        this.USER_BMI = res.bmi;
+      }
+    );
   }
 }
