@@ -24,8 +24,6 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   exports: [
     IncidentListComponent
-  ],
-  providers: [
   ]
 })
 export class IncidentListModule {

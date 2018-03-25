@@ -43,8 +43,6 @@ import {MainModule} from './main/main.module';
     MatInputModule,
     MatCardModule,
     MatProgressBarModule
-  ],
-  providers: [
   ]
 })
 export class DashboardModule {
