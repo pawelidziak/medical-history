@@ -1,60 +1,41 @@
-import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../core/services/auth.service';
-import {NavigationExtras, Router} from '@angular/router';
-import {ISubscription} from 'rxjs/Subscription';
-import {IncidentModel} from '../../core/models/IncidentModel';
-import {IncidentService} from '../../core/services/incident.service';
+import {Router} from '@angular/router';
+import {LoadingService} from '../../core/services/loading.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
+
   public hideDrawer = false;
   private SMALL_DEVICES = 1279;
   @ViewChild('drawer') drawer: MatSidenav;
 
-  // http://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-  private subscription: ISubscription;
-  userIncidents: Array<IncidentModel> = [];
+  alreadyLogged = true;
 
-  loading: boolean;
-  error: string;
+  loader: boolean;
+  private sub$;
 
-  constructor(public _auth: AuthService, private _incidentService: IncidentService, private _router: Router) {
+  constructor(public _auth: AuthService,
+              private _router: Router,
+              public loadingService: LoadingService) {
 
     if (window.innerWidth < this.SMALL_DEVICES) {
       this.hideDrawer = true;
     }
+
+    this.sub$ = this.loadingService.status.subscribe(
+      res => {
+        this.loader = res;
+      }
+    );
   }
 
   ngOnInit() {
-    this.getUserIncidents();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  /**
-   * Method gets incidents (of current logged user) from DB and
-   * subscribes for its possible changes
-   */
-  private getUserIncidents(): void {
-    this.loading = true;
-    this.subscription = this._incidentService.get().subscribe(
-      (list) => {
-        this.userIncidents = [];
-        this.userIncidents = list;
-        this.loading = false;
-      },
-      error => {
-        this.error = error;
-        this.loading = false;
-      }
-    );
   }
 
   @HostListener('window:resize', ['$event'])
@@ -63,7 +44,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this._auth.signOut();
-    this._router.navigateByUrl('welcome');
+    this._router.navigateByUrl('welcome').then(() => {
+      this.alreadyLogged = false;
+      this._auth.signOut();
+    });
+
   }
 }

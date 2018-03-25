@@ -6,19 +6,22 @@ import {AuthService} from './auth.service';
 
 @Injectable()
 export class UserService {
+
   private readonly USER_PATH = 'users';
 
-  constructor(private readonly _afs: AngularFirestore, private _auth: AuthService) {
+  constructor(private readonly _afs: AngularFirestore,
+              private _auth: AuthService) {
   }
 
   get(): Observable<any> {
     return this._afs.collection(this.USER_PATH).doc(this._auth.userUID).valueChanges();
   }
 
-  add(newUser: UserModel): Promise<void> {
+  update(newUser: UserModel): Promise<void> {
     this._auth.updatePersonal(newUser.full_name).catch((error: any) => {
       throw new Error(error.message);
     });
-    return this._afs.collection(this.USER_PATH).doc(this._auth.userUID).set(newUser);
+    return this._afs.collection(this.USER_PATH).doc(this._auth.userUID).update(newUser);
   }
+
 }

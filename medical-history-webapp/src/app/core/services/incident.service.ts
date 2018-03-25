@@ -11,7 +11,7 @@ import {EventModel} from '../models/EventModel';
 export class IncidentService {
 
   private readonly INCIDENTS_PATH = 'incidents';
-  private readonly USER_ID_FIELD = 'userID';
+  private readonly USER_ID_FIELD = 'userId';
   private readonly POSITION_ON_LIST_FIELD = 'positionOnList';
 
   private _incidentsCollectionRef: AngularFirestoreCollection<IncidentModel>;
@@ -40,9 +40,9 @@ export class IncidentService {
   get(): Observable<IncidentModel[]> {
     return this._incidentsCollectionRef.snapshotChanges().map(actions => {
       return actions.map(a => {
-        const incidentID = a.payload.doc.id;
+        const incidentId = a.payload.doc.id;
         const data = a.payload.doc.data() as IncidentModel;
-        return {incidentID, ...data};
+        return {incidentId, ...data};
       });
     });
   }
@@ -57,7 +57,7 @@ export class IncidentService {
    */
   add(newName: string, position: number): Promise<DocumentReference> {
     const newIncident: IncidentModel = {
-      userID: this._auth.userUID,
+      userId: this._auth.userUID,
       name: newName,
       positionOnList: position
     };
@@ -66,7 +66,7 @@ export class IncidentService {
 
   /**
    * Method creates and updates incident into Firestore.
-   * It creates new one without incidentID, because in Firestore we don't need to
+   * It creates new one without incidentId, because in Firestore we don't need to
    * store it as a document field - it's a document ID
    * @returns {Promise<void[]>}
    * @param incidents
@@ -76,11 +76,11 @@ export class IncidentService {
 
     for (const incident of incidents) {
       const tmp: IncidentModel = {
-        userID: incident.userID,
+        userId: incident.userId,
         name: incident.name,
         positionOnList: incident.positionOnList
       };
-      data.push(this._incidentsCollectionRef.doc(incident.incidentID).update(tmp));
+      data.push(this._incidentsCollectionRef.doc(incident.incidentId).update(tmp));
     }
     return Promise.all(data);
   }

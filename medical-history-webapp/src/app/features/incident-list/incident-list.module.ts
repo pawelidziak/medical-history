@@ -5,7 +5,6 @@ import {
 } from '@angular/material';
 import {IncidentListComponent} from './incident-list.component';
 import {SharedModule} from '../../shared/shared.module';
-import {IncidentService} from '../../core/services/incident.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import {IncidentService} from '../../core/services/incident.service';
     IncidentListComponent
   ],
   providers: [
-    IncidentService
   ]
 })
 export class IncidentListModule {

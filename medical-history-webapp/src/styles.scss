@@ -69,3 +69,8 @@ button {
 .mat-expansion-panel-body {
   padding: 0 !important;
 }
+
+// delete margin in checkboxes
+.mat-checkbox-layout {
+  margin-bottom: 0;
+}

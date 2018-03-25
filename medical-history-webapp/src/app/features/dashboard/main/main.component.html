@@ -2,33 +2,79 @@
 
   <div class="row">
 
-    <div class="col-12 col-sm-6 col-lg-3">
-      <mat-card>
-        <div class="my-card-header color-1">
-          <mat-icon aria-label="Incidents count icon">label</mat-icon>
+    <div class="col-12 col-lg-6">
+
+      <div class="counters">
+
+        <mat-card>
+          <div class="my-card-header color-1">
+            <mat-icon aria-label="Incidents count icon">label</mat-icon>
+          </div>
+
+          <div class="simple-stats">
+            <span class="stats-title">Total incidents</span>
+            <span class="stats-count">{{allIncidentCount}}</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="my-card">
+          <div class="my-card-header color-2">
+            <mat-icon aria-label="Events count icon">work</mat-icon>
+          </div>
+
+          <div class="simple-stats">
+            <span class="stats-title">Total events</span>
+            <span class="stats-count">{{allEventsCount}}</span>
+          </div>
+        </mat-card>
+
+      </div>
+
+      <mat-card class="upcoming-lists">
+
+        <div class="my-card-header color-3">
+          <mat-icon aria-label="Lists icon">view_list</mat-icon>
+        </div>
+        <div class="checkboxes">
+            <mat-checkbox [(ngModel)]="showVisits">Visits</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showInfos">Info</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showDiseases">Disease</mat-checkbox>
         </div>
 
-        <div class="simple-stats">
-          <span class="stats-title">Total incidents</span>
-          <span class="stats-count">{{allIncidentCount}}</span>
-        </div>
+        <mat-list>
+          <div *ngIf="!showVisits && !showInfos && !showDiseases" class="empty-list">
+            Choose at least one category
+          </div>
+
+          <div *ngIf="showVisits">
+            <h3 mat-subheader>Upcoming visits</h3>
+            <app-one-upcoming *ngFor="let visit of userVisits" [upcoming]="visit"></app-one-upcoming>
+            <div *ngIf="userVisits.length === 0" class="empty-list">No visits</div>
+          </div>
+
+          <div *ngIf="showInfos">
+            <mat-divider *ngIf="showVisits"></mat-divider>
+            <h3 mat-subheader>Latest information</h3>
+            <app-one-upcoming *ngFor="let info of userInfos" [upcoming]="info"></app-one-upcoming>
+            <div *ngIf="userInfos.length === 0" class="empty-list">No information</div>
+          </div>
+
+          <div *ngIf="showDiseases">
+            <mat-divider *ngIf="showInfos || showVisits"></mat-divider>
+            <h3 mat-subheader>Latest diseases</h3>
+            <app-one-upcoming *ngFor="let disease of userDiseases" [upcoming]="disease"></app-one-upcoming>
+            <div *ngIf="userDiseases.length === 0" class="empty-list">No diseases</div>
+          </div>
+        </mat-list>
+
       </mat-card>
+
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-3">
-      <mat-card class="my-card">
-        <div class="my-card-header color-2">
-          <mat-icon aria-label="Events count icon">work</mat-icon>
-        </div>
-
-        <div class="simple-stats">
-          <span class="stats-title">Total events</span>
-          <span class="stats-count">{{allEventsCount}}</span>
-        </div>
-      </mat-card>
+    <div class="col-12 col-lg-6">
+      <app-events-bar-line [eventsList]="eventsList"></app-events-bar-line>
     </div>
 
-    <div class="col-12 col-lg-6">some statistics</div>
 
   </div>
 

@@ -21,7 +21,9 @@ export class LoginComponent implements OnInit {
   email = new FormControl('');
   password = new FormControl('');
 
-  constructor(private router: Router, public _authService: AuthService, private _dialog: MatDialog) {
+  constructor(private _router: Router,
+              public _authService: AuthService,
+              private _dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -45,8 +47,9 @@ export class LoginComponent implements OnInit {
 
     provider
       .then(() => {
-        this.router.navigate(['/dashboard']);
-        this.loading = false;
+        this._router.navigateByUrl('/dashboard/main').then(() => {
+          this.loading = false;
+        });
       })
       .catch((error: any) => {
         this.error = error;

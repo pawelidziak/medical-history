@@ -9,9 +9,7 @@ import {
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {SharedModule} from '../../shared/shared.module';
 import {ScrollToModule} from 'ng2-scroll-to';
-import {EventsService} from '../../core/services/events.service';
-import {AuthGuard} from '../../core/auth.guard';
-import { ChartsModule } from 'ng2-charts';
+import {EventPieModule} from '../../shared/charts/event-pie/event-pie.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +23,7 @@ import { ChartsModule } from 'ng2-charts';
     ScrollToModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    EventPieModule,
 
     // Material angular modules
     MatButtonModule,
@@ -35,16 +34,10 @@ import { ChartsModule } from 'ng2-charts';
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule,
-    MatCheckboxModule,
-
-    ChartsModule
+    MatCheckboxModule
   ],
   exports: [
     EventListComponent
-  ],
-  providers: [
-    EventsService,
-    AuthGuard
   ],
   entryComponents: [EventDialogComponent]
 })

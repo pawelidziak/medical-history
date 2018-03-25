@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {
-  MatButtonModule, MatCardModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule,
+  MatButtonModule, MatCardModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule,
+  MatNativeDateModule, MatProgressBarModule,
   MatSelectModule,
   MatSidenavModule
 } from '@angular/material';
@@ -14,11 +15,12 @@ import {dashboardRouting} from './dashboard-routing.module';
 import {MainComponent} from './main/main.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {UserService} from '../../core/services/user.service';
+import {MainModule} from './main/main.module';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    MainComponent,
+    // MainComponent,
     UserProfileComponent
   ],
   imports: [
@@ -27,6 +29,8 @@ import {UserService} from '../../core/services/user.service';
     IncidentListModule,
     EventListModule,
     NotFoundModule,
+
+    MainModule,
 
     // Material angular modules
     MatSidenavModule,
@@ -37,11 +41,10 @@ import {UserService} from '../../core/services/user.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressBarModule
   ],
   providers: [
-    AuthGuard,
-    UserService
   ]
 })
 export class DashboardModule {

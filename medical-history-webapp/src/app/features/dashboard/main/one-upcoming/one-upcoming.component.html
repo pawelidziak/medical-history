@@ -1,0 +1,8 @@
+<mat-list-item class="upcoming" [routerLink]="['/dashboard/incident', upcoming.incidentId]"
+               [queryParams]="{name: upcoming.incidentName}">
+  <div mat-list-icon class="my-icon" [style.background-color]="upcoming.type.color">
+    {{upcoming.type.name.substr(0,1)}}
+  </div>
+  <h4 mat-line>{{upcoming.title}}</h4>
+  <p mat-line> {{upcoming.date | date:"dd MMM. HH:mm"}} </p>
+</mat-list-item>

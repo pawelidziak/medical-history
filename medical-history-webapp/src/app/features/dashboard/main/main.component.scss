@@ -5,10 +5,24 @@
   padding: 3.5*$normal_margin $normal_margin $normal_margin $normal_margin;
 }
 
+.counters {
+  display: flex;
+  flex-direction: column;
+
+  @media #{$gt-xs_size} {
+    flex-direction: row;
+  }
+
+  mat-card {
+    width: 100%;
+  }
+}
+
 .my-card {
   margin-top: 2*$normal_margin;
   @media #{$gt-xs_size} {
     margin-top: 0;
+    margin-left: $normal_margin;
   }
 }
 
@@ -32,6 +46,10 @@
   background-color: $material_green;
 }
 
+.color-3 {
+  background-color: $accent_color;
+}
+
 .simple-stats {
   display: flex;
   flex-direction: column;
@@ -45,6 +63,36 @@
   }
 }
 
+// UPCOMING LISTS
+.upcoming-lists {
+  margin: 2*$normal_margin 0;
+}
+
+.checkboxes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2.5*$normal_margin 0 $normal_margin;
+  @media #{$gt-xs_size} {
+    justify-content: flex-end;
+    padding: $normal_margin;
+  }
+  mat-checkbox {
+    margin-left: .5*$normal_margin;
+
+  }
+  border-bottom: 1px solid $divider_color;
+}
+
+.empty-list {
+  padding-top: $normal_margin;
+  text-align: center;
+  font-size: $small_font_size;
+  color: $secondary_text;
+}
+
+// material style
 .mat-card {
   padding: .5*$normal_margin;
 }
