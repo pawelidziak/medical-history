@@ -83,7 +83,6 @@ export class MainComponent implements OnInit, OnDestroy {
           this.chooseProperEvent(x);
         });
 
-        // this.setMonthLabels(list);
         this._loadingService.complete();
       },
       error => {

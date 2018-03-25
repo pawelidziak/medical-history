@@ -87,7 +87,6 @@ export class EventListComponent implements OnInit, OnDestroy {
       if (typeof result !== 'undefined' && result !== null) {
 
         let provider: any;
-        this._loadingService.start();
 
         switch (result.operation) {
           case EventOperation.toAdd:
@@ -102,11 +101,8 @@ export class EventListComponent implements OnInit, OnDestroy {
         }
 
         provider
-          .then(() => this._loadingService.complete())
-          .catch(error => {
-            this._loadingService.complete();
-            console.log(error);
-          });
+          .catch(error => console.log(error)
+          );
       }
     });
   }

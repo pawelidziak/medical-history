@@ -1,5 +1,6 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {EventModel} from '../../../core/models/EventModel';
+import {BaseChartDirective} from 'ng2-charts/ng2-charts';
 
 @Component({
   selector: 'app-events-bar-line',
@@ -9,10 +10,11 @@ import {EventModel} from '../../../core/models/EventModel';
 export class EventsBarLineComponent implements OnInit, OnChanges {
 
   @Input('eventsList') eventsList: EventModel[] = [];
+  @ViewChild(BaseChartDirective) private _chart;
+
 
   public barChartLabels: string[] = [];
   public barChartType = 'bar';
-  public showChart = false;
 
   public barChartData: any[] = [
     {data: [], label: 'Visit'},
@@ -48,6 +50,7 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
       fontSize: 20
     }
   };
+  public isDataAvailable = false;
 
   constructor() {
   }
@@ -56,10 +59,13 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.setMonthLabels();
+    setTimeout(() => {
+      this._chart.refresh();
+    }, 1);
+    this.updateChart();
   }
 
-  private setMonthLabels() {
+  private updateChart() {
 
     this.eventsList.forEach(x => {
 
@@ -92,7 +98,7 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
       });
     });
 
-    this.showChart = true;
+    this.isDataAvailable = true;
   }
 
 }

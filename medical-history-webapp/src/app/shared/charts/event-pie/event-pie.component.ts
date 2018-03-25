@@ -1,5 +1,6 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {EventModel} from '../../../core/models/EventModel';
+import {BaseChartDirective} from 'ng2-charts';
 
 @Component({
   selector: 'app-event-pie',
@@ -9,6 +10,7 @@ import {EventModel} from '../../../core/models/EventModel';
 export class EventPieComponent implements OnInit, OnChanges {
 
   @Input('eventsList') eventsList: EventModel[] = [];
+  @ViewChild(BaseChartDirective) private _chart;
 
   public eventsCount: Array<any> = [
     {name: 'DISEASE', count: 0},
@@ -28,6 +30,9 @@ export class EventPieComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    setTimeout(() => {
+      this._chart.refresh();
+    }, 1);
     this.updateChart();
   }
 
