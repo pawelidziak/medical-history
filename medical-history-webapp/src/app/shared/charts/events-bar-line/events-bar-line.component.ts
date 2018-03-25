@@ -10,13 +10,11 @@ import {BaseChartDirective} from 'ng2-charts/ng2-charts';
 export class EventsBarLineComponent implements OnInit, OnChanges {
 
   @Input('eventsList') eventsList: EventModel[] = [];
+  @Input('chartType') chartType: string;
   @ViewChild(BaseChartDirective) private _chart;
 
-
-  public barChartLabels: string[] = [];
-  public barChartType = 'bar';
-
-  public barChartData: any[] = [
+  public chartLabels: string[] = [];
+  public chartData: any[] = [
     {data: [], label: 'Visit'},
     {data: [], label: 'Info'},
     {data: [], label: 'Disease'}
@@ -26,13 +24,13 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  public barChartColors = [
+  public chartColors = [
     {backgroundColor: '#8BC34A', borderColor: '#8BC34A'},
     {backgroundColor: '#1976D2', borderColor: '#1976D2'},
     {backgroundColor: '#D50000', borderColor: '#D50000'}
   ];
 
-  public barChartOptions: any = {
+  public chartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
     legend: {position: 'bottom'},
@@ -50,7 +48,6 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
       fontSize: 20
     }
   };
-  public isDataAvailable = false;
 
   constructor() {
   }
@@ -73,32 +70,31 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
 
       // get all months as labels
       const monthName = this.MONTH_NAMES[monthNo];
-      if (this.barChartLabels.findIndex(y => y === monthName) === -1) {
-        this.barChartLabels.push(monthName);
+      if (this.chartLabels.findIndex(y => y === monthName) === -1) {
+        this.chartLabels.push(monthName);
       }
 
-      this.barChartData.forEach(z => z.data.push(0));
+      this.chartData.forEach(z => z.data.push(0));
     });
 
-    this.barChartLabels.forEach((monthName, index) => {
+    this.chartLabels.forEach((monthName, index) => {
 
       const monthNo = this.MONTH_NAMES.findIndex(x => x === monthName);
 
       this.eventsList.forEach(myEvent => {
 
         if (myEvent.date.getMonth() === monthNo && myEvent.type.name === 'VISIT') {
-          this.barChartData[0].data[index]++;
+          this.chartData[0].data[index]++;
         }
         if (myEvent.date.getMonth() === monthNo && myEvent.type.name === 'INFO') {
-          this.barChartData[1].data[index]++;
+          this.chartData[1].data[index]++;
         }
         if (myEvent.date.getMonth() === monthNo && myEvent.type.name === 'DISEASE') {
-          this.barChartData[2].data[index]++;
+          this.chartData[2].data[index]++;
         }
       });
     });
 
-    this.isDataAvailable = true;
   }
 
 }

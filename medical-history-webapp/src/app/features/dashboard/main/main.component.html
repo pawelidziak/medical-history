@@ -2,6 +2,7 @@
 
   <div class="row">
 
+    <!-- left column -->
     <div class="col-12 col-lg-6">
 
       <div class="counters">
@@ -36,9 +37,9 @@
           <mat-icon aria-label="Lists icon">view_list</mat-icon>
         </div>
         <div class="checkboxes">
-            <mat-checkbox [(ngModel)]="showVisits">Visits</mat-checkbox>
-            <mat-checkbox [(ngModel)]="showInfos">Info</mat-checkbox>
-            <mat-checkbox [(ngModel)]="showDiseases">Disease</mat-checkbox>
+          <mat-checkbox [(ngModel)]="showVisits">Visits</mat-checkbox>
+          <mat-checkbox [(ngModel)]="showInfos">Info</mat-checkbox>
+          <mat-checkbox [(ngModel)]="showDiseases">Disease</mat-checkbox>
         </div>
 
         <mat-list>
@@ -69,12 +70,12 @@
 
       </mat-card>
 
-    </div>
+    </div> <!-- /left column -->
 
+    <!-- right column-->
     <div class="col-12 col-lg-6">
-      <app-events-bar-line [eventsList]="eventsList"></app-events-bar-line>
+      <app-events-bar-line [eventsList]="eventsList" [chartType]="'bar'"></app-events-bar-line>
     </div>
-
 
   </div>
 
