@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {IncidentService} from '../../../core/services/incident.service';
 import {ISubscription} from 'rxjs/Subscription';
 import {EventModel} from '../../../core/models/EventModel';
 import {EventsService} from '../../../core/services/events.service';
@@ -14,10 +13,9 @@ import {LocalStorageService} from '../../../core/services/local-storage.service'
 export class MainComponent implements OnInit, OnDestroy {
 
   private eventsSub: ISubscription;
-  private incidentsSub: ISubscription;
 
-  allIncidentCount: number;
-  allEventsCount: number;
+  allIncidentCount = 0;
+  allEventsCount = 0;
 
   userVisits: Array<EventModel> = [];
   userInfos: Array<EventModel> = [];
@@ -29,23 +27,25 @@ export class MainComponent implements OnInit, OnDestroy {
 
 
   public eventsList: EventModel[] = [];
+  private incidentsId: string[] = [];
 
-  constructor(private _incidentService: IncidentService,
-              private _eventService: EventsService,
+  constructor(private _eventService: EventsService,
               private _loadingService: LoadingService,
               private _localStorage: LocalStorageService) {
+    console.log('constructor');
   }
 
   ngOnInit() {
     this.getUserEvents();
-    this.getUserIncidents();
+    // this.getUserIncidents();
     this.getListVisibility();
+    console.log('ngOnInit');
   }
 
   ngOnDestroy(): void {
     this.eventsSub.unsubscribe();
-    this.incidentsSub.unsubscribe();
     this.setListVisibility();
+    console.log('ngOnDestroy');
   }
 
   /**
@@ -56,12 +56,16 @@ export class MainComponent implements OnInit, OnDestroy {
     this._loadingService.start();
     this.eventsSub = this._eventService.getByUser().subscribe(
       list => {
-        this.allEventsCount = list.length;
-        this.clearLists();
-        this.eventsList = list;
-        this.eventsList.forEach(x => {
-          this.chooseProperEvent(x);
-        });
+        console.log('getUserEvents');
+        if (list.length > 0) {
+          this.allEventsCount = list.length;
+          this.clearLists();
+          this.eventsList = list;
+          this.eventsList.forEach(x => {
+            this.chooseProperEvent(x);
+            this.countIncidents(x);
+          });
+        }
 
         this._loadingService.complete();
       },
@@ -69,18 +73,6 @@ export class MainComponent implements OnInit, OnDestroy {
         // FIXME
         console.log(error);
         this._loadingService.complete();
-      }
-    );
-  }
-
-  private getUserIncidents(): void {
-    this.incidentsSub = this._incidentService.get().subscribe(
-      list => {
-        this.allIncidentCount = list.length;
-      },
-      error => {
-        // FIXME
-        console.log(error);
       }
     );
   }
@@ -128,5 +120,12 @@ export class MainComponent implements OnInit, OnDestroy {
         showDiseases: this.showDiseases,
       }
     );
+  }
+
+  private countIncidents(model: EventModel) {
+    if (this.incidentsId.findIndex(x => x === model.incidentId) === -1) {
+      this.incidentsId.push(model.incidentId);
+      this.allIncidentCount++;
+    }
   }
 }

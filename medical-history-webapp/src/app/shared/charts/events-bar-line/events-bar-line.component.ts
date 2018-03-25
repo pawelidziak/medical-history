@@ -39,10 +39,10 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout(() => {
       this._chart.refresh();
-    }, 1);
-    this.setColors();
-    this.setOptions();
-    this.updateChart();
+      this.setColors();
+      this.setOptions();
+      this.updateChart();
+    }, 200);
   }
 
   private updateChart() {

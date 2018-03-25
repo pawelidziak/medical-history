@@ -35,8 +35,9 @@ export class EventPieComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout(() => {
       this._chart.refresh();
-    }, 1);
-    this.updateChart();
+      this.updateChart();
+    }, 200);
+
   }
 
   public updateChart() {

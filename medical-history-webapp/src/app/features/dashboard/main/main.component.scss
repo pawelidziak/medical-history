@@ -68,15 +68,22 @@
   margin: 2*$normal_margin 0;
 }
 
+.upcoming-title {
+  display: flex;
+  justify-content: flex-end;
+  color: $secondary_text;
+}
+
 .checkboxes {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  padding: 2.5*$normal_margin 0 $normal_margin;
+  padding: 2*$normal_margin 0 .5*$normal_margin;
   @media #{$gt-xs_size} {
     justify-content: flex-end;
-    padding: $normal_margin;
+    padding: .5*$normal_margin;
+    padding-right: 0;
   }
   mat-checkbox {
     margin-left: .5*$normal_margin;
