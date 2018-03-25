@@ -11,6 +11,8 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
 
   @Input('eventsList') eventsList: EventModel[] = [];
   @Input('chartType') chartType: string;
+  @Input('title') title: string;
+  @Input('legendPos') legendPos: string;
   @ViewChild(BaseChartDirective) private _chart;
 
   public chartLabels: string[] = [];
@@ -24,30 +26,9 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  public chartColors = [
-    {backgroundColor: '#8BC34A', borderColor: '#8BC34A'},
-    {backgroundColor: '#1976D2', borderColor: '#1976D2'},
-    {backgroundColor: '#D50000', borderColor: '#D50000'}
-  ];
+  public chartColors = [];
 
-  public chartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-    legend: {position: 'bottom'},
-    scales: {
-      yAxes: [{
-        ticks: {
-          min: 0,
-          stepSize: 1
-        }
-      }]
-    },
-    title: {
-      display: true,
-      text: 'Events statistics',
-      fontSize: 20
-    }
-  };
+  public chartOptions: any;
 
   constructor() {
   }
@@ -59,12 +40,18 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
     setTimeout(() => {
       this._chart.refresh();
     }, 1);
+    this.setColors();
+    this.setOptions();
     this.updateChart();
   }
 
   private updateChart() {
 
-    this.eventsList.forEach(x => {
+    const tmpList = [];
+    this.eventsList.forEach(temp => tmpList.push(temp));
+    tmpList.sort((a: EventModel, b: EventModel) => a.date < b.date ? -1 : 1);
+
+    tmpList.forEach(x => {
 
       const monthNo = x.date.getMonth();
 
@@ -81,7 +68,7 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
 
       const monthNo = this.MONTH_NAMES.findIndex(x => x === monthName);
 
-      this.eventsList.forEach(myEvent => {
+      tmpList.forEach(myEvent => {
 
         if (myEvent.date.getMonth() === monthNo && myEvent.type.name === 'VISIT') {
           this.chartData[0].data[index]++;
@@ -97,4 +84,49 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
 
   }
 
+  private setColors() {
+    if (this.chartType === 'bar') {
+      this.chartColors = [
+        {backgroundColor: '#8BC34A', borderColor: '#8BC34A'},
+        {backgroundColor: '#1976D2', borderColor: '#1976D2'},
+        {backgroundColor: '#D50000', borderColor: '#D50000'}
+      ];
+    } else if (this.chartType === 'line') {
+      this.chartColors = [
+        {
+          borderColor: '#8BC34A',
+          backgroundColor: 'rgba(139, 195, 74,0.5)'
+        },
+        {
+          borderColor: '#1976D2',
+          backgroundColor: 'rgba(25, 118, 210,0.5)'
+        },
+        {
+          borderColor: '#D50000',
+          backgroundColor: 'rgba(213, 0, 0, 0.5)'
+        }
+      ];
+    }
+  }
+
+  private setOptions() {
+    this.chartOptions = {
+      scaleShowVerticalLines: false,
+      responsive: true,
+      legend: {position: this.legendPos},
+      scales: {
+        yAxes: [{
+          ticks: {
+            min: 0,
+            stepSize: 1
+          }
+        }]
+      },
+      title: {
+        display: this.title,
+        text: 'Events statistics',
+        fontSize: 20
+      }
+    };
+  }
 }

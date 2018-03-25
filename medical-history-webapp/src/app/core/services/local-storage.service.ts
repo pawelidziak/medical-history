@@ -15,6 +15,7 @@ export class LocalStorageService {
     if (localStorage.getItem(key) !== null) {
       return JSON.parse(localStorage.getItem(key));
     }
+    return null;
   }
 
   removeObject(key: string): void {

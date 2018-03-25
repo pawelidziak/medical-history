@@ -36,7 +36,6 @@ export class MainComponent implements OnInit, OnDestroy {
               private _localStorage: LocalStorageService) {
   }
 
-
   ngOnInit() {
     this.getUserEvents();
     this.getUserIncidents();
@@ -47,25 +46,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.eventsSub.unsubscribe();
     this.incidentsSub.unsubscribe();
     this.setListVisibility();
-  }
-
-  getListVisibility(): void {
-    const tmp = this._localStorage.getObject('showLists');
-    if (tmp !== null) {
-      this.showVisits = tmp.showVisits;
-      this.showInfos = tmp.showInfos;
-      this.showDiseases = tmp.showDiseases;
-    }
-  }
-
-  setListVisibility(): void {
-    this._localStorage.setObject('showLists',
-      {
-        showVisits: this.showVisits,
-        showInfos: this.showInfos,
-        showDiseases: this.showDiseases,
-      }
-    );
   }
 
   /**
@@ -131,9 +111,22 @@ export class MainComponent implements OnInit, OnDestroy {
     this.userDiseases = [];
   }
 
-  public chartClicked(e: any): void {
+  getListVisibility(): void {
+    const tmp = this._localStorage.getObject('showLists');
+    if (tmp !== null) {
+      this.showVisits = tmp.showVisits;
+      this.showInfos = tmp.showInfos;
+      this.showDiseases = tmp.showDiseases;
+    }
   }
 
-  public chartHovered(e: any): void {
+  setListVisibility(): void {
+    this._localStorage.setObject('showLists',
+      {
+        showVisits: this.showVisits,
+        showInfos: this.showInfos,
+        showDiseases: this.showDiseases,
+      }
+    );
   }
 }

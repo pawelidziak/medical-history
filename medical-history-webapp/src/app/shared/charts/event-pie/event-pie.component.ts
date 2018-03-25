@@ -13,18 +13,18 @@ export class EventPieComponent implements OnInit, OnChanges {
   @ViewChild(BaseChartDirective) private _chart;
 
   public eventsCount: Array<any> = [
-    {name: 'DISEASE', count: 0},
+    {name: 'VISIT', count: 0},
     {name: 'INFO', count: 0},
-    {name: 'VISIT', count: 0}
+    {name: 'DISEASE', count: 0}
   ];
-  public pieChartLabels: string[] = ['Disease', 'Info', 'Visit'];
+  public pieChartLabels: string[] = ['Visit', 'Info', 'Disease'];
   public pieChartData: number[] = [0, 0, 0];
   public pieChartType = 'pie';
   public options: any = {
     legend: {position: 'bottom'},
     responsive: true
   };
-  public pieChartColor: Array<any> = [{backgroundColor: ['#D50000', '#1976D2', '#8BC34A']}];
+  public pieChartColor: Array<any> = [{backgroundColor: ['#8BC34A', '#1976D2', '#D50000']}];
 
   constructor() {
   }
@@ -43,13 +43,13 @@ export class EventPieComponent implements OnInit, OnChanges {
     this.eventsCount.forEach(x => x.count = 0);
     this.eventsList.forEach(myEvent => {
       switch (myEvent.type.name) {
-        case 'DISEASE':
+        case 'VISIT':
           this.eventsCount[0].count++;
           break;
         case 'INFO':
           this.eventsCount[1].count++;
           break;
-        case 'VISIT':
+        case 'DISEASE':
           this.eventsCount[2].count++;
           break;
       }

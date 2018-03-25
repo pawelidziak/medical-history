@@ -74,7 +74,11 @@
 
     <!-- right column-->
     <div class="col-12 col-lg-6">
-      <app-events-bar-line [eventsList]="eventsList" [chartType]="'bar'"></app-events-bar-line>
+      <app-events-bar-line [eventsList]="eventsList"
+                           [chartType]="'bar'"
+                           [title]="'Events statistics'"
+                           [legendPos]="'bottom'">
+      </app-events-bar-line>
     </div>
 
   </div>

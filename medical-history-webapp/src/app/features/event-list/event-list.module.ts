@@ -4,12 +4,13 @@ import {EventComponent} from './event/event.component';
 import {EventDialogComponent} from './event-dialog/event-dialog.component';
 import {
   MatButtonModule, MatIconModule, MatMenuModule, MatCardModule, MatFormFieldModule,
-  MatSelectModule, MatDialogModule, MatInputModule, MatCheckboxModule
+  MatSelectModule, MatDialogModule, MatInputModule, MatCheckboxModule, MatListModule
 } from '@angular/material';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {SharedModule} from '../../shared/shared.module';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {EventPieModule} from '../../shared/charts/event-pie/event-pie.module';
+import {EventsBarLineModule} from '../../shared/charts/events-bar-line/events-bar-line.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {EventPieModule} from '../../shared/charts/event-pie/event-pie.module';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     EventPieModule,
+    EventsBarLineModule,
 
     // Material angular modules
     MatButtonModule,
@@ -34,7 +36,8 @@ import {EventPieModule} from '../../shared/charts/event-pie/event-pie.module';
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule
   ],
   exports: [
     EventListComponent

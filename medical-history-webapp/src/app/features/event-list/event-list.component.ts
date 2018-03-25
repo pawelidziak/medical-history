@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ISubscription, Subscription} from 'rxjs/Subscription';
 import {MatDialog} from '@angular/material';
@@ -6,6 +6,7 @@ import {EventDialogComponent, EventOperation} from './event-dialog/event-dialog.
 import {EventModel} from '../../core/models/EventModel';
 import {EventsService} from '../../core/services/events.service';
 import {LoadingService} from '../../core/services/loading.service';
+import {LocalStorageService} from '../../core/services/local-storage.service';
 
 declare const jsPDF;
 
@@ -19,11 +20,16 @@ export class EventListComponent implements OnInit, OnDestroy {
   @Input('incidentName') incidentName: string;
 
   private sub: Subscription;
+  private sub2: Subscription;
   private subscription: ISubscription;
 
   events: Array<EventModel> = [];
   private incidentID: string;
   public staticStats: boolean;
+
+  showPie = true;
+  showLine = false;
+  showBar = false;
 
   /**
    * Constructor subscribes to current route and gets the key (incident ID)
@@ -31,20 +37,24 @@ export class EventListComponent implements OnInit, OnDestroy {
    * @param {MatDialog} _dialog
    * @param _eventService
    * @param _loadingService
+   * @param _localStorage
    */
   constructor(private _route: ActivatedRoute,
               private _dialog: MatDialog,
               private _eventService: EventsService,
-              private _loadingService: LoadingService) {
+              private _loadingService: LoadingService,
+              private _localStorage: LocalStorageService) {
 
     this.staticStats = window.innerWidth >= 768;
 
     this.sub = this._route.params.subscribe(
       params => {
         this.incidentID = params['key'];
+        this.events = [];
         this.getEvents();
+        this.getChartsVisibility();
       });
-    this.sub = this._route.queryParams.subscribe(par => {
+    this.sub2 = this._route.queryParams.subscribe(par => {
       this.incidentName = par['name'];
     });
   }
@@ -55,8 +65,8 @@ export class EventListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.sub.unsubscribe();
+    this.sub2.unsubscribe();
   }
-
 
   /**
    * Gets event by incident from firebase through service
@@ -160,5 +170,24 @@ export class EventListComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.staticStats = event.target.innerWidth >= 768;
+  }
+
+  getChartsVisibility(): void {
+    const tmp = this._localStorage.getObject('showCharts');
+    if (tmp !== null) {
+      this.showPie = tmp.showPie;
+      this.showLine = tmp.showLine;
+      this.showBar = tmp.showBar;
+    }
+  }
+
+  setChartsVisibility(): void {
+    this._localStorage.setObject('showCharts',
+      {
+        showPie: this.showPie,
+        showLine: this.showLine,
+        showBar: this.showBar,
+      }
+    );
   }
 }
