@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
@@ -9,51 +10,66 @@ admin.initializeApp(functions.config().firebase);
 //  response.send("Hello from Firebase!");
 // });
 
-exports.eventAddTrigger = functions.firestore
-    .document(`incidents/{incidentId}/events/{newEventId}`)
-    .onCreate(async event => {
+exports.createUser = functions.auth.user().onCreate(event => {
+
+    const user = event.data; // The Firebase user.
+    const displayName = user.displayName; // The display name of the user.
+    const id = user.uid; // The id of the user.
+
+    return admin
+        .firestore()
+        .doc(`users/${id}`)
+        .set({
+            full_name: displayName
+        });
+});
+
+exports.deleteIncidentEvents = functions.firestore
+    .document(`incidents/{incidentId}`)
+    .onDelete(event => {
 
         const incidentId = event.params.incidentId;
-        const docRef = admin.firestore().collection('incidents').doc(incidentId)
 
-        return docRef.collection('events')
+        return admin.firestore()
+            .collection('events')
+            .where('incidentId', '==', incidentId)
             .get()
-            .then(querySnapshot => {
+            .then(snapshot => {
+                // Once we get the results, begin a batch
+                const batch = admin.firestore().batch();
 
-                // get the total events count
-                let eventsCount = querySnapshot.size;
+                snapshot.forEach(doc => {
+                    // For each doc, add a delete operation to the batch
+                    batch.delete(doc.ref);
+                });
 
-                if (!eventsCount) {
-                    eventsCount = 0;
-                }
-
-                // run update
-                return docRef.update({eventsCount: eventsCount})
+                // Commit the batch
+                return batch.commit();
             })
-            .catch(err => console.log(err) )
     });
 
-exports.eventDeleteTrigger = functions.firestore
-    .document(`incidents/{incidentId}/events/{idToDeleted}`)
-    .onDelete(async event => {
-
+exports.updateIncidentName = functions.firestore
+    .document(`incidents/{incidentId}`)
+    .onUpdate(event => {
 
         const incidentId = event.params.incidentId;
-        const docRef = admin.firestore().collection('incidents').doc(incidentId)
+        const newIncidentName = event.data.data().name;
 
-        return docRef.collection('events')
+
+        return admin.firestore()
+            .collection('events')
+            .where('incidentId', '==', incidentId)
             .get()
-            .then(querySnapshot => {
+            .then(snapshot => {
+                // Once we get the results, begin a batch
+                const batch = admin.firestore().batch();
 
-                // get the total events count
-                const eventsCount = querySnapshot.size;
+                snapshot.forEach(doc => {
+                    // For each doc, add a delete operation to the batch
+                    batch.update(doc.ref, 'incidentName', newIncidentName)
+                });
 
-                if (eventsCount === 0) {
-                    return;
-                }
-
-                // run update
-                return docRef.update({eventsCount: eventsCount})
+                // Commit the batch
+                return batch.commit();
             })
-            .catch(err => console.log(err) )
-    });
+    })

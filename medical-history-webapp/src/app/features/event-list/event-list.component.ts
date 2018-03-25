@@ -1,11 +1,11 @@
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {ISubscription, Subscription} from 'rxjs/Subscription';
 import {MatDialog} from '@angular/material';
 import {EventDialogComponent, EventOperation} from './event-dialog/event-dialog.component';
 import {EventModel} from '../../core/models/EventModel';
 import {EventsService} from '../../core/services/events.service';
-import {IncidentModel} from '../../core/models/IncidentModel';
+import {LoadingService} from '../../core/services/loading.service';
 
 declare const jsPDF;
 
@@ -15,43 +15,36 @@ declare const jsPDF;
   styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit, OnDestroy {
+
+  @Input('incidentName') incidentName: string;
+
   private sub: Subscription;
   private subscription: ISubscription;
-  private subscription2: ISubscription;
-  // Pie
-  public eventsCount: Array<any> = [{name: 'DISEASE', count: 0}, {name: 'INFO', count: 0}, {name: 'VISIT', count: 0}];
-  public pieChartLabels: string[] = ['Disease', 'Info', 'Visit'];
-  public pieChartData: number[] = [0, 1, 2];
-  public pieChartType = 'pie';
-  public options: any = {
-    legend: {position: 'bottom'}
-  };
-  public pieChartColor: Array<any> = [{backgroundColor: ['#D50000', '#1976D2', '#8BC34A']}];
 
   events: Array<EventModel> = [];
   private incidentID: string;
-
   public staticStats = true;
 
-  loading: boolean;
-
-  private incidentName;
 
   /**
    * Constructor subscribes to current route and gets the key (incident ID)
    * @param {ActivatedRoute} _route
    * @param {MatDialog} _dialog
    * @param _eventService
+   * @param _loadingService
    */
   constructor(private _route: ActivatedRoute,
               private _dialog: MatDialog,
-              private _eventService: EventsService) {
+              private _eventService: EventsService,
+              private _loadingService: LoadingService) {
     this.sub = this._route.params.subscribe(
       params => {
         this.incidentID = params['key'];
         this.getEvents();
-        this.getIncidentName();
       });
+    this.sub = this._route.queryParams.subscribe(par => {
+      this.incidentName = par['name'];
+    });
   }
 
   ngOnInit() {
@@ -59,40 +52,23 @@ export class EventListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    this.subscription2.unsubscribe();
     this.sub.unsubscribe();
   }
 
-  getIncidentName() {
-    this.loading = true;
-
-    this.subscription2 = this._eventService.getIncidentName(this.incidentID).subscribe(
-      (res: IncidentModel) => {
-        this.incidentName = res.name;
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-      }
-    );
-  }
-
+  /**
+   * Gets event by incident from firebase through service
+   */
   getEvents() {
-    this.loading = true;
-
-    this.subscription = this._eventService.get(this.incidentID).subscribe(
+    this._loadingService.start();
+    this.subscription = this._eventService.getByIncident(this.incidentID).subscribe(
       (res) => {
         this.events = res;
-        this.events.sort((a, b) => {
-          return a.date < b.date ? 1 : -1;
-        });
-        this.updateChart();
-        this.loading = false;
+        this._loadingService.complete();
       },
       (error) => {
         // FIXME
         console.log(error);
-        this.loading = false;
+        this._loadingService.complete();
       }
     );
   }
@@ -105,64 +81,46 @@ export class EventListComponent implements OnInit, OnDestroy {
    */
   openEventDialog(eventModel: EventModel) {
     const dialogRef = this._dialog.open(EventDialogComponent, {
-      data: {event: eventModel}
+      data: {event: eventModel, incidentName: this.incidentName}
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (typeof result !== 'undefined' && result !== null) {
+
+        let provider: any;
+
         switch (result.operation) {
           case EventOperation.toAdd:
-            this.addEvent(result.eventModel);
+            provider = this.addEvent(result.eventModel);
             break;
           case EventOperation.toUpdate:
-            this.updateEvent(result.eventModel);
+            provider = this.updateEvent(result.eventModel);
             break;
           case EventOperation.toDelete:
-            this.deleteEvent(result.eventModel.eventID);
+            provider = this.deleteEvent(result.eventModel);
             break;
         }
+
+        provider
+          .catch(error => console.log(error)
+          );
       }
     });
   }
 
-  private addEvent(eventModel: EventModel | any) {
-    this._eventService.add(this.incidentID, eventModel)
-      .catch(error => console.log(error));
+  private addEvent(eventModel: EventModel): Promise<any> {
+    eventModel.incidentId = this.incidentID;
+    return this._eventService.add(eventModel);
   }
 
-  private updateEvent(eventModel: EventModel | any) {
-    this._eventService.update(this.incidentID, eventModel)
-      .catch(error => console.log(error));
+  private updateEvent(eventModel: EventModel): Promise<void> {
+    eventModel.incidentId = this.incidentID;
+    return this._eventService.update(eventModel);
   }
 
-  private deleteEvent(eventId: string | any) {
-    this._eventService.delete(this.incidentID, eventId)
-      .catch(error => console.log(error));
+  private deleteEvent(eventModel: EventModel): Promise<void> {
+    return this._eventService.delete(eventModel);
   }
 
-  public updateChart() {
-    this.eventsCount.forEach(x => x.count = 0);
-    this.events.forEach(myevent => {
-      switch (myevent.type.name) {
-        case 'DISEASE':
-          this.eventsCount[0].count++;
-          break;
-        case 'INFO':
-          this.eventsCount[1].count++;
-          break;
-        case 'VISIT':
-          this.eventsCount[2].count++;
-          break;
-      }
-    });
-    this.pieChartData = [this.eventsCount[0].count, this.eventsCount[1].count, this.eventsCount[2].count];
-  }
-
-  // events
-  public chartClicked(e: any): void {
-  }
-
-  public chartHovered(e: any): void {
-  }
 
   saveAsPDF(): void {
     const doc = new jsPDF('p', 'pt');

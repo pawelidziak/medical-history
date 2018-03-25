@@ -14,8 +14,45 @@
   <!-- Font Awesome Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
+  <style type="text/css">
+    body, html {
+      height: 100%;
+    }
+
+    .app-loading {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .loader {
+      border: 16px solid #FAFAFA;
+      border-top: 16px solid #3F51B5;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+  </style>
 </head>
 <body>
-  <app-root></app-root>
+
+<app-root>
+
+  <div class="app-loading">
+    <div class="loader"></div>
+  </div>
+
+</app-root>
+
 </body>
 </html>

@@ -1,30 +1,61 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {IncidentModel} from '../../core/models/IncidentModel';
 import {IncidentService} from '../../core/services/incident.service';
 import {Router} from '@angular/router';
+import {ISubscription} from 'rxjs/Subscription';
+import {LoadingService} from "../../core/services/loading.service";
 
 @Component({
   selector: 'app-incident-list',
   templateUrl: './incident-list.component.html',
   styleUrls: ['./incident-list.component.scss'],
 })
-export class IncidentListComponent implements OnInit {
+export class IncidentListComponent implements OnInit, OnDestroy {
 
-  @Input('userIncidents') userIncidents: Array<IncidentModel>;
+  // http://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
+  private subscription: ISubscription;
+  userIncidents: Array<IncidentModel> = [];
+
   addNewIncident = false;
   incidentInput = new FormControl('');
 
   error: string;
-
   showIncidentOption = false;
-
+  showEdit: boolean;
   panelOpenState = false;
 
-  constructor(public _incidentService: IncidentService, private _router: Router) {
+  constructor(public _incidentService: IncidentService,
+              private _router: Router,
+              private _loadingService: LoadingService) {
   }
 
   ngOnInit(): void {
+    this.getUserIncidents();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  /**
+   * Method gets incidents (of current logged user) from DB and
+   * subscribes for its possible changes
+   */
+  private getUserIncidents(): void {
+    this._loadingService.start();
+    this.subscription = this._incidentService.get().subscribe(
+      (list) => {
+        this.userIncidents = [];
+        this.userIncidents = list;
+        this._loadingService.complete();
+        this.setEdit();
+      },
+      error => {
+        this.error = error;
+        this._loadingService.complete();
+      }
+    );
   }
 
   /**
@@ -58,7 +89,7 @@ export class IncidentListComponent implements OnInit {
    * @param {string} id
    */
   deleteIncident(id: string): void {
-    const tmpIndex = this.userIncidents.findIndex(x => x.incidentID === id);
+    const tmpIndex = this.userIncidents.findIndex(x => x.incidentId === id);
 
     this._incidentService.deleteIncidentFromFirestore(id)
       .then(() => {
@@ -121,6 +152,14 @@ export class IncidentListComponent implements OnInit {
       this.userIncidents[i].positionOnList = i;
       this._incidentService.update(this.userIncidents[i])
         .catch(error => this.error = error);
+    }
+  }
+
+  private setEdit() {
+    this.showEdit = this.userIncidents.length > 0;
+
+    if (this.userIncidents.length === 0) {
+      this.showIncidentOption = false;
     }
   }
 }

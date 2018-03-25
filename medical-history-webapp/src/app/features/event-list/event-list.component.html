@@ -1,5 +1,4 @@
-<app-spinner [loading]="loading"></app-spinner>
-<section class="timeline-section" *ngIf="!loading">
+<section class="timeline-section">
 
   <div class="event-options">
     <button mat-mini-fab color="primary" (click)="openEventDialog(null)">
@@ -41,17 +40,10 @@
 
     <div class="col-12 col-md-6" id="statistics" [ngClass]="{'static-stats': staticStats}">
       <p class="header">STATISTICS</p>
-      <div style="display: block">
-        <canvas baseChart
-                [data]="pieChartData"
-                [labels]="pieChartLabels"
-                [chartType]="pieChartType"
-                [colors]="pieChartColor"
-                [options]="options"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
-      </div>
-    </div>
+      <app-event-pie [eventsList]="events" *ngIf="events.length > 0"></app-event-pie>
+      <div *ngIf="events.length === 0" class="no-events">
+        <p>Add some events to display statistics.</p>
+      </div>    </div>
   </div> <!-- end row -->
 
 </section>

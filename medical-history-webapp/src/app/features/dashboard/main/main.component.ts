@@ -1,7 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IncidentService} from '../../../core/services/incident.service';
 import {ISubscription} from 'rxjs/Subscription';
-import {IncidentModel} from '../../../core/models/IncidentModel';
+import {EventModel} from '../../../core/models/EventModel';
+import {EventsService} from '../../../core/services/events.service';
+import {LoadingService} from '../../../core/services/loading.service';
+import {LocalStorageService} from '../../../core/services/local-storage.service';
 
 @Component({
   selector: 'app-main',
@@ -10,30 +13,90 @@ import {IncidentModel} from '../../../core/models/IncidentModel';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-  private subscription: ISubscription;
+  private eventsSub: ISubscription;
+  private incidentsSub: ISubscription;
 
   allIncidentCount: number;
   allEventsCount: number;
 
-  constructor(private incidentService: IncidentService) {
+  userVisits: Array<EventModel> = [];
+  userInfos: Array<EventModel> = [];
+  userDiseases: Array<EventModel> = [];
+
+  showVisits = true;
+  showInfos = false;
+  showDiseases = false;
+
+
+  public eventsList: EventModel[] = [];
+
+  constructor(private _incidentService: IncidentService,
+              private _eventService: EventsService,
+              private _loadingService: LoadingService,
+              private _localStorage: LocalStorageService) {
   }
 
+
   ngOnInit() {
+    this.getUserEvents();
     this.getUserIncidents();
+    this.getListVisibility();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.eventsSub.unsubscribe();
+    this.incidentsSub.unsubscribe();
+    this.setListVisibility();
+  }
+
+  getListVisibility(): void {
+    const tmp = this._localStorage.getObject('showLists');
+    if (tmp !== null) {
+      this.showVisits = tmp.showVisits;
+      this.showInfos = tmp.showInfos;
+      this.showDiseases = tmp.showDiseases;
+    }
+  }
+
+  setListVisibility(): void {
+    this._localStorage.setObject('showLists',
+      {
+        showVisits: this.showVisits,
+        showInfos: this.showInfos,
+        showDiseases: this.showDiseases,
+      }
+    );
   }
 
   /**
    * Method gets incidents (of current logged user) from DB and
    * subscribes for its possible changes
    */
-  private getUserIncidents(): void {
-    this.subscription = this.incidentService.get().subscribe(
+  private getUserEvents(): void {
+    this._loadingService.start();
+    this.eventsSub = this._eventService.getByUser().subscribe(
       list => {
-        this.setCounts(list);
+        this.allEventsCount = list.length;
+        this.clearLists();
+        this.eventsList = list;
+        this.eventsList.forEach(x => {
+          this.chooseProperEvent(x);
+        });
+
+        this._loadingService.complete();
+      },
+      error => {
+        // FIXME
+        console.log(error);
+        this._loadingService.complete();
+      }
+    );
+  }
+
+  private getUserIncidents(): void {
+    this.incidentsSub = this._incidentService.get().subscribe(
+      list => {
+        this.allIncidentCount = list.length;
       },
       error => {
         // FIXME
@@ -42,14 +105,35 @@ export class MainComponent implements OnInit, OnDestroy {
     );
   }
 
-  private setCounts(list: IncidentModel[]) {
-    this.allIncidentCount = 0;
-    this.allEventsCount = 0;
-    this.allIncidentCount = list.length;
-    list.forEach(x => {
-      if (typeof x.eventsCount !== 'undefined') {
-        this.allEventsCount += x.eventsCount;
-      }
-    });
+  private chooseProperEvent(myEvent: EventModel) {
+    switch (myEvent.type.name) {
+      case 'VISIT':
+        if (this.userVisits.length < 3) {
+          this.userVisits.push(myEvent);
+        }
+        break;
+      case 'INFO':
+        if (this.userInfos.length < 3) {
+          this.userInfos.push(myEvent);
+        }
+        break;
+      case 'DISEASE':
+        if (this.userDiseases.length < 3) {
+          this.userDiseases.push(myEvent);
+        }
+        break;
+    }
+  }
+
+  private clearLists() {
+    this.userVisits = [];
+    this.userInfos = [];
+    this.userDiseases = [];
+  }
+
+  public chartClicked(e: any): void {
+  }
+
+  public chartHovered(e: any): void {
   }
 }

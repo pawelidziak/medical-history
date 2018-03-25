@@ -1,6 +1,4 @@
-<app-spinner [loading]="loading"></app-spinner>
-
-<section class="section-main" *ngIf="!loading">
+<section class="section-main">
   <mat-drawer-container (backdropClick)="hideDrawer ? drawer.close() : null">
 
     <mat-drawer [disableClose]="true" #drawer [mode]="hideDrawer ? 'over' : 'side'" [opened]="!hideDrawer">
@@ -19,13 +17,13 @@
         <div class="user-info">
           <button mat-raised-button [routerLink]="['/dashboard/profile']">
             <mat-icon aria-label="Account icon">account_circle</mat-icon>
-            <span>{{_auth.userName}}</span>
+            <span *ngIf="alreadyLogged">{{_auth.userName}}</span>
           </button>
         </div>
       </div>
 
       <div class="drawer-content">
-        <app-incident-list [userIncidents]="userIncidents"></app-incident-list>
+        <app-incident-list></app-incident-list>
       </div>
 
     </mat-drawer>
@@ -35,7 +33,10 @@
   </span>
 
     <div class="my-content">
-      <router-outlet></router-outlet>
+      <mat-progress-bar mode="indeterminate" [hidden]="!loader"></mat-progress-bar>
+      <div [hidden]="loader">
+        <router-outlet></router-outlet>
+      </div>
     </div>
 
   </mat-drawer-container>

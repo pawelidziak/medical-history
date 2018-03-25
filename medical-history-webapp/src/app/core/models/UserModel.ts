@@ -8,5 +8,4 @@ export interface UserModel {
   height: number;
   waist: number;
   hip: number;
-  visits_list?: Array<string>;
 }

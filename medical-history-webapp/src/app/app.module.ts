@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
 import {appRouting} from './app.routing';
+import {MatProgressBarModule, MatProgressSpinnerModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,9 @@ import {appRouting} from './app.routing';
   imports: [
     BrowserModule,
     appRouting,
+
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
 
     CoreModule
   ],
