@@ -50,7 +50,7 @@ export class EventsBarLineComponent implements OnInit, OnChanges {
     const tmpList = [];
     this.eventsList.forEach(temp => tmpList.push(temp));
     tmpList.sort((a: EventModel, b: EventModel) => a.date < b.date ? -1 : 1);
-    
+
     this.chartData.forEach(d => d.data = []);
     tmpList.forEach(x => {
 

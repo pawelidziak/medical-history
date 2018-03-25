@@ -37,13 +37,11 @@ export class EventListComponent implements OnInit, OnDestroy {
    * @param {MatDialog} _dialog
    * @param _eventService
    * @param _loadingService
-   * @param _localStorage
    */
   constructor(private _route: ActivatedRoute,
               private _dialog: MatDialog,
               private _eventService: EventsService,
-              private _loadingService: LoadingService,
-              private _localStorage: LocalStorageService) {
+              private _loadingService: LoadingService) {
 
     this.staticStats = window.innerWidth >= 768;
 
@@ -173,7 +171,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   getChartsVisibility(): void {
-    const tmp = this._localStorage.getObject('showCharts');
+    const tmp = LocalStorageService.getObject('showCharts');
     if (tmp !== null) {
       this.showPie = tmp.showPie;
       this.showLine = tmp.showLine;
@@ -182,7 +180,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   setChartsVisibility(): void {
-    this._localStorage.setObject('showCharts',
+    LocalStorageService.setObject('showCharts',
       {
         showPie: this.showPie,
         showLine: this.showLine,

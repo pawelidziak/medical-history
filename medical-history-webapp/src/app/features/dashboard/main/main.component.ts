@@ -33,8 +33,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   constructor(private _eventService: EventsService,
               private _incidentService: IncidentService,
-              private _loadingService: LoadingService,
-              private _localStorage: LocalStorageService) {
+              private _loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -116,7 +115,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   getListVisibility(): void {
-    const tmp = this._localStorage.getObject('showLists');
+    const tmp = LocalStorageService.getObject('showLists');
     if (tmp !== null) {
       this.showVisits = tmp.showVisits;
       this.showInfos = tmp.showInfos;
@@ -125,7 +124,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   setListVisibility(): void {
-    this._localStorage.setObject('showLists',
+    LocalStorageService.setObject('showLists',
       {
         showVisits: this.showVisits,
         showInfos: this.showInfos,

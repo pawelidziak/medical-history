@@ -10,7 +10,6 @@ import {IncidentService} from './services/incident.service';
 import {HttpClientModule} from '@angular/common/http';
 import {LoadingService} from './services/loading.service';
 import {AuthGuard} from './auth.guard';
-import {LocalStorageService} from './services/local-storage.service';
 import {EventsService} from './services/events.service';
 
 @NgModule({
@@ -24,7 +23,6 @@ import {EventsService} from './services/events.service';
     RouterModule
   ],
   providers: [
-    LocalStorageService,
     AuthGuard,
     AuthService,
     UserService,
