@@ -38,12 +38,13 @@
 
     </div>
 
-    <div class="col-12 col-md-6" id="statistics" [ngClass]="{'static-stats': staticStats}">
+    <div class="col-12 col-md-6" id="statistics">
       <p class="header">STATISTICS</p>
-      <app-event-pie [eventsList]="events" *ngIf="events.length > 0"></app-event-pie>
-      <div *ngIf="events.length === 0" class="no-events">
-        <p>Add some events to display statistics.</p>
-      </div>    </div>
+        <app-event-pie [eventsList]="events" *ngIf="events.length > 0"></app-event-pie>
+        <div *ngIf="events.length === 0" class="no-events">
+          <p>Add some events to display statistics.</p>
+        </div>
+    </div>
   </div> <!-- end row -->
 
 </section>

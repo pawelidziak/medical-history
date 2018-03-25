@@ -20,7 +20,10 @@ export class EventPieComponent implements OnInit, OnChanges {
   public pieChartLabels: string[] = ['Disease', 'Info', 'Visit'];
   public pieChartData: number[] = [0, 0, 0];
   public pieChartType = 'pie';
-  public options: any = {legend: {position: 'bottom'}};
+  public options: any = {
+    legend: {position: 'bottom'},
+    responsive: true
+  };
   public pieChartColor: Array<any> = [{backgroundColor: ['#D50000', '#1976D2', '#8BC34A']}];
 
   constructor() {

@@ -23,8 +23,7 @@ export class EventListComponent implements OnInit, OnDestroy {
 
   events: Array<EventModel> = [];
   private incidentID: string;
-  public staticStats = true;
-
+  public staticStats: boolean;
 
   /**
    * Constructor subscribes to current route and gets the key (incident ID)
@@ -37,6 +36,9 @@ export class EventListComponent implements OnInit, OnDestroy {
               private _dialog: MatDialog,
               private _eventService: EventsService,
               private _loadingService: LoadingService) {
+
+    this.staticStats = window.innerWidth >= 768;
+
     this.sub = this._route.params.subscribe(
       params => {
         this.incidentID = params['key'];
@@ -54,6 +56,7 @@ export class EventListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
     this.sub.unsubscribe();
   }
+
 
   /**
    * Gets event by incident from firebase through service
@@ -99,7 +102,6 @@ export class EventListComponent implements OnInit, OnDestroy {
             provider = this.deleteEvent(result.eventModel);
             break;
         }
-
         provider
           .catch(error => console.log(error)
           );
@@ -128,7 +130,9 @@ export class EventListComponent implements OnInit, OnDestroy {
     const rows = [];
 
     for (let i = 0; i < this.events.length; i++) {
-      const temp = [i + 1, this.events[i].title, this.events[i].type.name, this.events[i].desc, this.events[i].date.toLocaleDateString()];
+      const temp = [i + 1, this.events[i].title, this.events[i].type.name,
+        this.events[i].desc ? this.events[i].desc : '',
+        this.events[i].date.toLocaleDateString()];
       rows.push(temp);
     }
 
