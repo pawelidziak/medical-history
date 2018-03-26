@@ -143,12 +143,11 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription = this._userService.get().subscribe(
       (res: UserModel) => {
         this.USER_BMI = res.bmi;
-        this.setLegend();
       }
     );
   }
 
-  private countBmiDifferecne() {
+  public countBmiDifference() {
     if (this.USER_BMI === 0) {
       return ('Fill the user profile!');
     }
@@ -162,21 +161,6 @@ export class MainComponent implements OnInit, OnDestroy {
     if (this.USER_BMI > 25) {
       const bmi_diff = +this.USER_BMI - 25;
       return ('To achieve correct Body Mass Index You need lose ' + bmi_diff.toFixed(2) + ' BMI points.');
-    }
-  }
-
-  private setLegend(): void {
-    if (this.USER_BMI < 18.5 && this.USER_BMI > 0) {
-      this.setColor = 0;
-    }
-    if (this.USER_BMI <= 25 && this.USER_BMI > 18.5) {
-      this.setColor = 1;
-    }
-    if (this.USER_BMI <= 30 && this.USER_BMI > 25) {
-      this.setColor = 2;
-    }
-    if (this.USER_BMI > 30) {
-      this.setColor = 3;
     }
   }
 
