@@ -130,25 +130,31 @@
   font-size: $small_font_size;
 }
 .legend1 {
-  display: flex;
+  display: inline-block;
   align-items: center;
   text-align: center;
   justify-content: center;
   mat-chip{font-size: 10px;}
   margin-top: 2*$normal_margin;
   margin-bottom: $normal_margin;
+  @media #{$lt-xs_size} {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
 }
 .legend2 {
-  display: flex;
+  display: inline-block;
   align-items: center;
   text-align: center;
   justify-content: center;
   mat-chip{font-size: 10px;}
   margin-top: 2*$normal_margin;
   margin-bottom: $normal_margin;
-  @media #{$gt-xs_size} {
-    justify-content: flex-end;
-    padding: .5*$normal_margin;
-    padding-right: 0;
+  @media #{$lt-xs_size} {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: $normal_margin;
   }
 }
