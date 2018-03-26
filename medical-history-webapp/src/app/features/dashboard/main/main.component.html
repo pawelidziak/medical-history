@@ -74,21 +74,26 @@
       </mat-card>
     </div> <!-- /left column -->
     <div class="col-12 col-lg-6">
-      <p class="header">Body Mass Index</p>
-      <div class="statistic">
-        <div class="numberCircle">{{USER_BMI}}</div>
-      </div>
-      <p class="bmi_information">{{countBmiDifference()}}</p>
-      <div style="text-align: center">
-        <mat-chip-list class="legend1">
-          <mat-chip [color]="USER_BMI < 18.5 ? 'primary' : 'normal'" [selected]="true">Thinness < 18,5</mat-chip>
-          <mat-chip [color]="USER_BMI >= 18.5 && USER_BMI < 25 ? 'primary' : 'normal'" [selected]="true">Normal 18,5 - 25</mat-chip>
-        </mat-chip-list>
-        <mat-chip-list class="legend2">
-          <mat-chip [color]="USER_BMI >= 25 && USER_BMI <= 30 ? 'primary' : 'normal'" [selected]="true">Overweight 25 - 30</mat-chip>
-          <mat-chip [color]="USER_BMI > 30 ? 'primary' : 'normal'" [selected]="true">Obese > 30</mat-chip>
-        </mat-chip-list>
-      </div>
+        <p class="header">Body Mass Index</p>
+        <div class="statistic">
+          <div class="numberCircle">{{USER_BMI}}</div>
+        </div>
+        <p class="bmi_information" [innerHtml]="countBmiDifference()"></p>
+        <div style="text-align: center">
+          <mat-chip-list class="legend1">
+            <mat-chip [color]="USER_BMI < 18.5 && USER_BMI > 0 ? 'primary' : 'normal'" [selected]="true">Thinness < 18,5</mat-chip>
+            <mat-chip [color]="USER_BMI >= 18.5 && USER_BMI < 25 ? 'primary' : 'normal'" [selected]="true">Normal 18,5 -
+              25
+            </mat-chip>
+          </mat-chip-list>
+          <mat-chip-list class="legend2">
+            <mat-chip [color]="USER_BMI >= 25 && USER_BMI <= 30 ? 'primary' : 'normal'" [selected]="true">Overweight 25
+              -
+              30
+            </mat-chip>
+            <mat-chip [color]="USER_BMI > 30 ? 'primary' : 'normal'" [selected]="true">Obese > 30</mat-chip>
+          </mat-chip-list>
+        </div>
       <app-events-bar-line [eventsList]="eventsList"
                            [chartType]="'bar'"
                            [title]="'Events statistics'"

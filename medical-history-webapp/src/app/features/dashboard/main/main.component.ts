@@ -142,14 +142,16 @@ export class MainComponent implements OnInit, OnDestroy {
   getUserProfile(): void {
     this.subscription = this._userService.get().subscribe(
       (res: UserModel) => {
-        this.USER_BMI = res.bmi;
+        if (typeof res.bmi !== 'undefined') {
+          this.USER_BMI = res.bmi;
+        }
       }
     );
   }
 
   public countBmiDifference() {
     if (this.USER_BMI === 0) {
-      return ('Fill the user profile!');
+      return ('Fill the <a href="dashboard/profile">user profile</a>!');
     }
     if (this.USER_BMI < 18.5 && this.USER_BMI > 0) {
       const bmi_diff = 18.5 - +this.USER_BMI;

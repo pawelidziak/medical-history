@@ -135,7 +135,7 @@
   text-align: center;
   justify-content: center;
   mat-chip{font-size: 10px;}
-  margin-top: 2*$normal_margin;
+  margin-top: $normal_margin;
   margin-bottom: $normal_margin;
   @media #{$lt-xs_size} {
     display: flex;
@@ -149,7 +149,7 @@
   text-align: center;
   justify-content: center;
   mat-chip{font-size: 10px;}
-  margin-top: 2*$normal_margin;
+  margin-top: $normal_margin;
   margin-bottom: $normal_margin;
   @media #{$lt-xs_size} {
     display: flex;
