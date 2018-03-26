@@ -90,17 +90,17 @@ export class MainComponent implements OnInit, OnDestroy {
   private chooseProperEvent(myEvent: EventModel) {
     switch (myEvent.type.name) {
       case 'VISIT':
-        if (this.userVisits.length < 3) {
+        if (this.userVisits.length < 3 && myEvent.date >= new Date()) {
           this.userVisits.push(myEvent);
         }
         break;
       case 'INFO':
-        if (this.userInfos.length < 3) {
+        if (this.userInfos.length < 3 && myEvent.date >= new Date()) {
           this.userInfos.push(myEvent);
         }
         break;
       case 'DISEASE':
-        if (this.userDiseases.length < 3) {
+        if (this.userDiseases.length < 3 && myEvent.date >= new Date()) {
           this.userDiseases.push(myEvent);
         }
         break;
