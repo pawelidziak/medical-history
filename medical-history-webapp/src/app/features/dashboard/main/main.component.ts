@@ -50,6 +50,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.setListVisibility();
+    this.eventsSub$.unsubscribe();
+    this.incidentsSub$.unsubscribe();
   }
 
   /**
@@ -67,7 +69,6 @@ export class MainComponent implements OnInit, OnDestroy {
           this.eventsList = list;
           this.eventsList.forEach(x => {
             this.chooseProperEvent(x);
-            this.countIncidents(x);
           });
         }
 
@@ -166,10 +167,4 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
-  private countIncidents(model: EventModel) {
-    if (this.incidentsId.findIndex(x => x === model.incidentId) === -1) {
-      this.incidentsId.push(model.incidentId);
-      this.allIncidentCount++;
-    }
-  }
 }
