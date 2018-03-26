@@ -28,9 +28,9 @@
 
     </mat-drawer>
 
-    <span id="button-menu" *ngIf="hideDrawer" (click)="drawer.toggle()">
+    <button mat-icon-button id="button-menu" *ngIf="hideDrawer" (click)="drawer.toggle()">
     <mat-icon aria-label="Open menu icon">menu</mat-icon>
-  </span>
+  </button>
 
     <div class="my-content">
       <mat-progress-bar mode="indeterminate" [hidden]="!loader"></mat-progress-bar>
