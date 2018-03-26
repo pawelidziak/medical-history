@@ -103,3 +103,58 @@
 .mat-card {
   padding: .5*$normal_margin;
 }
+.numberCircle {
+  width: 120px;
+  line-height: 120px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  border: 2px solid #666;
+}
+
+.header {
+  @include header_in_content;
+  letter-spacing: .2em;
+  text-align: center;
+}
+
+.statistic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bmi_information {
+  @include quotation_in_content;
+  text-align: center;
+  margin-top: $normal_margin;
+  font-size: $small_font_size;
+}
+.legend1 {
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  mat-chip{font-size: 10px;}
+  margin-top: $normal_margin;
+  margin-bottom: $normal_margin;
+  @media #{$lt-xs_size} {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+}
+.legend2 {
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  mat-chip{font-size: 10px;}
+  margin-top: $normal_margin;
+  margin-bottom: $normal_margin;
+  @media #{$lt-xs_size} {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: $normal_margin;
+  }
+}

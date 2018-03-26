@@ -1,5 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ISubscription} from 'rxjs/Subscription';
+import {IncidentModel} from '../../../core/models/IncidentModel';
+import {UserService} from '../../../core/services/user.service';
+import {UserModel} from '../../../core/models/UserModel';
 import {EventModel} from '../../../core/models/EventModel';
 import {EventsService} from '../../../core/services/events.service';
 import {LoadingService} from '../../../core/services/loading.service';
@@ -13,11 +16,14 @@ import {IncidentService} from '../../../core/services/incident.service';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-  private eventsSub$: ISubscription;
-  private incidentsSub$: ISubscription;
-
+  private subscription: ISubscription;
   allIncidentCount = 0;
   allEventsCount = 0;
+  USER_BMI = 0;
+  public setColor = -1;
+
+  private eventsSub$: ISubscription;
+  private incidentsSub$: ISubscription;
 
   userVisits: Array<EventModel> = [];
   userInfos: Array<EventModel> = [];
@@ -31,14 +37,14 @@ export class MainComponent implements OnInit, OnDestroy {
   public eventsList: EventModel[] = [];
   private incidentsId: string[] = [];
 
-  constructor(private _eventService: EventsService,
-              private _incidentService: IncidentService,
-              private _loadingService: LoadingService) {
+  constructor(private _eventService: EventsService, private _loadingService: LoadingService,
+              private _incidentService: IncidentService, private _userService: UserService) {
   }
 
   ngOnInit() {
     this.getUserEvents();
     this.getUserIncidents();
+    this.getUserProfile();
     this.getListVisibility();
   }
 
@@ -133,11 +139,37 @@ export class MainComponent implements OnInit, OnDestroy {
     );
   }
 
+  getUserProfile(): void {
+    this.subscription = this._userService.get().subscribe(
+      (res: UserModel) => {
+        if (typeof res.bmi !== 'undefined') {
+          this.USER_BMI = res.bmi;
+        }
+      }
+    );
+  }
+
+  public countBmiDifference() {
+    if (this.USER_BMI === 0) {
+      return ('Fill the <a href="dashboard/profile">user profile</a>!');
+    }
+    if (this.USER_BMI < 18.5 && this.USER_BMI > 0) {
+      const bmi_diff = 18.5 - +this.USER_BMI;
+      return ('To achieve correct Body Mass Index You need ' + bmi_diff.toFixed(2) + ' BMI points.');
+    }
+    if (this.USER_BMI <= 25 && this.USER_BMI > 18.5) {
+      return ('Your Body Mass Index is correct!');
+    }
+    if (this.USER_BMI > 25) {
+      const bmi_diff = +this.USER_BMI - 25;
+      return ('To achieve correct Body Mass Index You need lose ' + bmi_diff.toFixed(2) + ' BMI points.');
+    }
+  }
+
   private countIncidents(model: EventModel) {
     if (this.incidentsId.findIndex(x => x === model.incidentId) === -1) {
       this.incidentsId.push(model.incidentId);
       this.allIncidentCount++;
     }
   }
-
 }

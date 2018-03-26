@@ -32,6 +32,7 @@ export class UserProfileComponent implements OnInit {
   heightForm = new FormControl('', [Validators.required, Validators.pattern('[0-9]\\.[0-9]*')]);
   waistForm = new FormControl('');
   hipForm = new FormControl('');
+  USER_BMI = 0;
 
 
   constructor(public _userProfileService: UserService,
@@ -55,9 +56,10 @@ export class UserProfileComponent implements OnInit {
     this.getUserProfile();
   }
 
-  countBMI() {
+  public countBMI() {
     if (+this.heightForm.value !== 0 && +this.weightForm.value !== 0) {
-      const bmi = +this.weightForm.value / (+this.heightForm.value * +this.heightForm.value);
+      const bmi: number = +this.weightForm.value / (+this.heightForm.value * +this.heightForm.value);
+      this.USER_BMI = + bmi.toFixed(2);
       return 'Your BMI score: ' + bmi.toFixed(2);
     }
   }
@@ -91,7 +93,8 @@ export class UserProfileComponent implements OnInit {
       weight: this.weightForm.value,
       height: this.heightForm.value,
       waist: this.waistForm.value,
-      hip: this.hipForm.value
+      hip: this.hipForm.value,
+      bmi: this.USER_BMI
     };
     console.log(newUser);
     this._userProfileService.update(newUser)

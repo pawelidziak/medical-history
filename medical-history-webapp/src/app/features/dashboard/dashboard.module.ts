@@ -1,10 +1,8 @@
 import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {
-  MatButtonModule, MatCardModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule,
-  MatNativeDateModule, MatProgressBarModule,
-  MatSelectModule,
-  MatSidenavModule
+  MatChipsModule, MatDividerModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatFormFieldModule,
+  MatIconModule, MatInputModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSidenavModule, MatCheckboxModule,
 } from '@angular/material';
 import {IncidentListModule} from '../incident-list/incident-list.module';
 import {AuthGuard} from '../../core/auth.guard';
@@ -42,6 +40,8 @@ import {MainModule} from './main/main.module';
     MatNativeDateModule,
     MatInputModule,
     MatCardModule,
+    MatChipsModule,
+    MatCheckboxModule,
     MatProgressBarModule
   ]
 })
