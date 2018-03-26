@@ -3,8 +3,6 @@ import {IncidentService} from '../../../core/services/incident.service';
 import {ISubscription} from 'rxjs/Subscription';
 import {IncidentModel} from '../../../core/models/IncidentModel';
 import {UserService} from '../../../core/services/user.service';
-import {AuthService} from '../../../core/services/auth.service';
-import {AngularFirestore} from 'angularfire2/firestore';
 import {UserModel} from '../../../core/models/UserModel';
 
 @Component({
@@ -18,6 +16,7 @@ export class MainComponent implements OnInit, OnDestroy {
   allIncidentCount: number;
   allEventsCount: number;
   USER_BMI = 0;
+  public setColor = -1;
 
   constructor(private incidentService: IncidentService, private _userService: UserService) {
   }
@@ -62,16 +61,40 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription = this._userService.get().subscribe(
       (res: UserModel) => {
         this.USER_BMI = res.bmi;
+        this.setLegend();
       }
     );
   }
 
-  private coutBmiDifferecne() {
+  private countBmiDifferecne() {
+    if (this.USER_BMI === 0) {
+      return ('Fill the user profile!');
+    }
+    if (this.USER_BMI < 18.5 && this.USER_BMI > 0) {
+      const bmi_diff = 18.5 - +this.USER_BMI;
+      return ('To achieve correct Body Mass Index You need ' + bmi_diff.toFixed(2) + ' BMI points.');
+    }
+    if (this.USER_BMI <= 25 && this.USER_BMI > 18.5) {
+      return ('Your Body Mass Index is correct!');
+    }
     if (this.USER_BMI > 25) {
       const bmi_diff = +this.USER_BMI - 25;
-      return('To achieve correct Body Mass Index You need lose ' + bmi_diff.toFixed(2) + ' BMI points.');
-    } else {
-      return('Your Body Mass Index is correct!');
+      return ('To achieve correct Body Mass Index You need lose ' + bmi_diff.toFixed(2) + ' BMI points.');
+    }
+  }
+
+  private setLegend(): void {
+    if (this.USER_BMI < 18.5 && this.USER_BMI > 0) {
+      this.setColor = 0;
+    }
+    if (this.USER_BMI <= 25 && this.USER_BMI > 18.5) {
+      this.setColor = 1;
+    }
+    if (this.USER_BMI <= 30 && this.USER_BMI > 25) {
+      this.setColor = 2;
+    }
+    if (this.USER_BMI > 30) {
+      this.setColor = 3;
     }
   }
 }

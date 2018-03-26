@@ -1,9 +1,11 @@
 import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {
-  MatButtonModule, MatCardModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule,
+  MatButtonModule, MatCardModule, MatChipsModule, MatDatepickerModule, MatDividerModule, MatFormFieldModule, MatIconModule,
+  MatInputModule,
+  MatNativeDateModule,
   MatSelectModule,
-  MatSidenavModule
+  MatSidenavModule,
 } from '@angular/material';
 import {IncidentListModule} from '../incident-list/incident-list.module';
 import {AuthGuard} from '../../core/auth.guard';
@@ -37,7 +39,8 @@ import {UserService} from '../../core/services/user.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatChipsModule,
   ],
   providers: [
     AuthGuard,

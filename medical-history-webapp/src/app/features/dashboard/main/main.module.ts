@@ -3,7 +3,7 @@ import {SharedModule} from '../../../shared/shared.module';
 import {MainComponent} from './main.component';
 import {EventsService} from '../../../core/services/events.service';
 import {IncidentService} from '../../../core/services/incident.service';
-import {MatCardModule, MatIconModule} from '@angular/material';
+import {MatCardModule, MatChipsModule, MatIconModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import {MatCardModule, MatIconModule} from '@angular/material';
 
     // Material angular modules
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatChipsModule
   ],
   providers: [
     EventsService,
