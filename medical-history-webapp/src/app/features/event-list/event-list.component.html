@@ -1,5 +1,4 @@
-<app-spinner [loading]="loading"></app-spinner>
-<section class="timeline-section" *ngIf="!loading">
+<section class="timeline-section">
 
   <div class="event-options">
     <button mat-mini-fab color="primary" (click)="openEventDialog(null)">
@@ -11,6 +10,7 @@
     </button>
     <mat-menu #settingsOption>
       <button mat-menu-item (click)="saveAsPDF()">Export to PDF</button>
+      <button mat-menu-item>asd</button>
     </mat-menu>
 
     <a mat-mini-fab class="d-md-none" *ngIf="events.length > 0"
@@ -39,19 +39,42 @@
 
     </div>
 
-    <div class="col-12 col-md-6" id="statistics" [ngClass]="{'static-stats': staticStats}">
+    <!-- stats -->
+    <div class="col-12 col-md-6" id="statistics">
       <p class="header">STATISTICS</p>
-      <div style="display: block">
-        <canvas baseChart
-                [data]="pieChartData"
-                [labels]="pieChartLabels"
-                [chartType]="pieChartType"
-                [colors]="pieChartColor"
-                [options]="options"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
+
+      <div *ngIf="events.length > 0">
+        <div class="chooser">
+          <span>Charts: </span>
+          <mat-checkbox [(ngModel)]="showPie" (change)="setChartsVisibility()">Pie</mat-checkbox>
+          <mat-checkbox [(ngModel)]="showLine" (change)="setChartsVisibility()">Line</mat-checkbox>
+          <mat-checkbox [(ngModel)]="showBar" (change)="setChartsVisibility()">Bar</mat-checkbox>
+        </div>
+
+        <div *ngIf="showPie">
+          <app-event-pie [eventsList]="events"></app-event-pie>
+        </div>
+
+        <div *ngIf="showLine" style="margin-top: 24px;">
+          <app-events-bar-line [eventsList]="events"
+                               [chartType]="'line'"
+                               [legendPos]="'bottom'">
+          </app-events-bar-line>
+        </div>
+
+        <div *ngIf="showBar" style="margin-top: 24px;">
+          <app-events-bar-line [eventsList]="events"
+                               [chartType]="'bar'"
+                               [legendPos]="'bottom'">
+          </app-events-bar-line>
+        </div>
       </div>
-    </div>
+
+      <div *ngIf="events.length === 0" class="no-events">
+        <p>Add some events to display statistics.</p>
+      </div>
+
+    </div> <!-- end stats -->
   </div> <!-- end row -->
 
 </section>

@@ -8,7 +8,6 @@ import {SpinnerModule} from './spinner/spinner.module';
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     RouterModule,

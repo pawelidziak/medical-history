@@ -1,66 +1,90 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {AngularFirestore} from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {EventModel} from '../models/EventModel';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import DocumentReference = firebase.firestore.DocumentReference;
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class EventsService {
 
   private readonly INCIDENT_PATH = 'incidents/';
   private readonly EVENT_PATH = '/events';
+  private readonly USER_ID_FIELD = 'userId';
 
-  private _allEventsCount: number;
 
-  constructor(private readonly _afs: AngularFirestore, private _router: Router) {
+  constructor(private readonly _afs: AngularFirestore, private _router: Router, private _auth: AuthService) {
   }
 
   /**
-   * Method returns the observable stream between Firestore documents (all of incident events)
+   * Method returns the observable stream between Firestore documents (all of events)
    * and additionally it assigns the event ids (that's why we use snapshotChanges().map(...) and
    * not valueChanges())
    */
-  get(incidentId: string): Observable<any> {
-
+  getByIncident(incidentId: string): Observable<any> {
     this.checkIfIncidentExists(incidentId);
 
-    return this._afs.collection(this.INCIDENT_PATH + incidentId + this.EVENT_PATH).snapshotChanges().map(actions => {
+    const colRef = this._afs.collection<EventModel>('events',
+      ref => ref
+        .where('incidentId', '==', incidentId)
+        .orderBy('date', 'desc'));
+
+
+
+    return this.get(colRef);
+  }
+
+  getByUser(): Observable<any> {
+    const colRef = this._afs.collection<EventModel>('events',
+      ref => ref
+        .where(this.USER_ID_FIELD, '==', this._auth.userUID)
+        .orderBy('date'));
+
+    return this.get(colRef);
+  }
+
+  private get(colRef: AngularFirestoreCollection<EventModel>) {
+    return colRef.snapshotChanges().map(actions => {
       return actions.map(a => {
-        const eventID = a.payload.doc.id;
+        const eventId = a.payload.doc.id;
         const data = a.payload.doc.data() as EventModel;
-        return {eventID, ...data};
+        return {eventId, ...data};
       });
     });
   }
 
-  getIncidentName(incidentId: string): Observable<any> {
-    return this._afs.doc(`incidents/${incidentId}`).valueChanges();
-  }
-
-  add(incidentId: string, eventModel: EventModel): Promise<DocumentReference> {
-    return this._afs.collection(this.INCIDENT_PATH + incidentId + this.EVENT_PATH).add(eventModel);
+  add(eventModel: EventModel): Promise<DocumentReference> {
+    eventModel.userId = this._auth.userUID;
+    return this._afs.collection('events').add(eventModel);
   }
 
   /**
-   * Method updates event in given incident
-   * @param {string} incidentId
+   * Method updates event by eventId
    * @param {EventModel} eventModel
    * @returns {Promise<void>}
    */
-  update(incidentId: string, eventModel: EventModel): Promise<void> {
-    return this._afs.doc(this.INCIDENT_PATH + incidentId + this.EVENT_PATH + '/' + eventModel.eventID).update(eventModel);
+  update(eventModel: EventModel): Promise<void> {
+    const tmp: EventModel = {
+      userId: eventModel.userId,
+      incidentId: eventModel.incidentId,
+      title: eventModel.title,
+      desc: eventModel.desc,
+      date: eventModel.date,
+      type: eventModel.type,
+      incidentName: eventModel.incidentName
+    };
+    return this._afs.collection('events').doc(eventModel.eventId).update(tmp);
   }
 
   /**
-   * Method deletes incident (document in firestore) by given id
+   * Method deletes event (document in firestore) by eventId
    * @returns {Promise<void>}
-   * @param incidentId
-   * @param eventId
+   * @param eventModel
    */
-  delete(incidentId: string, eventId: string): Promise<void> {
-    return this._afs.doc(this.INCIDENT_PATH + incidentId + this.EVENT_PATH + '/' + eventId).delete();
+  delete(eventModel: EventModel): Promise<void> {
+    return this._afs.collection('events').doc(eventModel.eventId).delete();
   }
 
   /**
@@ -77,4 +101,5 @@ export class EventsService {
       })
       .catch(error => this._router.navigate(['/dashboard/404']));
   }
+
 }

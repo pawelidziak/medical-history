@@ -1,11 +1,8 @@
 import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {
-  MatButtonModule, MatCardModule, MatChipsModule, MatDatepickerModule, MatDividerModule, MatFormFieldModule, MatIconModule,
-  MatInputModule,
-  MatNativeDateModule,
-  MatSelectModule,
-  MatSidenavModule,
+  MatChipsModule, MatDividerModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatFormFieldModule,
+  MatIconModule, MatInputModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSidenavModule, MatCheckboxModule,
 } from '@angular/material';
 import {IncidentListModule} from '../incident-list/incident-list.module';
 import {AuthGuard} from '../../core/auth.guard';
@@ -16,11 +13,12 @@ import {dashboardRouting} from './dashboard-routing.module';
 import {MainComponent} from './main/main.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {UserService} from '../../core/services/user.service';
+import {MainModule} from './main/main.module';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    MainComponent,
+    // MainComponent,
     UserProfileComponent
   ],
   imports: [
@@ -29,6 +27,8 @@ import {UserService} from '../../core/services/user.service';
     IncidentListModule,
     EventListModule,
     NotFoundModule,
+
+    MainModule,
 
     // Material angular modules
     MatSidenavModule,
@@ -41,10 +41,8 @@ import {UserService} from '../../core/services/user.service';
     MatInputModule,
     MatCardModule,
     MatChipsModule,
-  ],
-  providers: [
-    AuthGuard,
-    UserService
+    MatCheckboxModule,
+    MatProgressBarModule
   ]
 })
 export class DashboardModule {

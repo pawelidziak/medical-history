@@ -20,8 +20,7 @@ import {welcomeRouting} from './welcome-routing.module';
     // Material angular modules
     MatButtonModule,
     MatIconModule
-  ],
-  providers: []
+  ]
 })
 export class WelcomeModule {
 }

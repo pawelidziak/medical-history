@@ -3,24 +3,30 @@ import {SharedModule} from '../../../shared/shared.module';
 import {MainComponent} from './main.component';
 import {EventsService} from '../../../core/services/events.service';
 import {IncidentService} from '../../../core/services/incident.service';
-import {MatCardModule, MatChipsModule, MatIconModule} from '@angular/material';
+import {
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatListModule, MatChipsModule,
+  MatTableModule
+} from '@angular/material';
+import {OneUpcomingComponent} from './one-upcoming/one-upcoming.component';
+import {EventsBarLineModule} from '../../../shared/charts/events-bar-line/events-bar-line.module';
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    OneUpcomingComponent
   ],
   imports: [
     SharedModule,
-
+    EventsBarLineModule,
 
     // Material angular modules
     MatCardModule,
     MatIconModule,
-    MatChipsModule
-  ],
-  providers: [
-    EventsService,
-    IncidentService
+    MatChipsModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatButtonModule,
+    MatListModule,
   ]
 })
 export class MainModule {

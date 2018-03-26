@@ -75,8 +75,12 @@
   }
 }
 
-.static-stats {
-  position: fixed;
-  top: 2*$normal_margin;
-  right: -$normal_margin;
+.chooser{
+  display: flex;
+  justify-content: center;
+  padding: 0 $normal_margin $normal_margin;
+  mat-checkbox {
+    margin-left: $normal_margin;
+  }
+
 }

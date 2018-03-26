@@ -1,0 +1,19 @@
+@import "../../../../shared/variables";
+
+
+.upcoming {
+  &:hover{
+    background-color: $hover_color;
+    cursor: pointer;
+  }
+}
+
+.my-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $small_font_size !important;
+  color: $primary_text_white;
+  font-weight: 700;
+}
+

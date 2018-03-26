@@ -4,6 +4,7 @@ import {AuthService} from '../../../core/services/auth.service';
 import {UserModel} from '../../../core/models/UserModel';
 import {UserService} from '../../../core/services/user.service';
 import {ISubscription} from 'rxjs/Subscription';
+import {LoadingService} from '../../../core/services/loading.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -34,7 +35,9 @@ export class UserProfileComponent implements OnInit {
   USER_BMI = 0;
 
 
-  constructor(public _userProfileService: UserService, private _auth: AuthService) {
+  constructor(public _userProfileService: UserService,
+              private _auth: AuthService,
+              private _loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -80,7 +83,7 @@ export class UserProfileComponent implements OnInit {
    * because Firestore returns a Observable list in which we are subscribed so
    * the change is automatically
    */
-  addUserProfile(): void {
+  updateUserProfile(): void {
     const newUser: UserModel = {
       full_name: this.nameForm.value,
       birthday: this.birthdayForm.value,
@@ -93,20 +96,21 @@ export class UserProfileComponent implements OnInit {
       hip: this.hipForm.value,
       bmi: this.USER_BMI
     };
-    this._userProfileService.add(newUser)
+    console.log(newUser);
+    this._userProfileService.update(newUser)
       .then(() => {
         this.response = 'Success!';
-        console.log(this.response);
       })
       .catch(error => this.error = error);
   }
 
   /**
-   * Method get userProfile straight to Firestore (using the service method),
+   * Method getByIncident userProfile straight to Firestore (using the service method),
    * because Firestore returns a Observable list in which we are subscribed so
    * the change is automatically
    */
   getUserProfile(): void {
+    this._loadingService.start();
     this.subscription = this._userProfileService.get().subscribe(
       (res: UserModel) => {
         this.birthdayForm.setValue(res.birthday);
@@ -117,6 +121,11 @@ export class UserProfileComponent implements OnInit {
         this.heightForm.setValue(res.height);
         this.waistForm.setValue(res.waist);
         this.hipForm.setValue(res.hip);
+        this._loadingService.complete();
+      },
+      error => {
+        this.error = error;
+        this._loadingService.complete();
       }
     );
   }

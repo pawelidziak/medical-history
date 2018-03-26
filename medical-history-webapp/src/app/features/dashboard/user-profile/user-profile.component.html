@@ -47,7 +47,7 @@
 
             <div>
               <button mat-raised-button type="submit" [disabled]="!userForm.dirty || userForm.invalid"
-                      (click)="addUserProfile()">Apply
+                      (click)="updateUserProfile()">Apply
               </button>
               <div class="profile_error">
                 <p *ngIf="error">Error: {{error}}</p>

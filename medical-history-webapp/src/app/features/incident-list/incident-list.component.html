@@ -1,3 +1,4 @@
+<script src="../../../../../firebase/functions/src/index.ts"></script>
 <section class="section-incident-list">
 
   <!-- Error message -->
@@ -31,8 +32,9 @@
     <!-- Incident list (no editable)-->
     <mat-nav-list *ngIf="!showIncidentOption">
       <mat-list-item *ngFor="let incident of userIncidents"
-                     [routerLink]="['/dashboard/incident', incident.incidentID]"
-                     routerLinkActive="active">
+                     [routerLink]="['/dashboard/incident', incident.incidentId]"
+                     routerLinkActive="active"
+                     [queryParams]="{name: incident.name}">
         <span class="no-editable-child">{{incident.name}}</span>
       </mat-list-item>
 
@@ -55,7 +57,7 @@
           </button>
           <mat-menu #confirmDeleteOption>
             <button mat-menu-item>No</button>
-            <button mat-menu-item (click)="deleteIncident(incident.incidentID)">Yes</button>
+            <button mat-menu-item (click)="deleteIncident(incident.incidentId)">Yes</button>
           </mat-menu>
 
           <div class="moves">
@@ -76,7 +78,7 @@
     <div class="add-edit">
 
       <button mat-button (click)="showIncidentOption = true;"
-              *ngIf="!showIncidentOption && !addNewIncident">
+              *ngIf="!showIncidentOption && !addNewIncident && showEdit">
         <mat-icon aria-label="More icon">edit_mode</mat-icon>
         <span>Edit</span>
       </button>

@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventModel} from '../../../core/models/EventModel';
 import {DateTimeAdapter} from 'ng-pick-datetime';
 import {environment} from '../../../../environments/environment';
+import {AuthService} from '../../../core/services/auth.service';
 
 export enum EventOperation {
   toAdd,
@@ -25,7 +26,7 @@ export class EventDialogComponent implements OnInit {
 
   eventIsToUpdate: boolean;
 
-  // PROPOSAL get types from FB
+  // PROPOSAL getByIncident types from FB
   eventTypes = [
     {name: 'VISIT', color: '#8BC34A'},
     {name: 'INFO', color: '#1976D2'},
@@ -36,7 +37,8 @@ export class EventDialogComponent implements OnInit {
 
   constructor(private _dialogRef: MatDialogRef<EventDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              dateTimeAdapter: DateTimeAdapter<any>) {
+              dateTimeAdapter: DateTimeAdapter<any>,
+              private auth: AuthService) {
     dateTimeAdapter.setLocale(environment.language);
   }
 
@@ -75,7 +77,9 @@ export class EventDialogComponent implements OnInit {
         title: this.eventTitle.value,
         desc: this.eventDesc.value,
         date: this.eventDate.value,
-        type: this.selectedType
+        type: this.selectedType,
+        incidentName: this.data.incidentName,
+        userId: this.auth.userUID
       };
       this._dialogRef.close({eventModel: eventModel, operation: EventOperation.toAdd});
     }
@@ -91,7 +95,9 @@ export class EventDialogComponent implements OnInit {
         desc: this.eventDesc.value,
         date: this.eventDate.value,
         type: this.selectedType,
-        eventID: this.data.event.eventID
+        incidentName: this.data.event.incidentName,
+        eventId: this.data.event.eventId,
+        userId: this.data.event.userId
       };
       this._dialogRef.close({eventModel: eventModel, operation: EventOperation.toUpdate});
     }
