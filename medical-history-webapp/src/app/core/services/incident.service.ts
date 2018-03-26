@@ -5,7 +5,6 @@ import {AuthService} from './auth.service';
 import {IncidentModel} from '../models/IncidentModel';
 import * as firebase from 'firebase/app';
 import DocumentReference = firebase.firestore.DocumentReference;
-import {EventModel} from '../models/EventModel';
 
 @Injectable()
 export class IncidentService {

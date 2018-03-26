@@ -11,8 +11,10 @@ import {AuthService} from './auth.service';
 export class EventsService {
 
   private readonly INCIDENT_PATH = 'incidents/';
-  private readonly EVENT_PATH = '/events';
+  private readonly EVENT_PATH = 'events';
   private readonly USER_ID_FIELD = 'userId';
+  private readonly INCIDENT_ID_FIELD = 'incidentId';
+  private readonly DATE_FIELD = 'date';
 
 
   constructor(private readonly _afs: AngularFirestore, private _router: Router, private _auth: AuthService) {
@@ -26,10 +28,11 @@ export class EventsService {
   getByIncident(incidentId: string): Observable<any> {
     this.checkIfIncidentExists(incidentId);
 
-    const colRef = this._afs.collection<EventModel>('events',
+    const colRef = this._afs.collection<EventModel>(this.EVENT_PATH,
       ref => ref
-        .where('incidentId', '==', incidentId)
-        .orderBy('date', 'desc'));
+        .where(this.USER_ID_FIELD, '==', this._auth.userUID)
+        .where(this.INCIDENT_ID_FIELD, '==', incidentId)
+        .orderBy(this.DATE_FIELD, 'desc'));
 
 
 
@@ -40,7 +43,7 @@ export class EventsService {
     const colRef = this._afs.collection<EventModel>('events',
       ref => ref
         .where(this.USER_ID_FIELD, '==', this._auth.userUID)
-        .orderBy('date'));
+        .orderBy(this.DATE_FIELD));
 
     return this.get(colRef);
   }
@@ -57,7 +60,7 @@ export class EventsService {
 
   add(eventModel: EventModel): Promise<DocumentReference> {
     eventModel.userId = this._auth.userUID;
-    return this._afs.collection('events').add(eventModel);
+    return this._afs.collection(this.EVENT_PATH).add(eventModel);
   }
 
   /**
@@ -75,7 +78,7 @@ export class EventsService {
       type: eventModel.type,
       incidentName: eventModel.incidentName
     };
-    return this._afs.collection('events').doc(eventModel.eventId).update(tmp);
+    return this._afs.collection(this.EVENT_PATH).doc(eventModel.eventId).update(tmp);
   }
 
   /**
@@ -84,7 +87,7 @@ export class EventsService {
    * @param eventModel
    */
   delete(eventModel: EventModel): Promise<void> {
-    return this._afs.collection('events').doc(eventModel.eventId).delete();
+    return this._afs.collection(this.EVENT_PATH).doc(eventModel.eventId).delete();
   }
 
   /**
