@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {MatButtonModule, MatIconModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatMenuModule} from '@angular/material';
 import {WelcomeComponent} from './welcome.component';
 import {LoginModule} from '../login/login.module';
 import {ScrollToModule} from 'ng2-scroll-to';
@@ -19,7 +19,8 @@ import {welcomeRouting} from './welcome-routing.module';
 
     // Material angular modules
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ]
 })
 export class WelcomeModule {

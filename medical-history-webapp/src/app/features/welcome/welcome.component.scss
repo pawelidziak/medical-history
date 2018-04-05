@@ -127,11 +127,10 @@ a {
 }
 
 // ######################### SLIDER
-#carouselExampleControls {
+#mySlider {
   a {
     color: $primary_text_dark;
   }
-
 }
 
 .carousel-control-prev-icon {
@@ -144,4 +143,49 @@ a {
 
 .carousel-inner img {
   margin: auto;
+}
+
+// ######################### LOGIN MENU
+
+@mixin side-menu {
+  position: fixed;
+  transition: 0.2s transform ease-in-out;
+  @include box_shadow;
+  z-index: 999;
+}
+
+.side-menu_mobile {
+  @include side-menu;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  right: -100%;
+}
+
+.side-menu_large {
+  @include side-menu;
+  height: auto;
+  width: 300px;
+  top: 20px;
+  right: -300px;
+}
+
+.slide-menu_mobile {
+  transform: translateX(-100%);
+}
+
+.slide-menu_large {
+  transform: translateX(-320px);
+}
+
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $bg_primary_color;
+  @include box_shadow;
+  padding: .5*$normal_margin 0 .5*$normal_margin $normal_margin;
+  font-size: 18px;
+  font-weight: 700;
 }
