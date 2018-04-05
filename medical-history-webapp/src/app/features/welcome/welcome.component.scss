@@ -168,7 +168,7 @@ a {
   height: auto;
   width: 300px;
   top: 20px;
-  right: -300px;
+  right: -305px;
 }
 
 .slide-menu_mobile {
@@ -185,7 +185,7 @@ a {
   align-items: center;
   background-color: $bg_primary_color;
   @include box_shadow;
-  padding: .5*$normal_margin 0 .5*$normal_margin $normal_margin;
+  padding: .5*$normal_margin .5*$normal_margin .5*$normal_margin $normal_margin;
   font-size: 18px;
   font-weight: 700;
 }
