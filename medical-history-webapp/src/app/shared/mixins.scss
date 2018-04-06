@@ -1,0 +1,70 @@
+@import "variables";
+
+@mixin box_shadow() {
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+@mixin header_title($text_color: $bg_primary_color) {
+  color: $text_color;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .4em;
+  font-size: $normal_font_size;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
+}
+
+@mixin header_in_content(){
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .4em;
+  font-size: $big_font_size;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
+}
+
+// DIALOG
+@mixin section_dialog() {
+  min-width: 70vw;
+  @media #{$gt-sm_size} {
+    min-width: 40vw;
+  }
+}
+
+@mixin header_in_dialog() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color_primary;
+  padding: $normal_margin;
+  @include box_shadow();
+  color: $bg_primary_color;
+  h2 {
+    margin: 0;
+  }
+}
+
+@mixin form_in_dialog() {
+  display: flex;
+  flex-direction: column;
+  > * {
+    width: 100%;
+  }
+  padding: $normal_margin;
+  @media #{$gt-sm_size} {
+    padding: 2*$normal_margin;
+  }
+}
+
+@mixin quotation_in_content(){
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .1em;
+  font-size: $small_font_size;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
+}

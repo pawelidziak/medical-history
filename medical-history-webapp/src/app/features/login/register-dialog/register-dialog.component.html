@@ -1,0 +1,49 @@
+<section class="section-register">
+
+  <div class="header">
+    <h2>Register</h2>
+    <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+    <button mat-icon-button (click)="closeDialog()">
+      <mat-icon aria-label="Close dialog icon">close</mat-icon>
+    </button>
+  </div>
+
+  <div class="alert-msg"  *ngIf="error || response" [ngClass]="{'msg-success': response, 'msg-error': error}" style="margin: 20px">
+    <span *ngIf="response">{{response}}</span>
+    <span *ngIf="error">{{error}}</span>
+    <div class="close"><mat-icon (click)="error = ''; response=''" aria-label="Close alert icon">close</mat-icon></div>
+  </div>
+  <div class="tips" *ngIf="error">
+    <p><strong>Tips for inputs:</strong></p>
+    <p>Display name: min 1, max 30 characters</p>
+    <p>Email e.g: medical@history.com</p>
+    <p>Password: min 1, max 30 characters</p>
+  </div>
+
+  <app-spinner [loading]="loading"></app-spinner>
+
+  <form class="register-form" [formGroup]="registerForm">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Display Name" [formControl]="displayName">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="email" matInput placeholder="Email" [formControl]="email">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="password" matInput placeholder="Password" [formControl]="password">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="password" matInput placeholder="Confirm password" [formControl]="confirmPassword">
+    </mat-form-field>
+
+    <button mat-raised-button (click)="register();error; response = ''" style="margin-top: 20px;">
+      <mat-icon aria-label="Register icon">exit_to_app</mat-icon>
+      <span>Register</span>
+    </button>
+
+  </form>
+
+</section>

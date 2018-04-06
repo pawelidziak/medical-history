@@ -1,0 +1,160 @@
+@import "../../../shared/variables";
+@import "../../../shared/mixins";
+
+.section-dashboard-main {
+  padding: 3.5*$normal_margin $normal_margin $normal_margin $normal_margin;
+}
+
+.counters {
+  display: flex;
+  flex-direction: column;
+
+  @media #{$gt-xs_size} {
+    flex-direction: row;
+  }
+
+  mat-card {
+    width: 100%;
+  }
+}
+
+.my-card {
+  margin-top: 2*$normal_margin;
+  @media #{$gt-xs_size} {
+    margin-top: 0;
+    margin-left: $normal_margin;
+  }
+}
+
+.my-card-header {
+  color: $primary_text_white;
+  position: absolute;
+  top: -25px;
+  width: 75px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include box_shadow;
+}
+
+.color-1 {
+  background-color: #ff5722;
+}
+
+.color-2 {
+  background-color: $material_green;
+}
+
+.color-3 {
+  background-color: $accent_color;
+}
+
+.simple-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .stats-count {
+    font-size: $big_font_size;
+  }
+  .stats-title {
+    color: $secondary_text;
+  }
+}
+
+// UPCOMING LISTS
+.upcoming-lists {
+  margin: 2*$normal_margin 0;
+}
+
+.upcoming-title {
+  display: flex;
+  justify-content: flex-end;
+  color: $secondary_text;
+}
+
+.checkboxes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2*$normal_margin 0 .5*$normal_margin;
+  @media #{$gt-xs_size} {
+    justify-content: flex-end;
+    padding: .5*$normal_margin;
+    padding-right: 0;
+  }
+  mat-checkbox {
+    margin-left: .5*$normal_margin;
+
+  }
+  border-bottom: 1px solid $divider_color;
+}
+
+.empty-list {
+  padding-top: $normal_margin;
+  text-align: center;
+  font-size: $small_font_size;
+  color: $secondary_text;
+}
+
+// material style
+.mat-card {
+  padding: .5*$normal_margin;
+}
+.numberCircle {
+  width: 120px;
+  line-height: 120px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  border: 2px solid #666;
+}
+
+.header {
+  @include header_in_content;
+  letter-spacing: .2em;
+  text-align: center;
+}
+
+.statistic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bmi_information {
+  @include quotation_in_content;
+  text-align: center;
+  margin-top: $normal_margin;
+  font-size: $small_font_size;
+}
+.legend1 {
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  mat-chip{font-size: 10px;}
+  margin-top: $normal_margin;
+  margin-bottom: $normal_margin;
+  @media #{$lt-xs_size} {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+}
+.legend2 {
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  mat-chip{font-size: 10px;}
+  margin-top: $normal_margin;
+  margin-bottom: $normal_margin;
+  @media #{$lt-xs_size} {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: $normal_margin;
+  }
+}

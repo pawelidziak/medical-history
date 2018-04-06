@@ -1,0 +1,88 @@
+@import "../../shared/variables";
+
+.section-incident-list {
+  margin-bottom: $normal_margin;
+}
+
+// LIST ELEMENTS
+.list-element {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $normal_margin;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $hover_color;
+  }
+}
+
+.icon-with-name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  mat-icon {
+    margin-right: .5*$normal_margin;
+  }
+}
+
+.no-editable-child{
+  padding-left: 44px;
+  font-size: 15px;
+}
+
+// EDITABLE ELEMENTS
+.editable-child {
+  padding-left: 2.5*$normal_margin;
+  padding-right: .29*$normal_margin;
+  display: flex;
+  align-items: center;
+}
+
+.edit-options {
+  display: flex;
+  align-items: center;
+}
+
+.moves {
+  display: flex;
+  flex-direction: column;
+}
+
+// EDIT OPTIONS
+.add-item {
+  margin-top: .5*$normal_margin;
+  margin-left: 2.5*$normal_margin;
+  padding-right: .29*$normal_margin;
+  display: flex;
+  justify-content: flex-end;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.add-edit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// OTHER
+.active {
+  background-color: $hover_color;
+}
+
+mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+mat-expansion-panel-header {
+  min-height: 64px;
+}
+
+button {
+  color: $secondary_text;
+}

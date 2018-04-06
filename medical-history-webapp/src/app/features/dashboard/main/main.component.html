@@ -1,0 +1,111 @@
+<section class="section-dashboard-main">
+
+  <div class="row">
+
+    <!-- left column -->
+    <div class="col-12 col-lg-6">
+
+      <div class="counters">
+
+        <mat-card>
+          <div class="my-card-header color-1">
+            <mat-icon aria-label="Incidents count icon">label</mat-icon>
+          </div>
+
+          <div class="simple-stats">
+            <span class="stats-title">Total incidents</span>
+            <span class="stats-count">{{allIncidentCount}}</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="my-card">
+          <div class="my-card-header color-2">
+            <mat-icon aria-label="Events count icon">work</mat-icon>
+          </div>
+
+          <div class="simple-stats">
+            <span class="stats-title">Total events</span>
+            <span class="stats-count">{{allEventsCount}}</span>
+          </div>
+        </mat-card>
+
+      </div>
+
+      <mat-card class="upcoming-lists">
+
+        <div class="my-card-header color-3">
+          <mat-icon aria-label="Lists icon">view_list</mat-icon>
+        </div>
+        <div class="upcoming-title">
+          <span>Event lists</span>
+        </div>
+        <div class="checkboxes">
+          <mat-checkbox [(ngModel)]="showVisits">Visits</mat-checkbox>
+          <mat-checkbox [(ngModel)]="showInfos">Info</mat-checkbox>
+          <mat-checkbox [(ngModel)]="showDiseases">Disease</mat-checkbox>
+        </div>
+
+        <mat-list>
+          <div *ngIf="!showVisits && !showInfos && !showDiseases" class="empty-list">
+            Choose at least one category
+          </div>
+
+          <div *ngIf="showVisits">
+            <h3 mat-subheader>Upcoming visits</h3>
+            <app-one-upcoming *ngFor="let visit of userVisits" [upcoming]="visit"></app-one-upcoming>
+            <div *ngIf="userVisits.length === 0" class="empty-list">No visits</div>
+          </div>
+
+          <div *ngIf="showInfos">
+            <mat-divider *ngIf="showVisits"></mat-divider>
+            <h3 mat-subheader>Latest information</h3>
+            <app-one-upcoming *ngFor="let info of userInfos" [upcoming]="info"></app-one-upcoming>
+            <div *ngIf="userInfos.length === 0" class="empty-list">No information</div>
+          </div>
+
+          <div *ngIf="showDiseases">
+            <mat-divider *ngIf="showInfos || showVisits"></mat-divider>
+            <h3 mat-subheader>Latest diseases</h3>
+            <app-one-upcoming *ngFor="let disease of userDiseases" [upcoming]="disease"></app-one-upcoming>
+            <div *ngIf="userDiseases.length === 0" class="empty-list">No diseases</div>
+          </div>
+        </mat-list>
+
+      </mat-card>
+    </div> <!-- /left column -->
+    <div class="col-12 col-lg-6">
+      <p class="header">Body Mass Index</p>
+      <div class="statistic">
+        <div class="numberCircle">{{USER_BMI}}</div>
+      </div>
+      <p class="bmi_information" [innerHtml]="countBmiDifference()"></p>
+      <div style="text-align: center">
+        <mat-chip-list class="legend1">
+          <mat-chip [color]="USER_BMI < 18.5 && USER_BMI > 0 ? 'primary' : 'normal'" [selected]="true">Thinness < 18,5
+          </mat-chip>
+          <mat-chip [color]="USER_BMI >= 18.5 && USER_BMI < 25 ? 'primary' : 'normal'" [selected]="true">Normal 18,5 -
+            25
+          </mat-chip>
+        </mat-chip-list>
+        <mat-chip-list class="legend2">
+          <mat-chip [color]="USER_BMI >= 25 && USER_BMI <= 30 ? 'primary' : 'normal'" [selected]="true">Overweight 25
+             -
+            30
+          </mat-chip>
+          <mat-chip [color]="USER_BMI > 30 ? 'primary' : 'normal'" [selected]="true">Obese > 30</mat-chip>
+        </mat-chip-list>
+      </div>
+      <div *ngIf="eventsList.length > 0">
+        <app-events-bar-line [eventsList]="eventsList"
+                             [chartType]="'bar'"
+                             [title]="'Events statistics'"
+                             [legendPos]="'bottom'">
+        </app-events-bar-line>
+      </div>
+      <div *ngIf="eventsList.length === 0">
+        <p class="bmi_information">To view monthly charts add some events.</p>
+      </div>
+    </div>
+
+  </div>
+</section>

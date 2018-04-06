@@ -1,0 +1,72 @@
+@import "../../../shared/variables";
+@import "../../../shared/mixins";
+
+mat-form-field {
+  width: 100%;
+}
+
+.user-container {
+  padding-top: 2* $normal_margin;
+}
+
+.user_header {
+  @include header_in_content;
+  text-align: center;
+  @media #{$lt-sm_size}
+  {
+    display: none;
+  }
+}
+
+.quotation {
+  @include quotation_in_content;
+  text-align: center;
+  font-style: italic;
+  @media #{$lt-sm_size}
+  {
+    display: none;
+
+  }
+}
+
+.information {
+  @include quotation_in_content;
+  text-align: center;
+  font-size: $normal_font_size;
+  font-weight: 700;
+  @media #{$lt-sm_size}
+  {
+    display: none;
+
+  }
+}
+
+.bmi-whr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bmi {
+  margin-bottom: 3*$normal_margin;
+}
+
+.profile_error {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 12px;
+  color: $material_red;
+}
+
+.profile_response {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 12px;
+  color: $material_green;
+}
+
+.header {
+  @include header_in_content;
+  text-align: center;
+}

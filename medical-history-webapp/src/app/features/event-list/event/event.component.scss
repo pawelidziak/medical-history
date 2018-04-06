@@ -1,0 +1,68 @@
+@import "../../../shared/variables";
+
+// poszczegolna wydarzenie
+.one-event {
+  cursor: pointer;
+  margin-left: 30px;
+  border-radius: 6px;
+  @media #{$gt-md_size} {
+    width: 90%;
+  }
+
+  // linia ciagla
+  .line {
+    width: 2px;
+    height: 100%;
+    background: $divider_color;
+    left: -35px;
+    top: 0;
+    position: absolute;
+
+    // kropka
+    &:before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid $bg_primary_color;
+      position: absolute;
+      background: #2196F3;
+      left: -9px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.event-title {
+  display: flex !important;
+  justify-content: space-around !important;
+}
+
+.title-date {
+  background-color: $divider_color;
+  border-radius: 50%;
+  text-align: center;
+  padding: 5px;
+}
+
+.event-footer {
+  background: $bg_primary_color;
+  color: $secondary_text;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 5px 0;
+  border-top: 1px solid lighten($divider_color, 15%);
+  text-align: center;
+}
+
+// data
+.my-date {
+  position: absolute;
+  left: -65px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

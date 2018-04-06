@@ -1,0 +1,86 @@
+@import "../../shared/variables";
+@import "../../shared/mixins";
+
+.row {
+  margin: 0;
+}
+
+.event-options {
+  display: flex;
+  justify-content: flex-end;
+  margin: $normal_margin;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  button, a {
+    margin-left: .5*$normal_margin;
+  }
+}
+.section-content{
+  padding-top: 2*$normal_margin;
+}
+
+.timeline-container {
+  position: relative;
+  @media #{$gt-md_size} {
+    padding-left: $normal_margin*4;
+  }
+  @media #{$btw_xs_sm} {
+    padding-left: $normal_margin*4;
+  }
+
+  // linia przerywana
+  &:before {
+    content: "";
+    width: 2px;
+    height: calc(100% + 300px);
+    position: absolute;
+    top: -215px;
+    border-left: 2px dashed $divider_color;
+  }
+}
+
+.one-event {
+  &:not(:first-child) {
+    margin-top: $normal_margin*1.5;
+  }
+}
+
+.no-events {
+  margin-top: 3*$normal_margin;
+  text-align: center;
+  p {
+    letter-spacing: 2px;
+  }
+}
+
+.header {
+  @include header_in_content;
+  text-align: center;
+  margin: 2*$normal_margin 0;
+  @media #{$gt-xs_size} {
+    padding-left: $normal_margin*4 0;
+  }
+  p {
+    padding: 0 !important;
+  }
+}
+
+#statistics {
+  margin-top: 3*$normal_margin;
+  margin-bottom: 3*$normal_margin;
+  @media #{$gt-sm_size} {
+    margin-top: 0;
+  }
+}
+
+.chooser{
+  display: flex;
+  justify-content: center;
+  padding: 0 $normal_margin $normal_margin;
+  mat-checkbox {
+    margin-left: $normal_margin;
+  }
+
+}

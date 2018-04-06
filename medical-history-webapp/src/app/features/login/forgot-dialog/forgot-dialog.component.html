@@ -1,0 +1,34 @@
+<section class="section-forgot">
+
+  <div class="header">
+    <h2>Remind password</h2>
+    <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+    <button mat-icon-button (click)="closeDialog()">
+      <mat-icon aria-label="Close dialog icon">close</mat-icon>
+    </button>
+  </div>
+
+  <div class="alert-msg" *ngIf="error || response" [ngClass]="{'msg-success': response, 'msg-error': error}"
+       style="margin: 20px">
+    <span *ngIf="response">{{response}}</span>
+    <span *ngIf="error">{{error}}</span>
+    <div class="close">
+      <mat-icon (click)="error = ''; response=''" aria-label="Close alert icon">close</mat-icon>
+    </div>
+  </div>
+
+  <app-spinner [loading]="loading"></app-spinner>
+
+  <form class="forgot-form">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Enter Your email" [formControl]="email">
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" (click)="remindPassword()" style="margin-top: 20px;">
+      <mat-icon aria-label="Submit icon">mail_outline</mat-icon>
+      <span>Remind password</span>
+    </button>
+
+  </form>
+
+</section>
