@@ -1,6 +1,6 @@
 <section class="section-login">
 
-  <p>You can login using your social media or by email&password</p>
+  <!--<p>You can login using your social media or by email&password</p>-->
 
   <div class="section-login-content">
 
@@ -14,7 +14,7 @@
     <app-spinner [loading]="loading"></app-spinner>
 
     <button mat-raised-button id="google" (click)="login('google')">Google</button>
-    <button mat-raised-button id="fb" (click)="login('facebook')">Facebook</button>
+    <!--<button mat-raised-button id="fb" (click)="login('facebook')">Facebook</button>-->
     <button mat-raised-button (click)="emailButtonFocused = !emailButtonFocused;">
       <span class="email">
         <mat-icon aria-label="Email icon">mail_outline</mat-icon>
@@ -28,11 +28,11 @@
       <mat-form-field>
         <input type="email" matInput placeholder="Email" [formControl]="email">
       </mat-form-field>
-      <mat-form-field style="margin-top: 10px;">
+      <mat-form-field>
         <input type="password" matInput placeholder="Password" [formControl]="password">
       </mat-form-field>
 
-      <button mat-raised-button (click)="login('email'); error=''; response=''" style="margin-top: 20px;">
+      <button mat-raised-button (click)="login('email'); error=''; response=''">
         <mat-icon aria-label="Login icon">exit_to_app</mat-icon>
         <span>Login</span>
       </button>

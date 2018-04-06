@@ -3,9 +3,10 @@
 
 .section-login {
   background-color: $bg_primary_color;
-  margin: 2.5*$big_margin 0;
-  text-align: center;
-  border-radius: 5px;
+  //border-radius: 5px;
+  height: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   .section-login-content {
     padding: $normal_margin;
     display: flex;
@@ -52,7 +53,8 @@
 
 // login form
 .login-form {
-  margin: 2*$normal_margin 0;
+  //margin: 2*$normal_margin 0;
+  padding: .5*$normal_margin;
   display: flex;
   flex-direction: column;
   > * {

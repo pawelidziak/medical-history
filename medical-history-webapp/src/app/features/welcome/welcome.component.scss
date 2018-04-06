@@ -125,3 +125,67 @@ a {
   }
   background-color: $color_primary;
 }
+
+// ######################### SLIDER
+#mySlider {
+  a {
+    color: $primary_text_dark;
+  }
+}
+
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#303F9F' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#303F9F' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-inner img {
+  margin: auto;
+}
+
+// ######################### LOGIN MENU
+
+@mixin side-menu {
+  position: fixed;
+  transition: 0.2s transform ease-in-out;
+  @include box_shadow;
+  z-index: 999;
+}
+
+.side-menu_mobile {
+  @include side-menu;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  right: -100%;
+}
+
+.side-menu_large {
+  @include side-menu;
+  height: auto;
+  width: 300px;
+  top: 20px;
+  right: -305px;
+}
+
+.slide-menu_mobile {
+  transform: translateX(-100%);
+}
+
+.slide-menu_large {
+  transform: translateX(-320px);
+}
+
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $bg_primary_color;
+  @include box_shadow;
+  padding: .5*$normal_margin .5*$normal_margin .5*$normal_margin $normal_margin;
+  font-size: 18px;
+  font-weight: 700;
+}
